@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
+const { ensureSameUser } = require('../middleware/guards');
+const { ensureUserLoggedIn } = require('../middleware/guards');
+
 
 /* GET all owners. */
 router.get('/', async function(req, res, next) {
@@ -13,7 +16,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET one owner with their pets. */
-router.get('/:id', async function(req, res, next) {
+router.get('/:id', ensureSameUser, async function(req, res, next) {
   const { id } = req.params;
   try {
     const owner = await models.Owner.findOne({
@@ -29,7 +32,7 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* GET only pets of an owner.*/
-router.get('/:id/pets', async function(req, res, next) {
+router.get('/:id/pets', ensureSameUser, async function(req, res, next) {
   const { id } = req.params;
   try {
     const owner = await models.Owner.findOne({
@@ -62,7 +65,7 @@ router.get('/:id/pets', async function(req, res, next) {
 // });
 
 /* POST new pet associated to owner. */
-router.post('/:id/pets', async function(req, res, next) {
+router.post('/:id/pets', ensureUserLoggedIn, async function(req, res, next) {
   const { id } = req.params;
   const { name, type, age, sex } = req.body;
   try {
@@ -85,7 +88,7 @@ router.post('/:id/pets', async function(req, res, next) {
 
 
 /* PUT existing owner. */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', ensureSameUser, async function(req, res, next) {
   const { id } = req.params;
   const { firstname, lastname, username, email, password } = req.body;
   try {
@@ -104,7 +107,7 @@ router.put('/:id', async function(req, res, next) {
 });
 
 /* DELETE one owner. */
-router.delete('/:id', async function(req, res, next) {
+router.delete('/:id', ensureSameUser, async function(req, res, next) {
   const { id } = req.params;
   try {
     await models.Owner.destroy({
