@@ -61,29 +61,6 @@ router.get('/:id/pets', async function(req, res, next) {
 //   }
 // });
 
-/* POST new pet associated to owner. */
-router.post('/:id/pets', async function(req, res, next) {
-  const { id } = req.params;
-  const { name, type, age, sex } = req.body;
-  try {
-    const owner = await models.Owner.findOne({
-      where: {
-        id,
-      },
-    });
-    const pet = await owner.createPet({
-      name, 
-      type, 
-      age, 
-      sex
-    });
-    res.send(pet);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-
 /* PUT existing owner. */
 router.put('/:id', async function(req, res, next) {
   const { id } = req.params;
