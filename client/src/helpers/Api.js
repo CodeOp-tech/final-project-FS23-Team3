@@ -17,7 +17,6 @@ class Api {
     //Login
     static async loginUser(username, password) {
         let body = { username, password };
-
         return await this._doFetch('/login', 'POST', body);
     }
 
@@ -54,7 +53,7 @@ class Api {
     }
 
     //Post pet to owner NOTE: ID IN PARAMS IS IN REFERENCE TO THE OWNER'S ID
-    static async addPet(petObj) {
+    static async addPet(id, petObj) {
         return await this._doFetch(`/pets/${id}/pets`, 'POST', petObj);
     }
 
@@ -101,7 +100,7 @@ class Api {
     }
 
     //Post clinic to pet NOTE: ID IN PARAMS IS IN REFERENCE TO THE PET'S ID
-    static async addPetClinic(clinicObj) {
+    static async addPetClinic(id, clinicObj) {
         return await this._doFetch(`/clinics/${id}/clinics`, 'POST', clinicObj);
     }
 
