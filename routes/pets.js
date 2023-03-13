@@ -83,4 +83,22 @@ router.post('/:id/pets', async function(req, res, next) {
   }
 });
 
+router.put('/:id', async function(req, res, next) {
+  const { id } = req.params;
+  const { name, type, age, sex } = req.body;
+  try {
+    const pet = await models.Pet.findOne({
+      where: {
+        id,
+      },
+    });
+
+    const updPet = await pet.update({ name, type, age, sex })
+    res.send(updPet);
+
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 module.exports = router;
