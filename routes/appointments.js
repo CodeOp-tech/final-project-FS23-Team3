@@ -91,27 +91,6 @@ router.delete('/:id', async function(req, res, next) {
     }
   });
 
-/* POST new clinic associated to pet. */
-router.post('/:id/clinics', async function(req, res, next) {
-    const { id } = req.params;
-    const { name, contactPhone, latitude, longitude, address } = req.body;
-    try {
-      const pet = await models.Pet.findOne({
-        where: {
-          id,
-        },
-      });
-      const clinic = await pet.createClinic({
-        name, 
-        contactPhone, 
-        latitude, 
-        longitude,
-        address
-      });
-      res.status(201).send(clinic);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
+
 
 module.exports = router;
