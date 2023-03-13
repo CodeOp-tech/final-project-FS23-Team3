@@ -8,6 +8,8 @@ var indexRouter = require('./routes/index');
 var ownersRouter = require('./routes/owners');
 var petsRouter = require('./routes/pets');
 var authRouter = require('./routes/auth');
+var clinicsRouter = require('./routes/clinics');
+var appointmentsRouter = require('./routes/appointments');
 
 
 var app = express();
@@ -24,6 +26,8 @@ app.use('/', indexRouter);
 app.use('/', authRouter);
 app.use('/owners', ownersRouter);
 app.use('/pets', petsRouter);
+app.use('/clinics', clinicsRouter);
+app.use('/appointments', appointmentsRouter);
 
 
 module.exports = app;

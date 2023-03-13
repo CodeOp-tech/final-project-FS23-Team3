@@ -13,7 +13,7 @@ router.get('/', async function(req, res, next) {
   });
 
 
-/* GET one pet with their vet/clinic. */
+/* GET one pet with their vet/clinic and appointments. */
 router.get('/:id', async function(req, res, next) {
   const { id } = req.params;
   try {
@@ -22,8 +22,25 @@ router.get('/:id', async function(req, res, next) {
         id,
       },
       include: models.Clinic,
+      include: models.Appointment
     });
     res.send(pet);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET only appointments of a pet.*/
+router.get('/:id/appointments', async function(req, res, next) {
+  const { id } = req.params;
+  try {
+    const pet = await models.Pet.findOne({
+      where: {
+        id,
+      },
+    });
+    const appointments = await pet.getAppointments();
+    res.send(appointments);
   } catch (error) {
     res.status(500).send(error);
   }
