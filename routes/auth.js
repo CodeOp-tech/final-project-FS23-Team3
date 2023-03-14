@@ -46,7 +46,7 @@ router.post('/login', async function(req, res, next) {
         res.send ({
           message: "Login successful.",
           token: token,
-          owner: owner
+          user: owner
         })
       } else {
         res.status(401).send({ error: "Login failed." });

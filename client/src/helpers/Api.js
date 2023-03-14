@@ -21,9 +21,8 @@ class Api {
     }
 
     //Register
-    static async registerUser(username, password) {
-        let body = { username, password };
-
+    static async registerUser(firstname, lastname, username, email, password) {
+        let body = { firstname, lastname, username, email, password };
         return await this._doFetch('/register', 'POST', body);
     }
 
@@ -124,7 +123,7 @@ class Api {
 
         let uresponse = { ok: false, data: null, status: 0, error: ''};
         try {
-            let response = await fetch(url, options);
+            let response = await fetch(`/api${url}`, options);
             if (response.ok) {
                 uresponse.ok = true;
                 uresponse.data = await response.json();

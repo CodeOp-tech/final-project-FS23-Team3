@@ -23,11 +23,11 @@ app.use(cookieParser());
 
 // Routes
 app.use('/', indexRouter);
-app.use('/', authRouter);
-app.use('/owners', ownersRouter);
-app.use('/pets', petsRouter);
-app.use('/clinics', clinicsRouter);
-app.use('/appointments', appointmentsRouter);
+app.use('/api/', authRouter);
+app.use('/api/owners', ownersRouter);
+app.use('/api/pets', petsRouter);
+app.use('/api/clinics', clinicsRouter);
+app.use('/api/appointments', appointmentsRouter);
 
 
 module.exports = app;
