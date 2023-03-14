@@ -1,0 +1,19 @@
+h1{
+    margin:20px 0px !important;
+}
+
+table{
+    width: 80%;
+    margin: 0 auto;
+    text-align:left;
+    table-layout: fixed ;
+}
+
+table, td, th {
+    border: 1px solid black !important;
+    padding: 5px;
+}
+
+#main-th{
+    width: 50%;
+}

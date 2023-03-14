@@ -18,7 +18,7 @@ export default function NavBar(props) {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-                <Nav.Link href="#HomeView">Home</Nav.Link>
+                <Nav.Link as={Link} to="/">Home</Nav.Link>
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#PetView">All my pets</NavDropdown.Item>
@@ -27,7 +27,7 @@ export default function NavBar(props) {
 
                 <NavDropdown title="My to-do's" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#UrgentListView">Urgent tasks</NavDropdown.Item>
-                <NavDropdown.Item href="#AppointmentsView">All to-do's</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/to-dos">All to-do's</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="My vets" id="basic-nav-dropdown">
