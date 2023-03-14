@@ -124,7 +124,7 @@ class Api {
 
         let uresponse = { ok: false, data: null, status: 0, error: ''};
         try {
-            let response = await fetch(url, options);
+            let response = await fetch(`/api${url}`, options);
             if (response.ok) {
                 uresponse.ok = true;
                 uresponse.data = await response.json();

@@ -16,9 +16,7 @@ const [user, setUser] = useState(Local.getUser());
   const navigate = useNavigate();
 
   async function doLogin(username, password) {
-    console.log(username, password)
     let myresponse = await Api.loginUser(username, password);
-    console.log(myresponse.data)
     if (myresponse.ok){
       Local.saveUserInfo(myresponse.data.token, myresponse.data.user);
       setUser(myresponse.data.user);
@@ -50,10 +48,10 @@ const [user, setUser] = useState(Local.getUser());
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
 
-      <NavBar owner={owner} logoutCb={doLogout} />
+      <NavBar user={user} logoutCb={doLogout} />
 
       <Routes>
         <Route path="/" element={
