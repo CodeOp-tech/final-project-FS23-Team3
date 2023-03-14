@@ -21,9 +21,8 @@ class Api {
     }
 
     //Register
-    static async registerUser(username, password) {
-        let body = { username, password };
-
+    static async registerUser(firstname, lastname, username, email, password) {
+        let body = { firstname, lastname, username, email, password };
         return await this._doFetch('/register', 'POST', body);
     }
 
