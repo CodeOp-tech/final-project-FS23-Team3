@@ -38,10 +38,10 @@ export default function NavBar(props) {
 
 
         {
-            props.owner
+            props.user
             ?   <Nav className="justify-content-end">
                     <Navbar.Text>
-                        Signed in as: {props.owner.firstname} {props.owner.lastname}
+                        Signed in as: {props.user.firstname} {props.user.lastname}
                     </Navbar.Text>
 
                     <Button >

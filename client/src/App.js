@@ -7,7 +7,7 @@ import Api from "./helpers/Api";
 
 import LoginView from "./views/LoginView";
 import PrivateRoute from './components/PrivateRoute';
-
+import RegisterView from './views/RegisterView';
 import NavBar from './components/NavBar';
 
 function App() {
@@ -16,9 +16,7 @@ const [user, setUser] = useState(Local.getUser());
   const navigate = useNavigate();
 
   async function doLogin(username, password) {
-    console.log(username, password)
     let myresponse = await Api.loginUser(username, password);
-    console.log(myresponse.data)
     if (myresponse.ok){
       Local.saveUserInfo(myresponse.data.token, myresponse.data.user);
       setUser(myresponse.data.user);
@@ -34,10 +32,10 @@ const [user, setUser] = useState(Local.getUser());
     setUser(null);
   }
 
-  async function registerUser(username, password){
-    let myresponse = await Api.registerUser(username, password);
+  async function registerUser(firstname, lastname, username, email, password){
+    let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
     if (myresponse.ok){
-      doLogin(username, password);
+      doLogin(username, password)
     } else {
       setLoginErrorMsg('Registration failed');
     }
@@ -50,10 +48,11 @@ const [user, setUser] = useState(Local.getUser());
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
           integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
         />
 
-      <NavBar owner={owner} logoutCb={doLogout} />
+      <NavBar user={user} logoutCb={doLogout} />
+      {!user && <Link to="/register">Create Account</Link>}
 
       <Routes>
         <Route path="/" element={
@@ -62,7 +61,7 @@ const [user, setUser] = useState(Local.getUser());
           </PrivateRoute>
         } />
         <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
-        {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
+        <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
       </Routes>
     </div>
   );
