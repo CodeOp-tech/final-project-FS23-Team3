@@ -11,7 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 import NavBar from './components/NavBar';
 
 function App() {
-const [user, setUser] = useState(Local.getUser());
+  const [user, setUser] = useState(Local.getUser());
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ const [user, setUser] = useState(Local.getUser());
           crossorigin="anonymous"
         />
 
-      <NavBar owner={owner} logoutCb={doLogout} />
+      <NavBar user={user} logoutCb={doLogout} />
 
       <Routes>
         <Route path="/" element={
