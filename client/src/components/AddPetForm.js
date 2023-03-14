@@ -38,7 +38,7 @@ function AddPetForm(props) {
           body: JSON.stringify(data),
         };
 
-        let response = await fetch(`${props.user.id}/pets/`, options);
+        let response = await fetch(`/api/pets/${props.user.id}/pets/`, options);
 
         if (response.ok) {
           //Not sure what we want to do here yet, if anything
@@ -52,6 +52,9 @@ function AddPetForm(props) {
 
     return (
         <Table className ="addPetForm" responsive="sm">
+            <tr>
+                <h1>Add new pet</h1>
+            </tr>
             <InputGroup>
                 <tr>
                     <Form.Control 
@@ -91,7 +94,7 @@ function AddPetForm(props) {
                     <Form.Select 
                         key = "sex"
                         type = "text"
-                        name="type"
+                        name="sex"
                         value={formData.sex}
                         onChange={handleChange}>
                             <option>Select gender</option>

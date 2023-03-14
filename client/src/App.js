@@ -8,8 +8,9 @@ import Api from "./helpers/Api";
 import LoginView from "./views/LoginView";
 import PrivateRoute from './components/PrivateRoute';
 import RegisterView from './views/RegisterView';
-import NavBar from './components/NavBar';
-import AllPetsView from "./views/AllPetsView"
+import NavBar from './components/navbar';
+import AllPetsView from "./views/AllPetsView";
+import AddPetForm from "./components/AddPetForm";
 
 function App() {
 
@@ -73,6 +74,15 @@ function App() {
         <Routes>
           <Route path= "/pets" element={
               <AllPetsView 
+                user= {user} 
+              />
+          } />
+          {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
+        </Routes>
+
+        <Routes>
+          <Route path= "/addpet" element={
+              <AddPetForm 
                 user= {user} 
               />
           } />

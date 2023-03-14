@@ -22,7 +22,7 @@ export default function NavBar(props) {
                 <Nav.Link href="#HomeView">Home</Nav.Link>
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
-                <NavDropdown.Item href="../views/AllPetsView">All my pets</NavDropdown.Item>
+                <NavDropdown.Item href="/pets">All my pets</NavDropdown.Item>
                 <NavDropdown.Item href="/AddPetForm">Add a pet</NavDropdown.Item>
                 </NavDropdown>
 

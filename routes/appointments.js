@@ -2,10 +2,28 @@ var express = require('express');
 var router = express.Router();
 var models = require("../models");
 
+//---------GETS----------
+
 /* GET all appointments. */
 router.get('/', async function(req, res, next) {
   try {
     const appointments = await models.Appointment.findAll();
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET all appointments of a pet.*/
+router.get('/:id/appointments', async function(req, res, next) {
+  const { id } = req.params;
+  try {
+    const pet = await models.Pet.findOne({
+      where: {
+        id,
+      },
+    });
+    const appointments = await pet.getAppointments();
     res.send(appointments);
   } catch (error) {
     res.status(500).send(error);
@@ -28,6 +46,7 @@ router.get('/:id', async function(req, res, next) {
     }
   });
 
+  //----------POSTS--------------
 
   /* POST new appointment associated to pet. */
 router.post('/', async function(req, res, next) {
@@ -53,6 +72,8 @@ router.post('/', async function(req, res, next) {
       res.status(500).send(error);
     }
   });
+
+//----------PUTS---------
 
 /* PUT existing appointment. */
 router.put('/:id', async function(req, res, next) {
