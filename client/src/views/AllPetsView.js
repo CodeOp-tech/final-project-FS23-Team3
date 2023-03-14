@@ -4,10 +4,14 @@ import AddPetForm from "../components/AddPetForm.js";
 import Table from 'react-bootstrap/Table';
 
 export default function AllPetsView(props) {
+    const [showForm, setShowForm] = useState(false);
   
     // useEffect(() => {
     //   getPets();
     // }, []);
+    function handleClick() {
+        setShowForm(true)
+    }
 
 
  return (
@@ -17,10 +21,8 @@ export default function AllPetsView(props) {
         <AllPetsList 
             user={props.user}
         />
-
-        <AddPetForm 
-            user = {props.user}
-        />
+        {!showForm && <button onClick = {handleClick}>Add new pet</button>}
+        {showForm && <AddPetForm user = {props.user}/>}
 
     </div>
  );

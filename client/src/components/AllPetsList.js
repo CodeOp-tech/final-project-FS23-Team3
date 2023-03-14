@@ -5,8 +5,8 @@ import Table from 'react-bootstrap/Table';
 export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
-    // const [editingId, setEditingId] = useState(null);
-    // const [editedPet,setEditedPet] = useState(null);
+    const [editingId, setEditingId] = useState("");
+    const [editedPet,setEditedPet] = useState(null);
 
     useEffect (() => {
         getPets();
@@ -31,11 +31,11 @@ export default function AllPetsList(props) {
         }
     }
 
-    //saves the ID of the pet we want to edit and finds the information for that pet
-    // async function handleEditClick(id) {
-    //     setEditingId(id);
-    //     setEditedPet(props.pets.find((c) => c.id === id));
-    // }
+    // saves the ID of the pet we want to edit and finds the information for that pet
+    async function handleEditClick(id) {
+        setEditingId(id);
+        setEditedPet(pets.find((p) => p.id === id));
+    }
 
     return (
         <Table>
@@ -44,6 +44,15 @@ export default function AllPetsList(props) {
                     <tr key = {p.id}>
                         <td>
                             {p.name}
+                        </td>
+                        <td>
+                            <button
+                                onClick={e => handleEditClick(p.id)}
+                                title="edit"
+                                type="button"
+                                >
+                                edit
+                            </button>
                         </td>
                     </tr>
                 ))}
