@@ -12,6 +12,18 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* GET all appointments order by completeBy. */
+router.get('/complete-by', async function(req, res, next) {
+  try {
+    const appointments = await models.Appointment.findAll({
+      order: [['completeBy', 'ASC']]
+    });
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 /* GET one appointment with its pet. */
 router.get('/:id', async function(req, res, next) {
     const { id } = req.params;
