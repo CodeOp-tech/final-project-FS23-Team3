@@ -11,11 +11,15 @@ import LoginView from "./views/LoginView";
 import PrivateRoute from './components/PrivateRoute';
 import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
+import AllPetsView from "./views/AllPetsView";
+import AddPetForm from "./components/AddPetForm";
+import MakeAppointmentView from "./MakeAppointmentView"
 
 function App() {
+
   const [user, setUser] = useState(Local.getUser());
-  const [loginErrorMsg, setLoginErrorMsg] = useState('');
-  const navigate = useNavigate();
+    const [loginErrorMsg, setLoginErrorMsg] = useState('');
+    const navigate = useNavigate();
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -29,10 +33,10 @@ function App() {
     }
   }
 
-  async function doLogout(){
-    Local.removeUserInfo();
-    setUser(null);
-  }
+    async function doLogout(){
+      Local.removeUserInfo();
+      setUser(null);
+    }
 
   async function registerUser(firstname, lastname, username, email, password){
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
@@ -57,21 +61,46 @@ function App() {
 
       {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
-      <Routes>
+        <Routes>
 
-        <Route path="/" element={
-          <PrivateRoute>
-            <h1>Home</h1>
-          </PrivateRoute>
-        } />
+              <Route path="/" element={
+                <PrivateRoute>
 
-        <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
+                  <Route path= "/pets" element={
+                      <AllPetsView 
+                        user= {user} 
+                      />
+                    } 
+                  />
+
+                  <Route path= "/addpet" element={
+                      <AddPetForm 
+                        user= {user} 
+                      />
+                    } 
+                  />
+
+                  <Route path="/appointment" element={
+                      <MakeAppointmentView 
+                        user = { user }
+                      />
+                    }
+                  />
+
+                </PrivateRoute>
+              } />
+
+              <Route 
+                path='/login' 
+                element={<LoginView 
+                loginErrorMsg={loginErrorMsg} 
+                doLoginCb={(u, p) => doLogin(u, p)} />} />
+              {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
         
-        <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
-      
-      </Routes>
-    </div>
-  );
-}
+        </Routes>
+
+      </div>
+    );
+  }
 
 export default App;

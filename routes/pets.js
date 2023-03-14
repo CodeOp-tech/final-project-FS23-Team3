@@ -2,12 +2,33 @@ var express = require('express');
 var router = express.Router();
 var models = require("../models");
 
+//---------GETS-----------
+
 /* GET all pets. */
 router.get('/', async function(req, res, next) {
     try {
       const pets = await models.Pet.findAll();
       res.send(pets);
     } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+// GET all pets for one owner
+  router.get('/:id/pets', async function(req, res, next) {
+    const { id } = req.params;
+
+    try {
+      const pets = await models.Pet.findAll({
+        where: {
+          OwnerId: id
+        },
+      });
+
+      res.status(201).send( pets );
+
+    } catch (error) {
+
       res.status(500).send(error);
     }
   });
@@ -29,37 +50,7 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-/* GET only appointments of a pet.*/
-router.get('/:id/appointments', async function(req, res, next) {
-  const { id } = req.params;
-  try {
-    const pet = await models.Pet.findOne({
-      where: {
-        id,
-      },
-    });
-    const appointments = await pet.getAppointments();
-    res.send(appointments);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
-
-/* GET only vets/clinics of a pet.*/
-router.get('/:id/clinics', async function(req, res, next) {
-  const { id } = req.params;
-  try {
-    const pet = await models.Pet.findOne({
-      where: {
-        id,
-      },
-    });
-    const clinics = await pet.getClinics();
-    res.send(clinics);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+//----------POSTS---------
 
 /* POST new pet associated to owner. */
 router.post('/:id/pets', async function(req, res, next) {
@@ -82,6 +73,8 @@ router.post('/:id/pets', async function(req, res, next) {
     res.status(500).send(error);
   }
 });
+
+//---------PUTS----------
 
 router.put('/:id', async function(req, res, next) {
   const { id } = req.params;
