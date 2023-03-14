@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 export default function AllPetsList(props) {
 
-    const [pets, setPets] = useState(null);
+    const [pets, setPets] = useState([]);
     // const [editingId, setEditingId] = useState(null);
     // const [editedPet,setEditedPet] = useState(null);
 
@@ -16,7 +16,7 @@ export default function AllPetsList(props) {
     async function getPets() {
         try {
             //will need to edit the URL here to include ID from the params
-            let response = await fetch(`api/pets/:${props.user.id}/pets`);
+            let response = await fetch(`api/pets/${props.user.id}/pets/`);
 
             if (response.ok) {
               let pets = await response.json();
