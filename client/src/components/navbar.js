@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/esm/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import './NavBar.css';
 
 export default function NavBar(props) {
@@ -21,8 +22,8 @@ export default function NavBar(props) {
                 <Nav.Link href="#HomeView">Home</Nav.Link>
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#PetView">All my pets</NavDropdown.Item>
-                <NavDropdown.Item href="#AddPetView">Add a pet</NavDropdown.Item>
+                <NavDropdown.Item href="../views/AllPetsView">All my pets</NavDropdown.Item>
+                <NavDropdown.Item href="/AddPetForm">Add a pet</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="My to-do's" id="basic-nav-dropdown">

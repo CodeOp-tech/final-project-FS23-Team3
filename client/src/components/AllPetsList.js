@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import NewCollabForm from "./NewCollabForm";
 import Table from 'react-bootstrap/Table';
-import "./CollabList.css";
+
 
 export default function AllPetsList(props) {
 
@@ -16,8 +15,8 @@ export default function AllPetsList(props) {
             let response = await fetch('/:id/pets');
 
             if (response.ok) {
-              let data = await response.json();
-              setPets(data);
+              let pets = await response.json();
+              setPets(pets);
     
             } else {
                 console.log(`Server error: ${response.status} ${response.statusText}`);
@@ -31,7 +30,7 @@ export default function AllPetsList(props) {
     //saves the ID of the pet we want to edit and finds the information for that pet
     async function handleEditClick(id) {
         setEditingId(id);
-        setEditedCollab(props.pets.find((c) => c.id === id));
+        setEditedPet(props.pets.find((c) => c.id === id));
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Table from 'react-boostrap/Table';
+import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -16,6 +16,8 @@ function AddPetForm(props) {
     const[formData, setFormData] = useState(EMPTY_FORM);
 
     function handleChange(e) {
+        const {name, value, type} = e.target;
+
         setFormData((data) => ({
             ...data,
             [e.target.name]: e.target.value,
@@ -24,7 +26,7 @@ function AddPetForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addPet(data);
+        addPet(formData);
         setFormData(EMPTY_FORM);
       };
     
@@ -36,7 +38,7 @@ function AddPetForm(props) {
           body: JSON.stringify(data),
         };
 
-        let response = await fetch(`/pets/${owner_id}`, options);
+        let response = await fetch(`${props.user.id}/pets/`, options);
 
         if (response.ok) {
           //Not sure what we want to do here yet, if anything
@@ -96,6 +98,12 @@ function AddPetForm(props) {
                             <option value="M">male</option>
                             <option value="F">female</option>
                     </Form.Select>
+                </tr>
+                <tr>
+                    <Button
+                        onClick = {handleSubmit}>
+                        save pet
+                    </Button>
                 </tr>
             </InputGroup>
         </Table>
