@@ -65,6 +65,7 @@ router.get('/:id/pets', ensureSameUser, async function(req, res, next) {
 // });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* POST new pet associated to owner. */
 router.post('/:id/pets', ensureUserLoggedIn, async function(req, res, next) {
   const { id } = req.params;
@@ -88,6 +89,8 @@ router.post('/:id/pets', ensureUserLoggedIn, async function(req, res, next) {
 });
 
 
+=======
+>>>>>>> main
 =======
 >>>>>>> main
 /* PUT existing owner. */
