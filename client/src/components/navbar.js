@@ -42,20 +42,22 @@ export default function NavBar(props) {
             props.user
             ?   <Nav className="justify-content-end">
                     <Navbar.Text>
-                        Signed in as: {props.user.firstname} {props.user.lastname}
+                        <Nav.Link as={Link} to={`/users/${props.user.id}`} >
+                            Profile: {props.user.firstname} {props.user.lastname}
+                        </Nav.Link>
                     </Navbar.Text>
 
                     <Button >
-                        <Link to="/" onClick={props.logoutCb}>
+                        <Nav.Link as={Link} to="/" onClick={props.logoutCb}>
                             Logout
-                        </Link>
+                        </Nav.Link>
                     </Button>
                 </Nav>
             :   <Nav className="justify-content-end">
                     <Button>
-                        <Link to="/login">
+                        <Nav.Link as={Link} to="/login">
                             Login
-                        </Link>
+                        </Nav.Link>
                     </Button>
                 </Nav>
         }
