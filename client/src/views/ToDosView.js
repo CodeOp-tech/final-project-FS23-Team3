@@ -8,13 +8,7 @@ let toDate = (date) => {
     let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
     let day = dateObj.getUTCDate();
     let year = dateObj.getUTCFullYear();
-    return (`${month} ${day}, ${year}`)
-}
-
-let toDateObj = (date) => {
-    let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
-    let dateObj = new Date(dateFormatted);
-    return dateObj;
+    return (`${month} ${day}, ${year}`);
 }
 
 export default function ToDosView() {
@@ -33,14 +27,7 @@ export default function ToDosView() {
     async function getAppointments(){
         let myresponse = await Api.getContent('/appointments/complete-by');
         if (myresponse.ok){
-            let filteredAppointments = [];
-            for(let i = 0; i < myresponse.data.length; i++){
-                let date = toDateObj(myresponse.data[i].completeBy);
-                if (date > new Date()){
-                    filteredAppointments.push(myresponse.data[i])
-                }
-            }
-            setAppointments(filteredAppointments);
+            setAppointments(myresponse.data);
         } else {
             console.log(`Error! ${myresponse.error}`);
         }
