@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 /* GET all appointments. */
 router.get('/', async function(req, res, next) {
@@ -14,9 +16,38 @@ router.get('/', async function(req, res, next) {
 
 /* GET all appointments order by completeBy. */
 router.get('/complete-by', async function(req, res, next) {
+  const today = new Date();
   try {
     const appointments = await models.Appointment.findAll({
-      order: [['completeBy', 'ASC']]
+      order: [['completeBy', 'ASC']],
+      where: {
+        completeBy: {
+          [Op.gt]: today
+        }
+      }
+    });
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+/* GET urgent appointments (completeBy within 3 months of today) order by completeBy. */
+router.get('/urgent', async function(req, res, next) {
+  const today = new Date();
+  let futureMonth = today.getUTCMonth() + 4;
+  let day = today.getUTCDate();
+  let year = today.getUTCFullYear();
+  let future = new Date(`${year}-${futureMonth}-${day}`);
+  try {
+    const appointments = await models.Appointment.findAll({
+      order: [['completeBy', 'ASC']],
+      where: {
+        completeBy: {
+          [Op.gt]: today,
+          [Op.lt]: future,
+        }
+      }
     });
     res.send(appointments);
   } catch (error) {
