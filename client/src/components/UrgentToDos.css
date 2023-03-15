@@ -1,0 +1,7 @@
+.UrgentToDos table {
+    width: 70%;
+    margin: 0 auto;
+    text-align:left;
+    table-layout: fixed ;
+    height:100%;
+}

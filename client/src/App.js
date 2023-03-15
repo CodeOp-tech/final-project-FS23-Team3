@@ -11,6 +11,8 @@ import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
 import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
+import ToDosView from './views/ToDosView';
+import HomeView from './views/HomeView';
 
 function App() {
 
@@ -57,40 +59,22 @@ function App() {
       <NavBar user={user} logoutCb={doLogout} />
       {!user && <Link to="/register">Create Account</Link>}
 
-        <Routes>
-          <Route path="/" element={
-            <PrivateRoute>
-              <h1>Home</h1>
-            </PrivateRoute>
-          } />
-          <Route 
-            path='/login' 
-            element={<LoginView 
-            loginErrorMsg={loginErrorMsg} 
-            doLoginCb={(u, p) => doLogin(u, p)} />} />
-          {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
-        </Routes>
-
-        <Routes>
-          <Route path= "/pets" element={
-              <AllPetsView 
-                user= {user} 
-              />
-          } />
-          {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
-        </Routes>
-
-        <Routes>
-          <Route path= "/addpet" element={
-              <AddPetForm 
-                user= {user} 
-              />
-          } />
-          {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
-        </Routes>
-
-      </div>
-    );
-  }
+      <Routes>
+        <Route path="/" element={
+          <PrivateRoute>
+            <HomeView/>
+          </PrivateRoute>
+        } />
+        <Route path="/to-dos" element={
+          <PrivateRoute>
+            <ToDosView />
+          </PrivateRoute>
+        } />
+        <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
+        <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
+      </Routes>
+    </div>
+  );
+}
 
 export default App;
