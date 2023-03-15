@@ -81,7 +81,7 @@ function App() {
         </Routes>
 
         <Routes>
-          <Route path= "/addpet" element={
+          <Route path= "/addpets" element={
               <AddPetForm 
                 user= {user} 
               />

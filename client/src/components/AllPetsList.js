@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { useNavigate } from "react-router-dom";
+
+import FeaturedPet from "./FeaturedPet";
+import AddPetForm from "./AddPetForm";
 
 
 export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
-    const [editingId, setEditingId] = useState("");
-    const [editedPet,setEditedPet] = useState(null);
+    const [featId, setFeatId] = useState("");
+    const [featPet,setFeatPet] = useState(null);
+    const [editedPet, setEditedPet] = useState(null);
+    const navigate = useNavigate();
 
     useEffect (() => {
         getPets();
@@ -32,9 +41,9 @@ export default function AllPetsList(props) {
     }
 
     // saves the ID of the pet we want to edit and finds the information for that pet
-    async function handleEditClick(id) {
-        setEditingId(id);
-        setEditedPet(pets.find((p) => p.id === id));
+    function handleClick(id) {
+        setFeatId(id);
+        setFeatPet(pets.find((p) => p.id === id));
     }
 
     return (
@@ -47,15 +56,39 @@ export default function AllPetsList(props) {
                         </td>
                         <td>
                             <button
-                                onClick={e => handleEditClick(p.id)}
-                                title="edit"
+                                onClick={e => handleClick(p.id)}
+                                title="view"
                                 type="button"
                                 >
-                                edit
+                                veiw
                             </button>
                         </td>
                     </tr>
                 ))}
+            
+            </tbody>
+            
+            { featPet &&
+            <tbody>
+                <FeaturedPet 
+                    featPet = {featPet} //sending
+                    editedPet = {editedPet} //receiving
+                    setEditedPet = {setEditedPet}
+                />
+            </tbody>
+            }
+{/* 
+            {
+                editedPet &&
+                <tbody>
+                    <AddPetForm/>
+                </tbody>
+            } */}
+
+            <tbody>
+                <AddPetForm
+                    editedPet = {editedPet} //sending
+                />
             </tbody>
 
         </Table>

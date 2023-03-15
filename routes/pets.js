@@ -55,7 +55,20 @@ router.get('/:id', async function(req, res, next) {
 /* POST new pet associated to owner. */
 router.post('/:id/pets', async function(req, res, next) {
   const { id } = req.params;
+
+  //check for req.files
+  // if (!req.files || Object.keys(req.files).length === 0) {
+  //   res.status(400).send( {error: "POST does not contain file"})
+  // };
+
   const { name, type, age, sex } = req.body;
+
+  let { myfile } = req.files;
+
+  //Determine from/to paths for moving file
+  // let fromPath = myfile.tempFilePath;
+  // let toPath = path.join(__dirname+"../public/images") + myfile.name;
+
   try {
     const owner = await models.Owner.findOne({
       where: {

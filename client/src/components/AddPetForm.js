@@ -13,7 +13,12 @@ const EMPTY_FORM = {
 }
 
 function AddPetForm(props) {
-    const[formData, setFormData] = useState(EMPTY_FORM);
+    const[formData, setFormData] = useState(props.editedPet || EMPTY_FORM);
+    const[formState, setFormState] = useState(false); ///hides or shows the form and changes the look of the button
+
+    function showForm() {
+        setFormState(!formState)
+    }
 
     function handleChange(e) {
         const {name, value, type} = e.target;
@@ -27,7 +32,8 @@ function AddPetForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         addPet(formData);
-        setFormData(EMPTY_FORM);
+        setFormData(props.editedPet || EMPTY_FORM);
+        props.setEditedPet && props.setEditedPet(null);
       };
     
     const addPet = async (data) => {
@@ -50,12 +56,40 @@ function AddPetForm(props) {
       }
     };
 
+    const editPet = async (data) => {
+        try {
+          let options = {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          };
+  
+          let response = await fetch(`/api/pets/${props.editedPet.id}`, options);
+  
+          if (response.ok) {
+            //Not sure what we want to do here yet, if anything
+          } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+          }
+        } catch (err) {
+          console.log(`Server Error`);
+        }
+      };
+
     return (
+
         <Table className ="addPetForm" responsive="sm">
             <tr>
-                <h1>Add new pet</h1>
+                Add new animal
+                <Button onClick = { e=> showForm()}>
+                    {
+                        formState ? "-"
+                        : "+"
+                    }
+                </Button>
             </tr>
-            <InputGroup>
+            {formState &&
+             <InputGroup>
                 <tr>
                     <Form.Control 
                         key = "name"
@@ -109,6 +143,7 @@ function AddPetForm(props) {
                     </Button>
                 </tr>
             </InputGroup>
+            }
         </Table>
     )
     

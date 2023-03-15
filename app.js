@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var ownersRouter = require('./routes/owners');
@@ -20,6 +21,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
+
+//initialize file-upload
+app.use(
+    fileUpload({
+        useTempFiles: true,
+        tempFileDir: '/tmp/'
+    })
+);
+
+// Tell express to serve all public files from 'pubic' folder
+app.use( express.static('pubic') );
 
 // Routes
 app.use('/', indexRouter);
