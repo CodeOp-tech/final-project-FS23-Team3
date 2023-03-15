@@ -27,6 +27,7 @@ export default function ToDosView() {
     const[appointments, setAppointments] = useState([]);
     const[pets, setPets] = useState([]);
     const [combinedList, setCombinedList] = useState([]);
+    const [selectedAppt, setSelectedAppt] = useState(null);
 
     useEffect(() => {
         getTodos();
@@ -73,9 +74,9 @@ export default function ToDosView() {
 
     function combineLists(){
         let newTodos = [...todos];
-        newTodos = newTodos.map(obj => ({id: ("1" + obj.id), title: obj.nextSteps, date: obj.completeBy, PetId: obj.PetId}));
+        newTodos = newTodos.map(obj => ({combinedId: ("1" + obj.id), id: obj.id, title: obj.nextSteps, date: obj.completeBy, PetId: obj.PetId}));
         let newAppointments = [...appointments];
-        newAppointments = newAppointments.map(obj => ({id: ("2" + obj.id), title: obj.title, date: obj.date, PetId: obj.PetId}));
+        newAppointments = newAppointments.map(obj => ({combinedId: ("2" + obj.id), id: obj.id, title: obj.title, date: obj.date, PetId: obj.PetId}));
         for (let appointment of newAppointments){
             if (appointment.title == null){
                 appointment.title = "Appointment"
@@ -88,28 +89,84 @@ export default function ToDosView() {
         setCombinedList(newList);
     }
 
-  return (
-    <div className="container">
-        <h1>All Upcoming Tasks:</h1>
-        <table>
-            <tbody>
-                <tr>
-                    <th id="main-th">To Do:</th>
-                    <th>Complete By:</th>
-                    <th>For Pet:</th>
-                </tr>
-                {
-                combinedList.map((a) => (
-                    <tr key={a.id} className={(threeMonthsAway(a.date)) ? "urgent" : null}>
-                        <td>{a.title}</td>
-                        <td>{toDate(a.date)}</td>
-                        <td>{(pets.find(p => p.id === a.PetId)) ? (pets.find(p => p.id === a.PetId)).name : ""}</td>
-                    </tr>
+    async function getOneTask(id, combinedId){
+        let myresponse = await Api.getOneAppointment(id);
+        if (myresponse.ok){
+            let selected = myresponse.data;
+            let selectedName = combinedList.filter(a => a.combinedId === combinedId)[0].title;
+            selected.selectedName = selectedName;
+            setSelectedAppt(selected);
+        } else {
+            console.log(`Error! ${myresponse.error}`);
+        }
+      }
+    
 
-                ))
-            }
+  return (
+    <div className="ToDosView">
+        <div id="left-grid">
+            <h1>All Upcoming Tasks:</h1>
+            <table className="all-tasks-table">
+                <tbody>
+                    <tr>
+                        <th id="main-th">To Do:</th>
+                        <th>Complete By:</th>
+                        <th>For Pet:</th>
+                    </tr>
+                    {
+                    combinedList.map((a) => (
+                        <tr key={a.combinedId} className={(threeMonthsAway(a.date)) ? "urgent" : null}>
+                            <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{a.title}</td>
+                            <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{toDate(a.date)}</td>
+                            <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{(pets.find(p => p.id === a.PetId)) ? (pets.find(p => p.id === a.PetId)).name : ""}</td>
+                        </tr>
+
+                    ))
+                }
+                </tbody>
+            </table>
+        </div>
+        <div id="right-grid">
+            <h1>Details</h1>
+            <div id="details-box">
+            { !selectedAppt && 
+                    <h3>Click on an item for more info</h3>
+                }
+            { selectedAppt && 
+                    <h3>{selectedAppt.selectedName}</h3>
+                }
+            { selectedAppt &&
+            <table className="selected-table">
+            <tbody>
+                {selectedAppt.PetId && 
+                <tr>
+                    <td>Pet:</td>
+                    <td>{(pets.find(p => p.id === selectedAppt.PetId)).name}</td>
+                </tr>
+                }
+                {selectedAppt.completeBy && 
+                <tr>
+                    <td>Complete by:</td>
+                    <td>{toDate(selectedAppt.completeBy)}</td>
+                </tr>
+                }
+                {selectedAppt.completeBy && 
+                <tr>
+                    <td>Assigned at appointment on:</td>
+                    <td>{toDate(selectedAppt.date)}</td>
+                </tr>
+                }
+                {selectedAppt.createdAt && 
+                <tr>
+                    <td>Date created:</td>
+                    <td>{toDate(selectedAppt.createdAt)}</td>
+                </tr>
+                }
             </tbody>
         </table>
+            }
+            </div>
+        </div>
     </div>
   )
-}
+ }

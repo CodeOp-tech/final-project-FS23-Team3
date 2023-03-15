@@ -1,12 +1,21 @@
+.ToDosView{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:40px;
+    width:80%;
+    margin: 0 auto;
+}
+
 h1{
     margin:20px 0px !important;
 }
 
-table{
-    width: 80%;
+.all-tasks-table{
+    width: 100%;
     margin: 0 auto;
     text-align:left;
     table-layout: fixed ;
+    height:100%;
 }
 
 table, td, th {
@@ -21,4 +30,27 @@ table, td, th {
 .urgent{
     color: #6F1A07;
     background-color: #FABFB2;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+#details-box{
+    border:1px solid black;
+    height:100%;
+    width:100%;
+}
+
+h3{
+    padding-bottom:7px;
+    margin-bottom:0 !important;
+}
+
+.selected-table{
+    width:100%;
+    margin-top:0;
+    border-top:0px !important;
+    border-right:0px !important;
+    border-left:0px !important;
 }
