@@ -54,7 +54,7 @@ router.get('/complete-by', async function(req, res, next) {
 router.get('/urgent', async function(req, res, next) {
   const today = new Date();
   let futureMonth = today.getUTCMonth() + 4;
-  let day = today.getUTCDate();
+  let day = today.getUTCDate() + 1;
   let year = today.getUTCFullYear();
   let future = new Date(`${year}-${futureMonth}-${day}`);
   try {
@@ -62,6 +62,28 @@ router.get('/urgent', async function(req, res, next) {
       order: [['completeBy', 'ASC']],
       where: {
         completeBy: {
+          [Op.gt]: today,
+          [Op.lt]: future,
+        }
+      }
+    });
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.get('/urgent-appts', async function(req, res, next) {
+  const today = new Date();
+  let futureMonth = today.getUTCMonth() + 4;
+  let day = today.getUTCDate() + 1;
+  let year = today.getUTCFullYear();
+  let future = new Date(`${year}-${futureMonth}-${day}`);
+  try {
+    const appointments = await models.Appointment.findAll({
+      order: [['date', 'ASC']],
+      where: {
+        date: {
           [Op.gt]: today,
           [Op.lt]: future,
         }
