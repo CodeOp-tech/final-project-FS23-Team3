@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
+import "./UrgentToDos.css"
 
 let toDate = (date) => {
     let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
@@ -77,7 +78,7 @@ export default function UrgentToDos() {
     }
 
   return (
-    <div>
+    <div className="UrgentToDos">
         <h1>Urgent Tasks:</h1>
         <table>
             <tbody>
