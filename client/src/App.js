@@ -8,14 +8,17 @@ import Api from "./helpers/Api";
 import LoginView from "./views/LoginView";
 import PrivateRoute from './components/PrivateRoute';
 import RegisterView from './views/RegisterView';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar';
+import AllPetsView from "./views/AllPetsView";
+import AddPetForm from "./components/AddPetForm";
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 
 function App() {
-const [user, setUser] = useState(Local.getUser());
-  const [loginErrorMsg, setLoginErrorMsg] = useState('');
-  const navigate = useNavigate();
+
+  const [user, setUser] = useState(Local.getUser());
+    const [loginErrorMsg, setLoginErrorMsg] = useState('');
+    const navigate = useNavigate();
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -29,10 +32,10 @@ const [user, setUser] = useState(Local.getUser());
     }
   }
 
-  async function doLogout(){
-    Local.removeUserInfo();
-    setUser(null);
-  }
+    async function doLogout(){
+      Local.removeUserInfo();
+      setUser(null);
+    }
 
   async function registerUser(firstname, lastname, username, email, password){
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
