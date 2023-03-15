@@ -13,6 +13,7 @@ import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
+import AddAppointmentForm from './components/AddAppointmentForm';
 
 function App() {
 
@@ -68,6 +69,11 @@ function App() {
         <Route path="/to-dos" element={
           <PrivateRoute>
             <ToDosView />
+          </PrivateRoute>
+        } />
+        <Route path="/add-appointment" element={
+          <PrivateRoute>
+            <AddAppointmentForm />
           </PrivateRoute>
         } />
         <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
