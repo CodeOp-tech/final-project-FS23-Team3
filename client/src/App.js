@@ -13,7 +13,12 @@ import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
 import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
+<<<<<<< HEAD
 import MakeAppointmentView from "./views/MakeAppointmentView"
+=======
+import ToDosView from './views/ToDosView';
+import HomeView from './views/HomeView';
+>>>>>>> main
 
 function App() {
 
@@ -61,6 +66,7 @@ function App() {
 
       {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
+<<<<<<< HEAD
         <Routes>
 
                   <Route path="/" element={
@@ -106,5 +112,24 @@ function App() {
       </div>
     );
   }
+=======
+      <Routes>
+        <Route path="/" element={
+          <PrivateRoute>
+            <HomeView/>
+          </PrivateRoute>
+        } />
+        <Route path="/to-dos" element={
+          <PrivateRoute>
+            <ToDosView />
+          </PrivateRoute>
+        } />
+        <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
+        <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
+      </Routes>
+    </div>
+  );
+}
+>>>>>>> main
 
 export default App;

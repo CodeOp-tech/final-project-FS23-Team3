@@ -16,7 +16,7 @@ export default function AllPetsList(props) {
     async function getPets() {
         try {
             //will need to edit the URL here to include ID from the params
-            let response = await fetch(`api/pets/:${props.user.id}/pets`);
+            let response = await fetch(`api/pets/${props.user.id}/pets/`);
 
             if (response.ok) {
               let pets = await response.json();
