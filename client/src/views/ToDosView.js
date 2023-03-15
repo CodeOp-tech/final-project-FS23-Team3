@@ -156,6 +156,12 @@ export default function ToDosView() {
                     <td>{toDate(selectedAppt.date)}</td>
                 </tr>
                 }
+                {selectedAppt.completeBy && 
+                <tr>
+                    <td>Summary from assigning appointment:</td>
+                    <td>{selectedAppt.summary}</td>
+                </tr>
+                }
                 {selectedAppt.createdAt && 
                 <tr>
                     <td>Date created:</td>
