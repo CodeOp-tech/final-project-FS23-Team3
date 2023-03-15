@@ -1,6 +1,8 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 import Local from "./helpers/Local";
 import Api from "./helpers/Api";
@@ -11,8 +13,12 @@ import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
 import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
+<<<<<<< HEAD
+import MakeAppointmentView from "./views/MakeAppointmentView"
+=======
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
+>>>>>>> main
 
 function App() {
 
@@ -57,8 +63,56 @@ function App() {
         />
 
       <NavBar user={user} logoutCb={doLogout} />
-      {!user && <Link to="/register">Create Account</Link>}
 
+      {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
+
+<<<<<<< HEAD
+        <Routes>
+
+                  <Route path="/" element={
+                    <div>Home</div>
+                  } />
+
+                  <Route path= "/pets" element={
+                      <PrivateRoute>
+                          <AllPetsView 
+                            user= {user} 
+                          />
+                      </PrivateRoute>
+                    } 
+                  />
+
+                  <Route path= "/addpet" element={
+                    <PrivateRoute>
+                      <AddPetForm 
+                        user= {user} 
+                      />
+                    </PrivateRoute>
+                    } 
+                  />
+
+                  <Route path="/appointment" element={
+                    <PrivateRoute>
+                      <MakeAppointmentView 
+                        user = { user }
+                      />
+                    </PrivateRoute>
+                    }
+                  />
+
+                  <Route 
+                    path='/login' 
+                    element={<LoginView 
+                    loginErrorMsg={loginErrorMsg} 
+                    doLoginCb={(u, p) => doLogin(u, p)} />} />
+                  {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
+        
+        </Routes>
+
+      </div>
+    );
+  }
+=======
       <Routes>
         <Route path="/" element={
           <PrivateRoute>
@@ -76,5 +130,6 @@ function App() {
     </div>
   );
 }
+>>>>>>> main
 
 export default App;
