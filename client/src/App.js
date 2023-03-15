@@ -13,7 +13,7 @@ import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
 import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
-import MakeAppointmentView from "./MakeAppointmentView"
+import MakeAppointmentView from "./views/MakeAppointmentView"
 
 function App() {
 
@@ -63,39 +63,43 @@ function App() {
 
         <Routes>
 
-              <Route path="/" element={
-                <PrivateRoute>
+                  <Route path="/" element={
+                    <div>Home</div>
+                  } />
 
                   <Route path= "/pets" element={
-                      <AllPetsView 
-                        user= {user} 
-                      />
+                      <PrivateRoute>
+                          <AllPetsView 
+                            user= {user} 
+                          />
+                      </PrivateRoute>
                     } 
                   />
 
                   <Route path= "/addpet" element={
+                    <PrivateRoute>
                       <AddPetForm 
                         user= {user} 
                       />
+                    </PrivateRoute>
                     } 
                   />
 
                   <Route path="/appointment" element={
+                    <PrivateRoute>
                       <MakeAppointmentView 
                         user = { user }
                       />
+                    </PrivateRoute>
                     }
                   />
 
-                </PrivateRoute>
-              } />
-
-              <Route 
-                path='/login' 
-                element={<LoginView 
-                loginErrorMsg={loginErrorMsg} 
-                doLoginCb={(u, p) => doLogin(u, p)} />} />
-              {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
+                  <Route 
+                    path='/login' 
+                    element={<LoginView 
+                    loginErrorMsg={loginErrorMsg} 
+                    doLoginCb={(u, p) => doLogin(u, p)} />} />
+                  {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
         
         </Routes>
 

@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 export default function AllPetsList(props) {
 
-    const [pets, setPets] = useState(null);
+    const [pets, setPets] = useState([]);
     // const [editingId, setEditingId] = useState(null);
     // const [editedPet,setEditedPet] = useState(null);
 
