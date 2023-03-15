@@ -10,6 +10,7 @@ import PrivateRoute from './components/PrivateRoute';
 import RegisterView from './views/RegisterView';
 import NavBar from './components/NavBar';
 import ToDosView from './views/ToDosView';
+import HomeView from './views/HomeView';
 
 function App() {
 const [user, setUser] = useState(Local.getUser());
@@ -58,7 +59,7 @@ const [user, setUser] = useState(Local.getUser());
       <Routes>
         <Route path="/" element={
           <PrivateRoute>
-            <h1>Home</h1>
+            <HomeView/>
           </PrivateRoute>
         } />
         <Route path="/to-dos" element={

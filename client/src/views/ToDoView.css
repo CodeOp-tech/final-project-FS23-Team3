@@ -17,3 +17,8 @@ table, td, th {
 #main-th{
     width: 50%;
 }
+
+.urgent{
+    color: #6F1A07;
+    background-color: #FABFB2;
+}

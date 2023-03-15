@@ -14,6 +14,24 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+/* GET all future appointments order by date. */
+router.get('/future', async function(req, res, next) {
+  const today = new Date();
+  try {
+    const appointments = await models.Appointment.findAll({
+      order: [['date', 'ASC']],
+      where: {
+        date: {
+          [Op.gt]: today
+        }
+      }
+    });
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 /* GET all appointments order by completeBy. */
 router.get('/complete-by', async function(req, res, next) {
   const today = new Date();
