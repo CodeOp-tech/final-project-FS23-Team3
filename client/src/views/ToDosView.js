@@ -73,9 +73,9 @@ export default function ToDosView() {
 
     function combineLists(){
         let newTodos = [...todos];
-        newTodos = newTodos.map(obj => ({id: obj.id, title: obj.nextSteps, date: obj.completeBy, PetId: obj.PetId}));
+        newTodos = newTodos.map(obj => ({id: ("1" + obj.id), title: obj.nextSteps, date: obj.completeBy, PetId: obj.PetId}));
         let newAppointments = [...appointments];
-        newAppointments = newAppointments.map(obj => ({id: obj.id, title: obj.title, date: obj.date, PetId: obj.PetId}));
+        newAppointments = newAppointments.map(obj => ({id: ("2" + obj.id), title: obj.title, date: obj.date, PetId: obj.PetId}));
         for (let appointment of newAppointments){
             if (appointment.title == null){
                 appointment.title = "Appointment"
