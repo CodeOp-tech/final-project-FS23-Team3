@@ -136,5 +136,12 @@ function App() {
     );
   }
 
+=======
+        <Route path='/login' element={<LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />} />
+        <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
+      </Routes>
+    </div>
+  );
+}
 
 export default App;
