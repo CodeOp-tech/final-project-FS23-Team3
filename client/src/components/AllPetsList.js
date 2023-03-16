@@ -83,7 +83,7 @@ export default function AllPetsList(props) {
                                 title="view"
                                 type="button"
                                 >
-                                veiw
+                                view
                             </Button> }
                         </td>
                     </tr>
