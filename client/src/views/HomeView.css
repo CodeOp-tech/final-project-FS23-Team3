@@ -1,3 +1,7 @@
 Link {
     text-decoration: none;
 }
+
+.HomeView button{
+    margin-top:25px;
+}

@@ -38,7 +38,7 @@ class Api {
 
     // get all pets of one owner
     static async getOwnerPets(id) {
-        return await this._doFetch(`/owners/${id}/pets`);
+        return await this._doFetch(`/pets/${id}/pets`);
     }
 
     //General GET (for any URL, like /pets, /appointments, /clinics)
