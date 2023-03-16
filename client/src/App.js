@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -17,13 +17,18 @@ import AllClinicsView from "./views/AllClinicsView"
 import ClinicView from "./views/ClinicView"
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
-
+import AddAppointmentForm from './components/AddAppointmentForm';
 
 function App() {
 
-    const [user, setUser] = useState(Local.getUser());
-    const [loginErrorMsg, setLoginErrorMsg] = useState('');
-    const navigate = useNavigate();
+  const [user, setUser] = useState(Local.getUser());
+  const [loginErrorMsg, setLoginErrorMsg] = useState('');
+  const navigate = useNavigate();
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    getOwnerPets();
+  },[])
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -48,6 +53,16 @@ function App() {
       doLogin(username, password)
     } else {
       setLoginErrorMsg('Registration failed');
+    }
+  }
+
+  async function getOwnerPets() {
+    let id = user.id;
+    let myresponse = await Api.getOwnerPets(id);
+    if (myresponse.ok){
+      setPets(myresponse.data)
+    } else {
+      console.log(`Error! ${myresponse.error}`)
     }
   }
 
@@ -81,14 +96,14 @@ function App() {
                     } 
                   />
 
-                  <Route path= "/addpet" element={
-                    <PrivateRoute>
-                      <AddPetForm 
-                        user= {user} 
-                      />
-                    </PrivateRoute>
-                    } 
+              <Route path= "/addpet" element={
+                <PrivateRoute>
+                  <AddPetForm 
+                    user= {user} 
                   />
+                </PrivateRoute>
+                } 
+              />
 
                   <Route path="/clinics" element={
                     <PrivateRoute>
@@ -120,11 +135,18 @@ function App() {
                   <Route path='/register' element={
                     <RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
         
+
+
+        <Route path="/add-appointment" element={
+          <PrivateRoute>
+            <AddAppointmentForm pets={pets} />
+          </PrivateRoute>
+        } />
+
         </Routes>
 
       </div>
     );
   }
-
 
 export default App;

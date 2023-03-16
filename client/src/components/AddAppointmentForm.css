@@ -1,0 +1,63 @@
+.AddAppointmentForm p{
+    width:70%;
+    margin: 0 auto;
+}
+
+#required-astrisk{
+    margin-top:-10px;
+    margin-bottom:45px;
+}
+
+.AddAppointmentForm input {
+    display:block;
+    width:100%;
+}
+
+.AddAppointmentForm form{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width:70%;
+    margin: 0 auto;
+}
+
+.text-area{
+    grid-column: 2/4;
+    width:100%;
+}
+
+.AddAppointmentForm textarea{
+    width:100%;
+    overflow: visible;
+    height:32%;
+}
+
+.span-3-cols{
+    grid-column: 1/4
+}
+
+select{
+    width:100%;
+    background:white;
+    border:1px solid rgb(153, 153, 153);
+    border-radius:2px;
+    height:31px;
+  }
+  
+  option {
+    background-color: white;
+  }
+
+  .submitted{
+    margin-top:50px !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    width:70%;
+    margin: 0 auto;
+  }
+
+  .submitted div{
+    border:1px solid black;
+    padding: 5px 0px;
+  }
