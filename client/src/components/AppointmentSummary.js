@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
 import AddAppointmentForm from './AddAppointmentForm';
 
@@ -7,10 +7,24 @@ export default function AppointmentSummary(props) {
     const [editedAppt, setEditedAppt] = useState(null);
     const [appointment, setAppointment] = useState(props.appointment);
 
+    useEffect(() => {
+        getAppointment();
+    },[props.appointment.title])
+
 
     function handleEditClick() {
         setEditedAppt(props.appointment);
         setShowForm(true)
+    }
+
+    async function getAppointment(){
+        let id = props.appointment.id;
+        let myresponse = await Api.getOneAppointment(id);
+        if (myresponse.ok){
+            setAppointment(myresponse.data)
+        } else {
+            console.log(`Error! ${myresponse.error}`)
+        }
     }
 
     async function changeAppointment(apptObj){
@@ -26,6 +40,8 @@ export default function AppointmentSummary(props) {
 
   return (
     <div>
+    {appointment && 
+        <div>
         {!showForm ?
         <div>
         <div>
@@ -33,11 +49,11 @@ export default function AppointmentSummary(props) {
             <div className="submitted">        
                 <div>
                     <p>Date:</p>
-                    <p>{Date(props.appointment.date)}</p>
+                    <p>{appointment.date}</p>
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
-                    <p>{props.appointment.clinicName}</p>
+                    <p>{appointment.clinicName}</p>
                 </div>
                 <div>
                     <p>Which pet?</p>
@@ -45,15 +61,15 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Next steps for owner:</p>
-                    <p>{props.appointment.nextSteps}</p>
+                    <p>{appointment.nextSteps}</p>
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
-                    <p>{Date(props.appointment.completeBy)}</p>
+                    <p>{appointment.completeBy }</p>
                 </div>
                 <div>
                     <p>Follow up appointment:</p>
-                    <p>{Date(props.appointment.followups)}</p>
+                    <p>{appointment.followups }</p>
                 </div>
                 <div>
                     <p>Appointment topic:</p>
@@ -61,7 +77,7 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Appointment summary:</p>
-                    <p>{props.appointment.summary}</p>
+                    <p>{appointment.summary}</p>
                 </div>
             </div>
         </div>
@@ -79,6 +95,8 @@ export default function AppointmentSummary(props) {
 
         />
         }
+    </div>
+    }
     </div>
   )
 }
