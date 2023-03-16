@@ -14,11 +14,6 @@ const EMPTY_FORM = {
 
 function AddPetForm(props) {
     const[formData, setFormData] = useState(props.editedPet || EMPTY_FORM);
-    const[formState, setFormState] = useState(false); ///hides or shows the form and changes the look of the button
-
-    function showForm() {
-        setFormState(!formState)
-    }
 
     function handleChange(e) {
         const {name, value, type} = e.target;
@@ -32,63 +27,68 @@ function AddPetForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         addPet(formData);
-        setFormData(props.editedPet || EMPTY_FORM);
-        props.setEditedPet && props.setEditedPet(null);
+        setFormData(EMPTY_FORM);
+        if (props.editedPet) {
+
+            props.setShowForm(false);
+            props.setEditedPet(null);
+        } else {
+            props.setFormState(false);
+        }
+
+
       };
     
-    const addPet = async (data) => {
-      try {
+    const addPet = async (pet) => {
+
+      if(!pet.id) {
+
         let options = {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(pet),
         };
 
-        let response = await fetch(`/api/pets/${props.user.id}/pets/`, options);
-
-        if (response.ok) {
-          //Not sure what we want to do here yet, if anything
-        } else {
-          console.log(`Server error: ${response.status} ${response.statusText}`);
-        }
+        try {
+            let response = await fetch(`/api/pets/${props.user.id}/pets/`, options);
+            if (response.ok) {
+                props.getPets();
+            } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+            }
       } catch (err) {
-        console.log(`Server Error`);
+            console.log(`Server Error: ${err.message}`);
       }
-    };
 
-    const editPet = async (data) => {
+    } else {
+
         try {
           let options = {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
+            body: JSON.stringify(pet),
           };
   
-          let response = await fetch(`/api/pets/${props.editedPet.id}`, options);
+          let response = await fetch(`/api/pets/${pet.id}`, options);
   
           if (response.ok) {
-            //Not sure what we want to do here yet, if anything
+            let pet = await response.json();
+            props.setFeatPet(null);
+            props.getPets();
+
+            
           } else {
             console.log(`Server error: ${response.status} ${response.statusText}`);
           }
         } catch (err) {
-          console.log(`Server Error`);
+            console.log(`Server Error: ${err.message}`);
         }
-      };
+      }
+    };
 
     return (
 
         <Table className ="addPetForm" responsive="sm">
-            <tr>
-                Add new animal
-                <Button onClick = { e=> showForm()}>
-                    {
-                        formState ? "-"
-                        : "+"
-                    }
-                </Button>
-            </tr>
-            {formState &&
              <InputGroup>
                 <tr>
                     <Form.Control 
@@ -143,7 +143,6 @@ function AddPetForm(props) {
                     </Button>
                 </tr>
             </InputGroup>
-            }
         </Table>
     )
     

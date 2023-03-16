@@ -56,18 +56,9 @@ router.get('/:id', async function(req, res, next) {
 router.post('/:id/pets', async function(req, res, next) {
   const { id } = req.params;
 
-  //check for req.files
-  // if (!req.files || Object.keys(req.files).length === 0) {
-  //   res.status(400).send( {error: "POST does not contain file"})
-  // };
 
   const { name, type, age, sex } = req.body;
 
-  let { myfile } = req.files;
-
-  //Determine from/to paths for moving file
-  // let fromPath = myfile.tempFilePath;
-  // let toPath = path.join(__dirname+"../public/images") + myfile.name;
 
   try {
     const owner = await models.Owner.findOne({
@@ -79,7 +70,8 @@ router.post('/:id/pets', async function(req, res, next) {
       name, 
       type, 
       age, 
-      sex
+      sex,
+
     });
     res.status(201).send(pet);
   } catch (error) {
@@ -106,5 +98,24 @@ router.put('/:id', async function(req, res, next) {
     res.status(500).send(error);
   }
 });
+
+//----------DELETE-----------
+
+// router.delete('/:id', ensureSameUser, async function(req, res, next) {
+//   const { id } = req.params;
+//   try {
+//     await models.Pet.destroy({
+//       where: {
+//         id,
+//       },
+//     });
+
+//     const owners = await models.Owner.findAll();
+//     res.send(owners);
+
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// });
 
 module.exports = router;

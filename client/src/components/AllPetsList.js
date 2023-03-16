@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -12,14 +13,26 @@ import AddPetForm from "./AddPetForm";
 export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
-    const [featId, setFeatId] = useState("");
+    const [featPetId, setFeatPetId] = useState("");
     const [featPet,setFeatPet] = useState(null);
-    const [editedPet, setEditedPet] = useState(null);
+    const [formState, setFormState] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect (() => {
         getPets();
     }, []);
+
+    //hides or shows the form
+    function showForm() {
+        setFormState(!formState)
+    }
+
+    //hides the featured pet
+    function handleHide() {
+        setFeatPetId("");
+        setFeatPet(null);
+    }
 
     //getting all pets for this user
     async function getPets() {
@@ -42,12 +55,13 @@ export default function AllPetsList(props) {
 
     // saves the ID of the pet we want to edit and finds the information for that pet
     function handleClick(id) {
-        setFeatId(id);
-        setFeatPet(pets.find((p) => p.id === id));
+        setFeatPetId(id);
+        setFeatPet (pets.find(p => p.id === id));
     }
 
     return (
         <Table>
+            {/* List of all pets  */}
             <tbody>
                 {pets.map( p => (
                     <tr key = {p.id}>
@@ -55,40 +69,57 @@ export default function AllPetsList(props) {
                             {p.name}
                         </td>
                         <td>
-                            <button
+                        {p.id === featPetId ?
+                            <Button
+                                onClick={e => handleHide()}
+                                title="view"
+                                type="button"
+                                >
+                                hide
+                            </Button>
+                            :
+                            <Button
                                 onClick={e => handleClick(p.id)}
                                 title="view"
                                 type="button"
                                 >
                                 veiw
-                            </button>
+                            </Button> }
                         </td>
                     </tr>
                 ))}
             
             </tbody>
             
+            {/* Featured pet component*/}
             { featPet &&
             <tbody>
                 <FeaturedPet 
+                    featPetId = {featPetId} //sending
                     featPet = {featPet} //sending
-                    editedPet = {editedPet} //receiving
-                    setEditedPet = {setEditedPet}
+                    setFeatPet={setFeatPet}
+                    getPets = {getPets} //sending
                 />
             </tbody>
             }
-{/* 
-            {
-                editedPet &&
-                <tbody>
-                    <AddPetForm/>
-                </tbody>
-            } */}
 
+            {/* Add new pet component*/}
             <tbody>
+                Add new pet
+                <Button onClick = { e=> showForm()}>
+                    {
+                        formState ? "-"
+                        : "+"
+                    }
+                </Button>
+
+                {formState && 
                 <AddPetForm
-                    editedPet = {editedPet} //sending
-                />
+                    user={props.user}
+                    setFormState = {setFormState}
+                    getPets={getPets}
+                />}
+
             </tbody>
 
         </Table>

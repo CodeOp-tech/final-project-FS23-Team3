@@ -4,18 +4,41 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 import AddPetForm from "./AddPetForm";
 
 export default function FeaturedPet(props) {
-    const [editPet, setEditPet] = useState(false);
+   //const [featPet,setFeatPet] = useState(props.featPet || null);
+    const [showForm, setShowForm] = useState(false);
+    const [editedPet, setEditedPet] = useState(null);
 
-    let fp = props.featPet;
+    // useEffect(() => {
+    //     findPet();
+    // }, []);
 
     function handleEditClick() {
-        //props.setEditedPet(fp);
-        setEditPet(true)
+        setEditedPet(props.featPet);
+        setShowForm(true)
     }
+
+    // const findPet = async () => {
+    //     try{
+
+    //       let response = await fetch(`/api/pets/${props.featPetId}`);
+  
+    //       if (response.ok) {
+    //         let pet = await response.json();
+    //         setFeatPet(pet);
+
+    //       } else {
+    //         console.log(`Server error: ${response.status} ${response.statusText}`);
+    //       }
+    //     } catch (err) {
+    //       console.log(`Server Error`);
+    //     }
+    // }
+  
 
     // function handleDelete(id) {
     //     const deletePet = async (data) => {
@@ -41,28 +64,36 @@ export default function FeaturedPet(props) {
 
     return(
         <div className = "FeatPet">
-        {props.featPet && !editPet ?
+        {props.featPet && !showForm ?
         <div>
                 <div>
-                    <h2>{fp.name}</h2>
-                    <p>Type: {fp.type}</p>
-                    <p>Age: {fp.age}</p>
-                    <p>Breed: {fp.breed}</p>
+                    <h2>{props.featPet.name}</h2>
+                    <p>Type: {props.featPet.type}</p>
+                    <p>Age: {props.featPet.age}</p>
+                    <p>Breed: {props.featPet.breed}</p>
                 </div>
 
-            <button 
+            <Button 
                 onClick= {e => handleEditClick()}
             >
                 Edit animal
-            </button>
+            </Button>
 
-            <button
+            <Button
                 // onClick= {e => handleDelete(fp.id)}
                 >Delete animal
-            </button>
+            </Button>
         </div>
         :
-        <AddPetForm/>
+        <AddPetForm
+            editedPet = {editedPet}
+            setEditedPet = {setEditedPet}
+            setFeatPet = {props.setFeatPet}
+            featPet = {props.featPet}
+            setShowForm = {setShowForm}
+            getPets = {props.getPets}
+
+        />
         
         }
         </div>
