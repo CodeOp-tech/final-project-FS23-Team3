@@ -13,12 +13,9 @@ import RegisterView from './views/RegisterView';
 import NavBar from './components/navbar';
 import AllPetsView from "./views/AllPetsView";
 import AddPetForm from "./components/AddPetForm";
-<<<<<<< HEAD
 import MakeAppointmentView from "./views/MakeAppointmentView"
-=======
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
->>>>>>> main
 
 function App() {
 
@@ -70,6 +67,18 @@ function App() {
         <Route path="/" element={
           <PrivateRoute>
             <HomeView/>
+          </PrivateRoute>
+        } />
+        <Route path="/pets" element={
+          <PrivateRoute>
+            <AllPetsView 
+              user = {user}
+            />
+          </PrivateRoute>
+        } />
+        <Route path="/addpet" element={
+          <PrivateRoute>
+            <AddPetForm />
           </PrivateRoute>
         } />
         <Route path="/to-dos" element={

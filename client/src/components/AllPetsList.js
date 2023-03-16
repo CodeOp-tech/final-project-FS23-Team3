@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
 
+import './AllPetsList.css';
+
 import FeaturedPet from "./FeaturedPet";
 import AddPetForm from "./AddPetForm";
 
@@ -60,7 +62,8 @@ export default function AllPetsList(props) {
     }
 
     return (
-        <Table>
+        <Container className = "PetListContainer">
+        <Table className = "AllPetsList">
             {/* List of all pets  */}
             <tbody>
                 {pets.map( p => (
@@ -90,7 +93,9 @@ export default function AllPetsList(props) {
                 ))}
             
             </tbody>
-            
+        </Table>
+
+        <Table className="FeaturedPet">    
             {/* Featured pet component*/}
             { featPet &&
             <tbody>
@@ -102,7 +107,9 @@ export default function AllPetsList(props) {
                 />
             </tbody>
             }
+        </Table>
 
+        <Table className = "AddPetForm">
             {/* Add new pet component*/}
             <tbody>
                 Add new pet
@@ -121,7 +128,8 @@ export default function AllPetsList(props) {
                 />}
 
             </tbody>
-
         </Table>
+
+        </Container>
     );
     }

@@ -63,7 +63,7 @@ export default function FeaturedPet(props) {
     // }
 
     return(
-        <div className = "FeatPet">
+        <div className = "FeaturedPet">
         {props.featPet && !showForm ?
         <div>
                 <div>

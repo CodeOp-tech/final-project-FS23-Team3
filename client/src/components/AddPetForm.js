@@ -88,53 +88,61 @@ function AddPetForm(props) {
 
     return (
 
-        <Table className ="addPetForm" responsive="sm">
+        <Table className ="AddPetForm" responsive="sm">
              <InputGroup>
                 <tr>
-                    <Form.Control 
-                        key = "name"
-                        placeholder = "Pet's name"
-                        type = "text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
+                    <td>
+                        <Form.Control 
+                            key = "name"
+                            placeholder = "Pet's name"
+                            type = "text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
+                    </td>
                 </tr>
                 <tr>
-                    <Form.Select 
-                        key = "type"
-                        type = "text"
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}>
-                            <option>Select animal type</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                            <option value="horse">Horse</option>
-                            <option value="other">Other</option>
-                    </Form.Select>
+                    <td>
+                        <Form.Select 
+                            key = "type"
+                            type = "text"
+                            name="type"
+                            value={formData.type}
+                            onChange={handleChange}>
+                                <option>Select animal type</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="horse">Horse</option>
+                                <option value="other">Other</option>
+                        </Form.Select>
+                    </td>
                 </tr>
                 <tr>
-                    <Form.Control 
-                        key = "age"
-                        placeholder = "age"
-                        type = "number"
-                        name="age"
-                        value={formData.age}
-                        onChange={handleChange}
-                    />
+                    <td>
+                        <Form.Control 
+                            key = "age"
+                            placeholder = "age"
+                            type = "number"
+                            name="age"
+                            value={formData.age}
+                            onChange={handleChange}
+                        />
+                    </td>
                 </tr>
                 <tr>
-                    <Form.Select 
-                        key = "sex"
-                        type = "text"
-                        name="sex"
-                        value={formData.sex}
-                        onChange={handleChange}>
-                            <option>Select gender</option>
-                            <option value="M">male</option>
-                            <option value="F">female</option>
-                    </Form.Select>
+                    <td>
+                        <Form.Select 
+                            key = "sex"
+                            type = "text"
+                            name="sex"
+                            value={formData.sex}
+                            onChange={handleChange}>
+                                <option>Select gender</option>
+                                <option value="M">male</option>
+                                <option value="F">female</option>
+                        </Form.Select>
+                    </td>
                 </tr>
                 <tr>
                     <Button
