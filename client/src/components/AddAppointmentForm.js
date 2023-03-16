@@ -140,7 +140,7 @@ const handleSubmit = (event) => {
           </div>
           <div>
             <p>Which pet?</p>
-            <p>{props.pets.filter(p => p.id === submittedForm.PetId)}</p>
+            <p>{(props.pets.find(p => +p.id === +submittedForm.PetId)) ? (props.pets.find(p => +p.id === +submittedForm.PetId)).name : ''}</p>
           </div>
           <div>
             <p>Next steps for owner:</p>

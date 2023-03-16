@@ -83,7 +83,7 @@ function App() {
 
               <Route path="/" element={
                 <PrivateRoute>
-                  <HomeView/>
+                  <HomeView user={user}/>
                 </PrivateRoute>
               } />
 
