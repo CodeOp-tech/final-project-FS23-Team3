@@ -36,7 +36,7 @@ export default function HomeView(props) {
           <div className="card-body">
             <h5 className="card-title">Make an Appointment</h5>
             <p className="card-text">Find information for vets you've visited previously or search for a new vet in your area.</p>
-            <Link to="/make-appointment" className="btn btn-primary">Make Appointment</Link>
+            <Link to="/clinics" className="btn btn-primary">Make Appointment</Link>
           </div>
         </div>
         <div className="card" style={{width: "20rem"}}>
