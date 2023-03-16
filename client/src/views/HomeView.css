@@ -9,10 +9,6 @@ Link {
     text-decoration: none;
 }
 
-.HomeView button{
-    margin-top:25px;
-}
-
 .home-cards{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
