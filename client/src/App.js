@@ -66,53 +66,6 @@ function App() {
 
       {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
-<<<<<<< HEAD
-        <Routes>
-
-                  <Route path="/" element={
-                    <div>Home</div>
-                  } />
-
-                  <Route path= "/pets" element={
-                      <PrivateRoute>
-                          <AllPetsView 
-                            user= {user} 
-                          />
-                      </PrivateRoute>
-                    } 
-                  />
-
-                  <Route path= "/addpet" element={
-                    <PrivateRoute>
-                      <AddPetForm 
-                        user= {user} 
-                      />
-                    </PrivateRoute>
-                    } 
-                  />
-
-                  <Route path="/appointment" element={
-                    <PrivateRoute>
-                      <MakeAppointmentView 
-                        user = { user }
-                      />
-                    </PrivateRoute>
-                    }
-                  />
-
-                  <Route 
-                    path='/login' 
-                    element={<LoginView 
-                    loginErrorMsg={loginErrorMsg} 
-                    doLoginCb={(u, p) => doLogin(u, p)} />} />
-                  {/* <Route path='/register' element={<RegisterView loginErrorMsg={loginErrorMsg} doRegisterCb={(u, p) => registerUser(u, p)} />} /> */}
-        
-        </Routes>
-
-      </div>
-    );
-  }
-=======
       <Routes>
         <Route path="/" element={
           <PrivateRoute>
@@ -130,6 +83,5 @@ function App() {
     </div>
   );
 }
->>>>>>> main
 
 export default App;
