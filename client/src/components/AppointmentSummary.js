@@ -33,11 +33,11 @@ export default function AppointmentSummary(props) {
             <div className="submitted">        
                 <div>
                     <p>Date:</p>
-                    <p>{appointment.date}</p>
+                    <p>{Date(props.appointment.date)}</p>
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
-                    <p>{appointment.clinicName}</p>
+                    <p>{props.appointment.clinicName}</p>
                 </div>
                 <div>
                     <p>Which pet?</p>
@@ -45,23 +45,23 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Next steps for owner:</p>
-                    <p>{appointment.date}</p>
+                    <p>{props.appointment.nextSteps}</p>
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
-                    <p>{appointment.nextSteps}</p>
+                    <p>{Date(props.appointment.completeBy)}</p>
                 </div>
                 <div>
                     <p>Follow up appointment:</p>
-                    <p>{appointment.followups}</p>
+                    <p>{Date(props.appointment.followups)}</p>
                 </div>
                 <div>
                     <p>Appointment topic:</p>
-                    <p>{appointment.title}</p>
+                    <p>{props.appointment.title}</p>
                 </div>
                 <div>
                     <p>Appointment summary:</p>
-                    <p>{appointment.summary}</p>
+                    <p>{props.appointment.summary}</p>
                 </div>
             </div>
         </div>
