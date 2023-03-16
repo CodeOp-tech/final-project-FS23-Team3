@@ -49,7 +49,7 @@ export default function AppointmentSummary(props) {
             <div className="submitted">        
                 <div>
                     <p>Date:</p>
-                    <p>{appointment.date}</p>
+                    <p>{appointment.date.slice(0,10)}</p>
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
@@ -65,11 +65,11 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
-                    <p>{appointment.completeBy }</p>
+                    <p>{appointment.completeBy.slice(0,10)}</p>
                 </div>
                 <div>
                     <p>Follow up appointment:</p>
-                    <p>{appointment.followups }</p>
+                    <p>{appointment.followups.slice(0,10)}</p>
                 </div>
                 <div>
                     <p>Appointment topic:</p>
