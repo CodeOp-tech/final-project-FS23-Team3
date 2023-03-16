@@ -17,6 +17,7 @@ import MakeAppointmentView from "./views/MakeAppointmentView";
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
+import PastAppointment from './components/PastAppointment';
 
 function App() {
 
@@ -127,7 +128,7 @@ function App() {
         } />
         <Route path="/add-appointment" element={
           <PrivateRoute>
-            <AddAppointmentForm pets={pets} />
+            <PastAppointment pets={pets} />
           </PrivateRoute>
         } />
         </Routes>

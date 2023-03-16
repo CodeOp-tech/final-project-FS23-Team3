@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "./AddAppointmentForm.css";
-import Api from '../helpers/Api';
 
 const EMPTY_FORM = {
   date: '',
@@ -14,19 +13,8 @@ const EMPTY_FORM = {
 }
 
 export default function AddAppointmentForm(props) {
-  const [formInput, setFormInput] = useState(EMPTY_FORM);
-  const [apptSummary, setApptSummary] = useState({});
+  const [formInput, setFormInput] = useState(props.editedAppt || EMPTY_FORM);
   const [selected, setSelected] = useState("");
-  const [submittedForm, setSubmittedForm] = useState(null);
-
-  async function addAppointmentInfo(formInput) {
-    let myresponse = await Api.addAppointment(formInput);
-    if (myresponse.ok){
-      setApptSummary(myresponse.data)
-    } else {
-      console.log(`Error! ${myresponse.error}`)
-    }
-  }
 
 const handleChange = (event) => {
   let { name, value } = event.target;
@@ -38,14 +26,24 @@ const handleChange = (event) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  addAppointmentInfo(formInput);
-  setSubmittedForm(formInput);
+  if (props.addAppointmentCb){
+    props.addAppointmentCb(formInput);
+  }
+  if (props.changeAppointmentCb){
+    props.changeAppointmentCb(formInput);
+  }
+  if (props.setShowForm){
+    props.setShowForm(false);
+  }
+  if(props.handleChangeCb){
+    props.handleChangeCb()
+  }
   setFormInput(EMPTY_FORM);
 }
 
   return (
     <div className="AddAppointmentForm">
-      {!submittedForm && 
+      {/* {!submittedForm &&  */}
       <div className="not-submitted">
       <h1>Add information about a past appointment</h1>
         <p id="required-astrisk">* signifies a required field</p>
@@ -125,46 +123,6 @@ const handleSubmit = (event) => {
             </div>
         </form>
       </div>
-      }
-      {submittedForm &&
-      <div>
-        <h1>Your appointment:</h1>
-        <div className="submitted">        
-          <div>
-            <p>Date:</p>
-            <p>{submittedForm.date}</p>
-          </div>
-          <div>
-            <p>Vet clinic name:</p>
-            <p>{submittedForm.clinicName}</p>
-          </div>
-          <div>
-            <p>Which pet?</p>
-            <p>{(props.pets.find(p => +p.id === +submittedForm.PetId)) ? (props.pets.find(p => +p.id === +submittedForm.PetId)).name : ''}</p>
-          </div>
-          <div>
-            <p>Next steps for owner:</p>
-            <p>{submittedForm.date}</p>
-          </div>
-          <div>
-            <p>Complete next steps by:</p>
-            <p>{submittedForm.nextSteps}</p>
-          </div>
-          <div>
-            <p>Follow up appointment:</p>
-            <p>{submittedForm.followups}</p>
-          </div>
-          <div>
-            <p>Appointment topic:</p>
-            <p>{submittedForm.title}</p>
-          </div>
-          <div>
-            <p>Appointment summary:</p>
-            <p>{submittedForm.summary}</p>
-          </div>
-        </div>
-      </div>
-      }
     </div>
   )
 }
