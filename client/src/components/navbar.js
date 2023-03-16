@@ -19,7 +19,7 @@ export default function NavBar(props) {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-                <Nav.Link href="#HomeView">Home</Nav.Link>
+                <Nav.Link as={Link} to="/">Home</Nav.Link>
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/pets">All my pets</NavDropdown.Item>
@@ -28,7 +28,7 @@ export default function NavBar(props) {
 
                 <NavDropdown title="My to-do's" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#UrgentListView">Urgent tasks</NavDropdown.Item>
-                <NavDropdown.Item href="#AppointmentsView">All to-do's</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/to-dos">All to-do's</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="My vets" id="basic-nav-dropdown">
@@ -42,20 +42,22 @@ export default function NavBar(props) {
             props.user
             ?   <Nav className="justify-content-end">
                     <Navbar.Text>
-                        Signed in as: {props.user.firstname} {props.user.lastname}
+                        <Nav.Link as={Link} to={`/users/${props.user.id}`} >
+                            Profile: {props.user.firstname} {props.user.lastname}
+                        </Nav.Link>
                     </Navbar.Text>
 
                     <Button >
-                        <Link to="/" onClick={props.logoutCb}>
+                        <Nav.Link as={Link} to="/" onClick={props.logoutCb}>
                             Logout
-                        </Link>
+                        </Nav.Link>
                     </Button>
                 </Nav>
             :   <Nav className="justify-content-end">
                     <Button>
-                        <Link to="/login">
+                        <Nav.Link as={Link} to="/login">
                             Login
-                        </Link>
+                        </Nav.Link>
                     </Button>
                 </Nav>
         }

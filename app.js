@@ -11,6 +11,7 @@ var petsRouter = require('./routes/pets');
 var authRouter = require('./routes/auth');
 var clinicsRouter = require('./routes/clinics');
 var appointmentsRouter = require('./routes/appointments');
+var yelpRouter = require('./routes/yelp')
 
 
 var app = express();
@@ -40,6 +41,7 @@ app.use('/api/owners', ownersRouter);
 app.use('/api/pets', petsRouter);
 app.use('/api/clinics', clinicsRouter);
 app.use('/api/appointments', appointmentsRouter);
+app.use('/api/yelp', yelpRouter)
 
 
 module.exports = app;
