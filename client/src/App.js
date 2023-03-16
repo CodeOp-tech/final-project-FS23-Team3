@@ -1,6 +1,6 @@
 import './App.css';
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -21,8 +21,13 @@ import AddAppointmentForm from './components/AddAppointmentForm';
 function App() {
 
   const [user, setUser] = useState(Local.getUser());
-    const [loginErrorMsg, setLoginErrorMsg] = useState('');
-    const navigate = useNavigate();
+  const [loginErrorMsg, setLoginErrorMsg] = useState('');
+  const navigate = useNavigate();
+  const [pets, setPets] = useState([]);
+
+  useEffect(() => {
+    getOwnerPets();
+  },[])
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -47,6 +52,16 @@ function App() {
       doLogin(username, password)
     } else {
       setLoginErrorMsg('Registration failed');
+    }
+  }
+
+  async function getOwnerPets() {
+    let id = user.id;
+    let myresponse = await Api.getOwnerPets(id);
+    if (myresponse.ok){
+      setPets(myresponse.data)
+    } else {
+      console.log(`Error! ${myresponse.error}`)
     }
   }
 
@@ -112,7 +127,7 @@ function App() {
         } />
         <Route path="/add-appointment" element={
           <PrivateRoute>
-            <AddAppointmentForm />
+            <AddAppointmentForm pets={pets} />
           </PrivateRoute>
         } />
         </Routes>
