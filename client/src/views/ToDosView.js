@@ -138,6 +138,12 @@ export default function ToDosView() {
             { selectedAppt &&
             <table className="selected-table">
             <tbody>
+            {!selectedAppt.completeBy && 
+                <tr>
+                    <td>Appointment date:</td>
+                    <td>{toDate(selectedAppt.date)}</td>
+                </tr>
+                }
                 {selectedAppt.PetId && 
                 <tr>
                     <td>Pet:</td>
