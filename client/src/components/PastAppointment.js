@@ -21,7 +21,7 @@ export default function PastAppointment(props) {
       };
 
   return (
-    <div>PastAppointment
+    <div>
        {
           (formViewToggle)
             ? <AddAppointmentForm 

@@ -25,7 +25,7 @@ export default function AppointmentSummary(props) {
     }
 
   return (
-    <div>AppointmentSummary
+    <div>
         {!showForm ?
         <div>
         <div>
