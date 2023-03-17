@@ -88,10 +88,10 @@ function AddPetForm(props) {
 
     return (
 
-        <Table className ="AddPetForm" responsive="sm">
+        <Table responsive="sm">
              <InputGroup>
                 <tr>
-                    <td>
+                    
                         Name:
                         <Form.Control 
                             key = "name"
@@ -101,10 +101,9 @@ function AddPetForm(props) {
                             value={formData.name}
                             onChange={handleChange}
                         />
-                    </td>
+                    
                 </tr>
                 <tr>
-                    <td>
                         Type of animal:
                         <Form.Select 
                             key = "type"
@@ -118,10 +117,8 @@ function AddPetForm(props) {
                                 <option value="horse">Horse</option>
                                 <option value="other">Other</option>
                         </Form.Select>
-                    </td>
                 </tr>
                 <tr>
-                    <td>
                         Age:
                         <Form.Control 
                             key = "age"
@@ -131,10 +128,8 @@ function AddPetForm(props) {
                             value={formData.age}
                             onChange={handleChange}
                         />
-                    </td>
                 </tr>
                 <tr>
-                    <td>
                         Gender:
                         <Form.Select 
                             key = "sex"
@@ -146,7 +141,6 @@ function AddPetForm(props) {
                                 <option value="M">male</option>
                                 <option value="F">female</option>
                         </Form.Select>
-                    </td>
                 </tr>
                 <tr>
                     <Button

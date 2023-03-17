@@ -22,7 +22,6 @@
 }
 
 .FeaturedPet {
-
     width: 50% !important;
 }
 
@@ -35,19 +34,28 @@
 }
 
 
-.AddPetForm {
-    width: 100%
+.AddPetForm Table{
+    
+    width: 100%;
+    justify-content: center;
+}
+
+.AddPetForm tbody td{
+    text-align: center;
+    justify-content: center;
 }
 
 .AddPetForm tr {
-
+    padding-left: 30%;
+    padding-right: 30%;
+    justify-content: center;
     width: 100%
 }
 
-
-
 .AddPetForm td{
     border-style: hidden !important;
+    width: 100% !important;
+    justify-content: center;
 }
 
 
