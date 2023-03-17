@@ -21,6 +21,7 @@ import AddAppointmentForm from './components/AddAppointmentForm';
 import PetContext from './context/PetContext';
 import PastAppointment from './components/PastAppointment';
 
+
 function App() {
 
   const [user, setUser] = useState(Local.getUser());
