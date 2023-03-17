@@ -59,7 +59,7 @@ export default function ClinicView(props) {
               </Modal.Header>
 
               <Modal.Body>
-                <Outlet />
+                <MakeAppointmentForm />
               </Modal.Body>
 
               <Modal.Footer>
