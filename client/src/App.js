@@ -18,7 +18,9 @@ import ClinicView from "./views/ClinicView"
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
+import PetContext from './context/PetContext';
 import PastAppointment from './components/PastAppointment';
+
 
 function App() {
 
@@ -26,6 +28,8 @@ function App() {
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
   const [pets, setPets] = useState([]);
+
+  
 
   useEffect(() => {
     if(user){
@@ -122,7 +126,9 @@ function App() {
                   >
                           <Route path=':id' element={
                             <PrivateRoute>
-                              <ClinicView />
+                              <PetContext.Provider value={pets}>
+                                <ClinicView />
+                              </PetContext.Provider>
                             </PrivateRoute>
                             } 
                           />
