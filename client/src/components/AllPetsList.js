@@ -6,8 +6,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
 
-import './AllPetsList.css';
-
 import FeaturedPet from "./FeaturedPet";
 import AddPetForm from "./AddPetForm";
 
@@ -82,11 +80,12 @@ export default function AllPetsList(props) {
                             </Button>
                             :
                             <Button
+                                variant="secondary"
                                 onClick={e => handleClick(p.id)}
                                 title="view"
                                 type="button"
                                 >
-                                veiw
+                                view
                             </Button> }
                         </td>
                     </tr>
@@ -98,7 +97,7 @@ export default function AllPetsList(props) {
         <Table className="FeaturedPet">    
             {/* Featured pet component*/}
             { featPet &&
-            <tbody>
+            <tbody className = "FeaturedPetContent">
                 <FeaturedPet 
                     featPetId = {featPetId} //sending
                     featPet = {featPet} //sending

@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-//import "./addPetForm.css";
+
 
 const EMPTY_FORM = {
     name: "",
@@ -92,6 +92,7 @@ function AddPetForm(props) {
              <InputGroup>
                 <tr>
                     <td>
+                        Name:
                         <Form.Control 
                             key = "name"
                             placeholder = "Pet's name"
@@ -104,6 +105,7 @@ function AddPetForm(props) {
                 </tr>
                 <tr>
                     <td>
+                        Type of animal:
                         <Form.Select 
                             key = "type"
                             type = "text"
@@ -120,6 +122,7 @@ function AddPetForm(props) {
                 </tr>
                 <tr>
                     <td>
+                        Age:
                         <Form.Control 
                             key = "age"
                             placeholder = "age"
@@ -132,6 +135,7 @@ function AddPetForm(props) {
                 </tr>
                 <tr>
                     <td>
+                        Gender:
                         <Form.Select 
                             key = "sex"
                             type = "text"

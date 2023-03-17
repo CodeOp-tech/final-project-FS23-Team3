@@ -76,9 +76,12 @@ function App() {
             />
           </PrivateRoute>
         } />
-        <Route path="/addpet" element={
+        <Route path="/addpets" element={
           <PrivateRoute>
-            <AddPetForm />
+            <h1>Add new pet</h1>
+            <AddPetForm 
+              user = {user}
+            />
           </PrivateRoute>
         } />
         <Route path="/to-dos" element={

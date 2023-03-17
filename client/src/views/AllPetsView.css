@@ -22,18 +22,32 @@
 }
 
 .FeaturedPet {
-    margin-top: 3%;
+
     width: 50% !important;
+}
+
+.FeaturedPet td {
+    border-style: hidden !important;
 };
+
+.FeaturedPetContent {
+    width: 100% !important;
+}
+
 
 .AddPetForm {
     width: 100%
 }
 
+.AddPetForm tr {
+
+    width: 100%
+}
 
 
-.AddPetForm tbody{
-    border-bottom-style: hidden !important;
+
+.AddPetForm td{
+    border-style: hidden !important;
 }
 
 

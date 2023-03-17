@@ -63,7 +63,7 @@ export default function FeaturedPet(props) {
     // }
 
     return(
-        <div className = "FeaturedPet">
+        <div>
         {props.featPet && !showForm ?
         <div>
                 <div>
@@ -72,6 +72,10 @@ export default function FeaturedPet(props) {
                     <p>Age: {props.featPet.age}</p>
                     <p>Breed: {props.featPet.breed}</p>
                 </div>
+            
+            <Button>
+                Add appointment
+            </Button>
 
             <Button 
                 onClick= {e => handleEditClick()}
@@ -79,7 +83,7 @@ export default function FeaturedPet(props) {
                 Edit animal
             </Button>
 
-            <Button
+            <Button variant="danger"
                 // onClick= {e => handleDelete(fp.id)}
                 >Delete animal
             </Button>
