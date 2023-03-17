@@ -5,8 +5,8 @@
     width:80%;
     margin: 0 auto;
 }
-
-h1{
+/* Added classname in front */
+.ToDosView h1{
     margin:20px 0px !important;
 }
 
@@ -18,7 +18,8 @@ h1{
     height:100%;
 }
 
-table, td, th {
+/* Added the classname here in front */
+.ToDosView table, td, th {
     border: 1px solid black !important;
     padding: 5px;
 }
@@ -42,7 +43,8 @@ table, td, th {
     width:100%;
 }
 
-h3{
+/* Added classname in front */
+.ToDosView h3{
     padding-bottom:7px;
     margin-bottom:0 !important;
 }
