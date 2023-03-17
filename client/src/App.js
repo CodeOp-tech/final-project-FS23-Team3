@@ -28,7 +28,9 @@ function App() {
   const [pets, setPets] = useState([]);
 
   useEffect(() => {
-    getOwnerPets();
+    if(user){
+      getOwnerPets();
+    }
   },[])
 
   async function doLogin(username, password) {
@@ -49,10 +51,13 @@ function App() {
     }
 
   async function registerUser(firstname, lastname, username, email, password){
+    console.log("registerUser in App", firstname, lastname, username, email, password);
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
+    console.log("myresponse", myresponse.data)
     if (myresponse.ok){
-      doLogin(username, password)
+      doLogin(username, password);
     } else {
+      console.log('username, password', username, password)
       setLoginErrorMsg('Registration failed');
     }
   }
