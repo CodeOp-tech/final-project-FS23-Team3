@@ -1,7 +1,29 @@
+.Main-home-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:30px;
+    margin-bottom:30px;
+}
+
 Link {
     text-decoration: none;
 }
 
-.HomeView button{
-    margin-top:25px;
+.home-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:30px;
+}
+
+.card{
+    justify-self: center;
+}
+
+.card-img-top{
+    height: 270px;
+    object-fit: cover;
+}
+
+.card-text{
+    height:65px;
 }

@@ -35,7 +35,7 @@ export default function ClinicView(props) {
                     ? filterVets(vets.businesses).map(vet => (
 
                       <Card style={{ width: '20rem' }}>
-                      <Card.Img variant="top" src="vet.image_url" />
+                      <Card.Img variant="top" src={vet.image_url} />
                       <Card.Body>
                         <Card.Title>{vet.name}</Card.Title>
                         <Card.Text>
