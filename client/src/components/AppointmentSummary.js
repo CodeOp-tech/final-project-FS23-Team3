@@ -39,8 +39,8 @@ export default function AppointmentSummary(props) {
     }
 
   return (
-    <div>
-    {appointment && 
+    // <div>
+    // {appointment && 
         <div>
         {!showForm ?
         <div>
@@ -49,11 +49,11 @@ export default function AppointmentSummary(props) {
             <div className="submitted">        
                 <div>
                     <p>Date:</p>
-                    <p>{appointment.date.slice(0,10)}</p>
+                    <p>{(props.appointment.date) ? props.appointment.date.slice(0,10) : props.appointment.date}</p>
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
-                    <p>{appointment.clinicName}</p>
+                    <p>{props.appointment.clinicName}</p>
                 </div>
                 <div>
                     <p>Which pet?</p>
@@ -61,15 +61,15 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Next steps for owner:</p>
-                    <p>{appointment.nextSteps}</p>
+                    <p>{props.appointment.nextSteps}</p>
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
-                    <p>{appointment.completeBy.slice(0,10)}</p>
+                    <p>{(props.appointment.completeBy) ? props.appointment.completeBy.slice(0,10) : props.appointment.completeBy}</p>
                 </div>
                 <div>
                     <p>Follow up appointment:</p>
-                    <p>{appointment.followups.slice(0,10)}</p>
+                    <p>{(props.appointment.followups) ? props.appointment.followups.slice(0,10) : props.appointment.followups}</p>
                 </div>
                 <div>
                     <p>Appointment topic:</p>
@@ -77,7 +77,7 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Appointment summary:</p>
-                    <p>{appointment.summary}</p>
+                    <p>{props.appointment.summary}</p>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@ export default function AppointmentSummary(props) {
         />
         }
     </div>
-    }
-    </div>
+    // }
+    // </div>
   )
 }
