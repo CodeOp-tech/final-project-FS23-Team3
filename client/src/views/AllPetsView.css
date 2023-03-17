@@ -1,0 +1,68 @@
+.AllPetsView {
+    margin-left: 3%;
+    margin-right: 3%;
+    margin-bottom: 7%;
+    /* display: grid 1fr 1fr 1fr !important; */
+}
+
+.PetListContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.AllPetsList {
+    width: 50% !important;
+}
+
+.AllPetsList td{
+    border-left-style: hidden !important;
+    border-right-style: hidden !important;
+    border-bottom-color: lightgrey !important;
+    border-top-color: lightgrey !important;
+}
+
+.FeaturedPet {
+    width: 50% !important;
+}
+
+.FeaturedPet td {
+    border-style: hidden !important;
+};
+
+.FeaturedPetContent {
+    width: 100% !important;
+}
+
+
+.AddPetForm Table{
+    
+    width: 100%;
+    justify-content: center;
+}
+
+.AddPetForm tbody td{
+    text-align: center;
+    justify-content: center;
+}
+
+.AddPetForm tr {
+    padding-left: 30%;
+    padding-right: 30%;
+    justify-content: center;
+    width: 100%
+}
+
+.AddPetForm td{
+    border-style: hidden !important;
+    width: 100% !important;
+    justify-content: center;
+}
+
+
+
+.FeaturedPet Button {
+    margin: 1%
+}
+.AddPetForm Button {
+    margin: 1%;
+}
