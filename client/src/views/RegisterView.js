@@ -21,7 +21,6 @@ export default function RegisterView(props) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(newUser.firstname, newUser.lastname, newUser.username, newUser.email, newUser.password)
         props.registerUserCb(newUser.firstname, newUser.lastname, newUser.username, newUser.email, newUser.password)
     }
   return (
