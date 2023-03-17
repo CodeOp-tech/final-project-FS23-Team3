@@ -51,13 +51,10 @@ function App() {
     }
 
   async function registerUser(firstname, lastname, username, email, password){
-    console.log("registerUser in App", firstname, lastname, username, email, password);
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
-    console.log("myresponse", myresponse.data)
     if (myresponse.ok){
       doLogin(username, password);
     } else {
-      console.log('username, password', username, password)
       setLoginErrorMsg('Registration failed');
     }
   }
@@ -130,7 +127,7 @@ function App() {
 
                   <Route path="/to-dos" element={
                     <PrivateRoute>
-                      <ToDosView />
+                      <ToDosView pets={pets} user={user}/>
                     </PrivateRoute>
                   } />
 

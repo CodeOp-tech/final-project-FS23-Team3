@@ -21,29 +21,46 @@ let threeMonthsAway = (date) => {
       return (dateObj < future);
   }
 
-export default function ToDosView() {
+export default function ToDosView(props) {
     //appointments and todos states here ONLY includes future appointments - see getAppointments() to see filter
     const[todos, setTodos] = useState([]);
     const[appointments, setAppointments] = useState([]);
     const[pets, setPets] = useState([]);
     const [combinedList, setCombinedList] = useState([]);
     const [selectedAppt, setSelectedAppt] = useState(null);
+    const [petIds, setPetIds] = useState([])
 
     useEffect(() => {
         getTodos();
-    }, []);
+    }, [pets.length]);
 
     useEffect(() => {
         getAppointments();
     }, []);
 
     useEffect(() => {
-        getPets();
+        setPets(props.pets);
+    }, []);
+
+    useEffect(() => {
+        getOwnerPetIds();
     }, []);
 
     useEffect(() => {
         combineLists();
-    }, [appointments.length, todos.length]);
+    }, [appointments.length, todos.length, petIds.length]);
+
+    async function getOwnerPetIds() {
+        let id = props.user.id;
+        let myresponse = await Api.getOwnerPetIds(id);
+        if (myresponse.ok){
+          setPetIds(myresponse.data)
+        } else {
+          console.log(`Error! ${myresponse.error}`)
+        }
+      }
+
+    
 
     async function getTodos(){
         let myresponse = await Api.getContent('/appointments/complete-by');
@@ -63,14 +80,14 @@ export default function ToDosView() {
         }
     }
 
-    async function getPets(){
-        let myresponse = await Api.getContent('/pets');
-        if (myresponse.ok){
-            setPets(myresponse.data);
-        } else {
-            console.log(`Error! ${myresponse.error}`);
-        }
-    }
+    // async function getPets(){
+    //     let myresponse = await Api.getContent('/pets');
+    //     if (myresponse.ok){
+    //         setPets(myresponse.data);
+    //     } else {
+    //         console.log(`Error! ${myresponse.error}`);
+    //     }
+    // }
 
     function combineLists(){
         let newTodos = [...todos];
@@ -83,9 +100,11 @@ export default function ToDosView() {
             }
         }
         let newList = [...newAppointments, ...newTodos]
+        newList=newList.filter(a => petIds.includes(a.PetId))
         newList.sort(function(a,b){
             return new Date(a.date) - new Date(b.date);
           });
+          console.log(newList)
         setCombinedList(newList);
     }
 
@@ -118,7 +137,7 @@ export default function ToDosView() {
                         <tr key={a.combinedId} className={(threeMonthsAway(a.date)) ? "urgent" : null}>
                             <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{a.title}</td>
                             <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{toDate(a.date)}</td>
-                            <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{(pets.find(p => p.id === a.PetId)) ? (pets.find(p => p.id === a.PetId)).name : ""}</td>
+                            <td onClick={e => getOneTask(a.id, a.combinedId)} className="cursor-pointer">{(props.pets.find(p => p.id === a.PetId)) ? (props.pets.find(p => p.id === a.PetId)).name : ""}</td>
                         </tr>
 
                     ))
@@ -147,7 +166,7 @@ export default function ToDosView() {
                 {selectedAppt.PetId && 
                 <tr>
                     <td>Pet:</td>
-                    <td>{(pets.find(p => p.id === selectedAppt.PetId)).name}</td>
+                    <td>{(props.pets.find(p => p.id === selectedAppt.PetId)).name}</td>
                 </tr>
                 }
                 {selectedAppt.completeBy && 

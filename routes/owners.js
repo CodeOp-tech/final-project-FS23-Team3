@@ -31,21 +31,23 @@ router.get('/:id', ensureSameUser, async function(req, res, next) {
   }
 });
 
-// /* GET only pets of an owner.*/
-// router.get('/:id/pets', ensureSameUser, async function(req, res, next) {
-//   const { id } = req.params;
-//   try {
-//     const owner = await models.Owner.findOne({
-//       where: {
-//         id,
-//       },
-//     });
-//     const pets = await owner.getPets();
-//     res.send(pets);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+// /* GET only pet ids of an owner.*/
+router.get('/:id/pets', async function(req, res, next) {
+  const { id } = req.params;
+  try {
+    const owner = await models.Owner.findOne({
+      where: {
+        id,
+      },
+    });
+    const pets = await owner.getPets({
+      attributes: ['id']});
+      ids = pets.map(p => p.id);
+    res.send(ids);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 // /* POST new owner. */
 // router.post('/', async function(req, res, next) {
