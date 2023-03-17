@@ -19,6 +19,8 @@ import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
 import PetContext from './context/PetContext';
+import PastAppointment from './components/PastAppointment';
+
 
 function App() {
 
@@ -30,7 +32,9 @@ function App() {
   
 
   useEffect(() => {
-    getOwnerPets();
+    if(user){
+      getOwnerPets();
+    }
   },[])
 
   async function doLogin(username, password) {
@@ -51,10 +55,13 @@ function App() {
     }
 
   async function registerUser(firstname, lastname, username, email, password){
+    console.log("registerUser in App", firstname, lastname, username, email, password);
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
+    console.log("myresponse", myresponse.data)
     if (myresponse.ok){
-      doLogin(username, password)
+      doLogin(username, password);
     } else {
+      console.log('username, password', username, password)
       setLoginErrorMsg('Registration failed');
     }
   }
@@ -84,11 +91,12 @@ function App() {
       {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
         <Routes>
-                  <Route path="/" element={
-                    <PrivateRoute>
-                      <HomeView/>
-                    </PrivateRoute>
-                  } />
+
+              <Route path="/" element={
+                <PrivateRoute>
+                  <HomeView user={user}/>
+                </PrivateRoute>
+              } />
 
                   <Route path= "/pets" element={
                       <PrivateRoute>
@@ -99,7 +107,7 @@ function App() {
                     } 
                   />
 
-              <Route path= "/addpet" element={
+              <Route path= "/addpets" element={
                 <PrivateRoute>
                   <AddPetForm 
                     user= {user} 
@@ -144,7 +152,7 @@ function App() {
 
         <Route path="/add-appointment" element={
           <PrivateRoute>
-            <AddAppointmentForm pets={pets} />
+            <PastAppointment pets={pets} />
           </PrivateRoute>
         } />
 

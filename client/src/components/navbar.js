@@ -13,7 +13,7 @@ export default function NavBar(props) {
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
 
-        <Navbar.Brand href="#home">petAppProject</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">petAppProject</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -23,11 +23,11 @@ export default function NavBar(props) {
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
                 <NavDropdown.Item href="/pets">All my pets</NavDropdown.Item>
-                <NavDropdown.Item href="/addpets">Add a pet</NavDropdown.Item>
+                {/* <NavDropdown.Item href="/addpets">Add a pet</NavDropdown.Item> */}
                 </NavDropdown>
 
                 <NavDropdown title="My to-do's" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#UrgentListView">Urgent tasks</NavDropdown.Item>
+                {/* <NavDropdown.Item href="#UrgentListView">Urgent tasks</NavDropdown.Item> */}
                 <NavDropdown.Item as={Link} to="/to-dos">All to-do's</NavDropdown.Item>
                 </NavDropdown>
 
@@ -43,7 +43,8 @@ export default function NavBar(props) {
             props.user
             ?   <Nav className="justify-content-end">
                     <Navbar.Text>
-                        <Nav.Link as={Link} to={`/users/${props.user.id}`} >
+                        {/* <Nav.Link as={Link} to={`/users/${props.user.id}`} > */}
+                        <Nav.Link as={Link} to={`/`} >
                             Profile: {props.user.firstname} {props.user.lastname}
                         </Nav.Link>
                     </Navbar.Text>

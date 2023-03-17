@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-//import "./addPetForm.css";
+
 
 const EMPTY_FORM = {
     name: "",
@@ -88,53 +88,59 @@ function AddPetForm(props) {
 
     return (
 
-        <Table className ="addPetForm" responsive="sm">
+        <Table responsive="sm">
              <InputGroup>
                 <tr>
-                    <Form.Control 
-                        key = "name"
-                        placeholder = "Pet's name"
-                        type = "text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                    />
+                    
+                        Name:
+                        <Form.Control 
+                            key = "name"
+                            placeholder = "Pet's name"
+                            type = "text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                        />
+                    
                 </tr>
                 <tr>
-                    <Form.Select 
-                        key = "type"
-                        type = "text"
-                        name="type"
-                        value={formData.type}
-                        onChange={handleChange}>
-                            <option>Select animal type</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                            <option value="horse">Horse</option>
-                            <option value="other">Other</option>
-                    </Form.Select>
+                        Type of animal:
+                        <Form.Select 
+                            key = "type"
+                            type = "text"
+                            name="type"
+                            value={formData.type}
+                            onChange={handleChange}>
+                                <option>Select animal type</option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="horse">Horse</option>
+                                <option value="other">Other</option>
+                        </Form.Select>
                 </tr>
                 <tr>
-                    <Form.Control 
-                        key = "age"
-                        placeholder = "age"
-                        type = "number"
-                        name="age"
-                        value={formData.age}
-                        onChange={handleChange}
-                    />
+                        Age:
+                        <Form.Control 
+                            key = "age"
+                            placeholder = "age"
+                            type = "number"
+                            name="age"
+                            value={formData.age}
+                            onChange={handleChange}
+                        />
                 </tr>
                 <tr>
-                    <Form.Select 
-                        key = "sex"
-                        type = "text"
-                        name="sex"
-                        value={formData.sex}
-                        onChange={handleChange}>
-                            <option>Select gender</option>
-                            <option value="M">male</option>
-                            <option value="F">female</option>
-                    </Form.Select>
+                        Gender:
+                        <Form.Select 
+                            key = "sex"
+                            type = "text"
+                            name="sex"
+                            value={formData.sex}
+                            onChange={handleChange}>
+                                <option>Select gender</option>
+                                <option value="M">male</option>
+                                <option value="F">female</option>
+                        </Form.Select>
                 </tr>
                 <tr>
                     <Button
