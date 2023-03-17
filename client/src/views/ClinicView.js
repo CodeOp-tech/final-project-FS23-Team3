@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import MakeAppointmentForm from "../components/MakeAppointmentForm.js";
 import Nav from 'react-bootstrap/Nav';
@@ -43,7 +43,7 @@ export default function ClinicView(props) {
                           Phone: {vet.display_phone}
                         </Card.Text>
                         <Button variant="primary">Add to favorites</Button>
-                        <Button variant="primary" onClick={handleShow}>Make appointment</Button>
+                        <Button variant="primary" onClick={handleShow}>Plan appointment</Button>
                       </Card.Body>
                     </Card>
                       ))
@@ -53,21 +53,18 @@ export default function ClinicView(props) {
               </Col>
           </Row>
         
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose} >
               <Modal.Header closeButton>
-                <Modal.Title>Add appointment to your tasks</Modal.Title>
+                <Modal.Title>Add appointment to your to-do's</Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
-                <Outlet />
+                <MakeAppointmentForm />
               </Modal.Body>
 
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                   Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                  Save Appointment
                 </Button>
               </Modal.Footer>
           </Modal>

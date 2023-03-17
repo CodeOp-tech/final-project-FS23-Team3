@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Button from 'react-bootstrap/Button';
 
 import Form from 'react-bootstrap/Form';
@@ -7,42 +7,54 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import { Link, Outlet } from 'react-router-dom';
+import PetContext from '../context/PetContext';
+
 
 export default function MakeAppointmentForm() {
+    const pets = useContext(PetContext);
+    
   return (
     <Container className="MakeAppointmentForm">
-      
       <Row>
         <Form >
-              {/* <Col>
-                  
-                  <Form.Group className="mb-3" controlId="formLocation">
+              <Row>
+                  <Form.Group className="mb-3" controlId="formTitle">
                     <Form.Label></Form.Label>
-                    <Form.Control onChange={handleLocation} type="text" name="city" value={location} placeholder="Enter your current location" />
+                    <Form.Control type="text" name="title" placeholder="Enter purpose of appointment." />
                     <Form.Text className="text-muted">
-                      We'll search for vets in the area you specify.
+                      What is the purpose of this appointment?
                     </Form.Text>
                   </Form.Group>    
-            
-              </Col>
-              <Col>
-          
-                  <Form.Group className="mb-3" controlId="formDistance">
-                    <Form.Label></Form.Label>
-                    <Form.Control onChange={handleDistance} type="text" name="distance" value={distance} placeholder="Specify distance in meters to current location" />
-                    <Form.Text className="text-muted">
-                      We'll search for vets in this radius of your current location.
-                    </Form.Text>
-                  </Form.Group>    
-          
-              </Col> */}
-              <Col>
+              </Row>
+
+              <Row>
+                    <Form.Group className="mb-3" controlId="formTitle">
+                        <Form.Label></Form.Label>
+                        {/* <Form.Control onChange={handlePet} name="pet" value={pet} /> */}
+                        <Form.Select aria-label="petDropdown">
+                            <option>Select a pet</option>
+                            {
+                                pets.map(p => (
+                                    <option value={p.id}>{p.name}</option>
+                                ))
+                            }
+                        </Form.Select> 
+                    </Form.Group>
+              </Row>
+
+              <Row>
+                    <Form.Group className="mb-3" controlId="formDate">
+                    <Form.Control key="date" type="date" name= "date"  />
+                    </Form.Group> 
+              </Row>
+
+              <Row>
                 <Button variant="primary" type="submit">
-                    Save
+                    Add appointment to to-do's
                 </Button>
-              </Col>
+              </Row>
         </Form> 
-      </Row>
+      </Row> 
     </Container>
   )
 }
