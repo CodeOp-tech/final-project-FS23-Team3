@@ -19,7 +19,7 @@ export default function PastAppointment(props) {
       async function addNewAppointment(newAppt){
         let myresponse = await Api.addAppointment(newAppt);
         if (myresponse.ok){
-          setApptSummary(myresponse.data)
+          return
         } else {
           console.log(`Error! ${myresponse.error}`)
         }
