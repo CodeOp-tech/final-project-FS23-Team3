@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
         },
       });
 
-      res.status(201).send( pets );
+      res.send( pets );
 
     } catch (error) {
 

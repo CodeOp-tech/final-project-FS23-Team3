@@ -13,7 +13,7 @@ export default function HomeView(props) {
     <div className="HomeView">
       <div className="Main-home-items">
         <Link to="/to-dos" style={{ textDecoration: 'none', color:"black" }}>
-            <UrgentToDos/>
+            <UrgentToDos user={props.user}/>
         </Link> 
         <div>
           <Link to="/pets" style={{ textDecoration: 'none', color:"black" }}>
