@@ -16,6 +16,15 @@ export default function PastAppointment(props) {
         }
       }
 
+      async function addNewAppointment(newAppt){
+        let myresponse = await Api.addAppointment(newAppt);
+        if (myresponse.ok){
+          setApptSummary(myresponse.data)
+        } else {
+          console.log(`Error! ${myresponse.error}`)
+        }
+      }
+
     const handleChangeView = () => {
         setFormViewToggle(false);
       };
@@ -27,7 +36,9 @@ export default function PastAppointment(props) {
             ? <AddAppointmentForm 
                 pets={props.pets} 
                 handleChangeCb={e => handleChangeView()}
-                addAppointmentCb={appointment => addAppointmentInfo(appointment)}/>
+                addAppointmentCb={appointment => addAppointmentInfo(appointment)}
+                addNewAppointmentCb={newAppt => addNewAppointment(newAppt)}
+                />
             : <AppointmentSummary pets={props.pets} appointment={appointmentSummary}/>
         }
     </div>
