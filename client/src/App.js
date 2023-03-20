@@ -20,6 +20,7 @@ import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
 import PetContext from './context/PetContext';
 import PastAppointment from './components/PastAppointment';
+import AllPetAppointmentLog from './components/AllPetAppointmentLog';
 
 
 function App() {
@@ -150,6 +151,12 @@ function App() {
         <Route path="/add-appointment" element={
           <PrivateRoute>
             <PastAppointment pets={pets} />
+          </PrivateRoute>
+        } />
+
+        <Route path="/appointments/:id" element={
+          <PrivateRoute>
+            <AllPetAppointmentLog pets={pets}/>
           </PrivateRoute>
         } />
 

@@ -42,7 +42,7 @@ router.get('/:id', async function(req, res, next) {
       where: {
         id,
       },
-      include: [models.Clinic, models.Appointment]
+      include: [models.Appointment, models.Clinic]
     });
     res.send(pet);
   } catch (error) {
