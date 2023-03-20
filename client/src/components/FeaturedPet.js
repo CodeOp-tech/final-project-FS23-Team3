@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
 
 import AddPetForm from "./AddPetForm";
 
@@ -73,9 +74,9 @@ export default function FeaturedPet(props) {
                     <p>Breed: {props.featPet.breed}</p>
                 </div>
             
-            <Button>
-                Add appointment
-            </Button>
+            <Link to="add-appointment" className="btn btn-primary">Add appointment info</Link>
+
+            <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
 
             <Button 
                 onClick= {e => handleEditClick()}
