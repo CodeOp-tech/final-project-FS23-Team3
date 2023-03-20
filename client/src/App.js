@@ -36,7 +36,7 @@ function App() {
     if(user){
       getOwnerPets();
     }
-  },[])
+  },[user]);
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
