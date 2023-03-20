@@ -96,7 +96,7 @@ function App() {
                     } 
                   />
 
-              <Route path= "/addpet" element={
+              <Route path= "/addpets" element={
                 <PrivateRoute>
                   <AddPetForm 
                     user= {user} 
