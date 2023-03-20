@@ -74,7 +74,7 @@ export default function FeaturedPet(props) {
                     <p>Breed: {props.featPet.breed}</p>
                 </div>
             
-            <Link to="add-appointment" className="btn btn-primary">Add appointment info</Link>
+            <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
 
             <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
 
