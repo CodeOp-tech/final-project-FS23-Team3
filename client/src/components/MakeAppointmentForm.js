@@ -1,26 +1,75 @@
 import React, {useState, useContext} from 'react';
-import Button from 'react-bootstrap/Button';
+import { useParams } from 'react-router-dom';
 
+import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
-import { Link, Outlet } from 'react-router-dom';
 import PetContext from '../context/PetContext';
 
+const EMPTY_FORM = {
+    date: '',
+    title: '',
+    PetId: ''
+  }
 
-export default function MakeAppointmentForm() {
+export default function MakeAppointmentForm(props) {
+    const { id } = useParams();
     const pets = useContext(PetContext);
+    const [formData, setFormData] = useState(EMPTY_FORM);
+    const [appointment, setAppointment] = useState([])
+
+   //handleForm add form input to create new appointment with PetId and ClinicId
+   //add association between clinics and appointments: appt. has one clinic, clinic can have many appt.
     
-  return (
+   function handleChange(event) {
+        let { name, value } = event.target;
+        setFormData(data => ({...data, [name]: value}));
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        addAppointment(formData);
+        setFormData(EMPTY_FORM)
+    }
+
+   async function addAppointment(appointment) {
+    let vet = props.vets.businesses.find(v => v.id === id);
+
+    let options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(appointment),
+    }
+
+    try {
+        let response = await fetch (`/api/appointments/${vet.id}`, options);
+        if (response.ok) {
+            let appointment = await response.json();
+            setAppointment(appointment);
+        } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+        }
+    } catch (err) {
+        console.log(`Server Error: ${err.message}`);
+    }
+
+  }
+  
+   return (
     <Container className="MakeAppointmentForm">
       <Row>
-        <Form >
+        <Form onSubmit={handleSubmit}>
               <Row>
                   <Form.Group className="mb-3" controlId="formTitle">
                     <Form.Label></Form.Label>
-                    <Form.Control type="text" name="title" placeholder="Enter purpose of appointment." />
+                        <Form.Control   type="text" 
+                                        name="title" 
+                                        value={formData.title}
+                                        placeholder="Enter title" 
+                                        onChange={handleChange}/>
                     <Form.Text className="text-muted">
                       What is the purpose of this appointment?
                     </Form.Text>
@@ -30,8 +79,11 @@ export default function MakeAppointmentForm() {
               <Row>
                     <Form.Group className="mb-3" controlId="formTitle">
                         <Form.Label></Form.Label>
-                        {/* <Form.Control onChange={handlePet} name="pet" value={pet} /> */}
-                        <Form.Select aria-label="petDropdown">
+                        <Form.Select aria-label="petDropdown"
+                                    name="PetId"
+                                    value={formData.PetId}
+                                    onChange={handleChange}           
+                            >
                             <option>Select a pet</option>
                             {
                                 pets.map(p => (
@@ -44,13 +96,13 @@ export default function MakeAppointmentForm() {
 
               <Row>
                     <Form.Group className="mb-3" controlId="formDate">
-                    <Form.Control key="date" type="date" name= "date"  />
+                    <Form.Control key="date" type="date" name= "date" value={formData.date} onChange={handleChange} />
                     </Form.Group> 
               </Row>
 
               <Row>
                 <Button variant="primary" type="submit">
-                    Add appointment to to-do's
+                    Add appointment
                 </Button>
               </Row>
         </Form> 

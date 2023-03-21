@@ -50,15 +50,15 @@ router.get('/:id/clinics', async function(req, res, next) {
 //--------POSTS------------
 
 /* POST new clinic. */
-router.post('/', async function(req, res, next) {
-  const { name, contactPhone, latitude, longitude, address } = req.body;
+router.post('/:clinicKey', async function(req, res, next) {
+  const { clinicKey } = req.params;
+  const { name, contactPhone, address } = req.body;
   try {
     const clinic = await models.Clinic.create({
       name, 
       contactPhone, 
-      latitude, 
-      longitude,
-      address
+      address,
+      clinicKey
     });
     res.status(201).send(clinic);
   } catch (error) {
@@ -67,7 +67,7 @@ router.post('/', async function(req, res, next) {
 });
 
   /* POST new clinic associated to pet. */
-  router.post('/:id/clinics', async function(req, res, next) {
+  router.post('/:id/pet', async function(req, res, next) {
     const { id } = req.params;
     const { name, contactPhone, latitude, longitude, address } = req.body;
     try {

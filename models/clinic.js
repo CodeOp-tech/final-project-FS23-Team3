@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Clinic.belongsToMany(models.Pet, { through: "petsClinics" });
+      Clinic.hasMany(models.Appointment);
     }
   }
   Clinic.init({
@@ -19,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     contactPhone: DataTypes.INTEGER,
     latitude: DataTypes.DECIMAL,
     longtitude: DataTypes.DECIMAL,
-    address: DataTypes.STRING
+    address: DataTypes.STRING,
+    clinicKey: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Clinic',
