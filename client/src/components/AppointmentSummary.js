@@ -39,8 +39,8 @@ export default function AppointmentSummary(props) {
     }
 
   return (
-    // <div>
-    // {appointment && 
+    <div>
+    {appointment && 
         <div>
         {!showForm ?
         <div>
@@ -49,35 +49,35 @@ export default function AppointmentSummary(props) {
             <div className="submitted">        
                 <div>
                     <p>Date:</p>
-                    <p>{(props.appointment.date) ? props.appointment.date.slice(0,10) : props.appointment.date}</p>
+                    <p>{(appointment.date) ? appointment.date.slice(0,10) : appointment.date}</p>
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
-                    <p>{props.appointment.clinicName}</p>
+                    <p>{appointment.clinicName}</p>
                 </div>
                 <div>
                     <p>Which pet?</p>
-                    <p>{(props.pets.find(p => +p.id === +props.appointment.PetId)) ? (props.pets.find(p => +p.id === +props.appointment.PetId)).name : ''}</p>
+                    <p>{(props.pets.find(p => +p.id === +appointment.PetId)) ? (props.pets.find(p => +p.id === +appointment.PetId)).name : ''}</p>
                 </div>
                 <div>
                     <p>Next steps for owner:</p>
-                    <p>{props.appointment.nextSteps}</p>
+                    <p>{appointment.nextSteps}</p>
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
-                    <p>{(props.appointment.completeBy) ? props.appointment.completeBy.slice(0,10) : props.appointment.completeBy}</p>
+                    <p>{(appointment.completeBy) ? appointment.completeBy.slice(0,10) : appointment.completeBy}</p>
                 </div>
                 <div>
                     <p>Follow up appointment:</p>
-                    <p>{(props.appointment.followups) ? props.appointment.followups.slice(0,10) : props.appointment.followups}</p>
+                    <p>{(appointment.followups) ? appointment.followups.slice(0,10) : appointment.followups}</p>
                 </div>
                 <div>
                     <p>Appointment topic:</p>
-                    <p>{props.appointment.title}</p>
+                    <p>{appointment.title}</p>
                 </div>
                 <div>
                     <p>Appointment summary:</p>
-                    <p>{props.appointment.summary}</p>
+                    <p>{appointment.summary}</p>
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@ export default function AppointmentSummary(props) {
         />
         }
     </div>
-    // }
-    // </div>
+    }
+    </div>
   )
 }

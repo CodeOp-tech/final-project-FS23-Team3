@@ -6,7 +6,7 @@ let toDate = (date) => {
     let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
     let dateObj = new Date(dateFormatted);
     let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
-    let day = dateObj.getUTCDate();
+    let day = dateObj.getUTCDate() + 1;
     let year = dateObj.getUTCFullYear();
     return (`${month} ${day}, ${year}`);
 }
@@ -104,7 +104,6 @@ export default function ToDosView(props) {
         newList.sort(function(a,b){
             return new Date(a.date) - new Date(b.date);
           });
-          console.log(newList)
         setCombinedList(newList);
     }
 

@@ -25,7 +25,7 @@ router.get('/', async function(req, res, next) {
         },
       });
 
-      res.status(201).send( pets );
+      res.send( pets );
 
     } catch (error) {
 
@@ -42,7 +42,7 @@ router.get('/:id', async function(req, res, next) {
       where: {
         id,
       },
-      include: [models.Clinic, models.Appointment]
+      include: [models.Appointment, models.Clinic]
     });
     res.send(pet);
   } catch (error) {
