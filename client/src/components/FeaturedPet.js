@@ -1,43 +1,21 @@
 import React, { useState, useEffect } from "react";
+import Image from 'react-bootstrap/Image';
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useNavigate } from "react-router-dom";
+import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import AddPetForm from "./AddPetForm";
 
 export default function FeaturedPet(props) {
-   //const [featPet,setFeatPet] = useState(props.featPet || null);
     const [showForm, setShowForm] = useState(false);
     const [editedPet, setEditedPet] = useState(null);
 
-    // useEffect(() => {
-    //     findPet();
-    // }, []);
 
     function handleEditClick() {
         setEditedPet(props.featPet);
         setShowForm(true)
     }
-
-    // const findPet = async () => {
-    //     try{
-
-    //       let response = await fetch(`/api/pets/${props.featPetId}`);
-  
-    //       if (response.ok) {
-    //         let pet = await response.json();
-    //         setFeatPet(pet);
-
-    //       } else {
-    //         console.log(`Server error: ${response.status} ${response.statusText}`);
-    //       }
-    //     } catch (err) {
-    //       console.log(`Server Error`);
-    //     }
-    // }
   
 
     // function handleDelete(id) {
@@ -67,10 +45,11 @@ export default function FeaturedPet(props) {
         {props.featPet && !showForm ?
         <div>
                 <div>
+                    {/* <CloseButton /> */}
                     <h2>{props.featPet.name}</h2>
+                    <Image src={props.featPet.img_url} alt={props.featPet.name}/>
                     <p>Type: {props.featPet.type}</p>
                     <p>Age: {props.featPet.age}</p>
-                    <p>Breed: {props.featPet.breed}</p>
                 </div>
             
             <Button>

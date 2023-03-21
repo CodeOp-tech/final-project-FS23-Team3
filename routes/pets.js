@@ -37,12 +37,16 @@ router.get('/', async function(req, res, next) {
 
     try {
       const pets = await models.Pet.findAll({
+        raw: true,
+
         where: {
           OwnerId: id
         },
       });
+      
+      let petsWithUrls = pets.map(r => ({...r, img_url: `${PUBLIC_DIR_URL}/${r.img_filename}`}));
 
-      res.status(201).send( pets );
+      res.status(201).send( petsWithUrls );
 
     } catch (error) {
 
@@ -100,7 +104,7 @@ router.post('/:id/pets', upload.single('img_filename'), async function(req, res,
 
 router.put('/:id',upload.single('img_filename'), async function(req, res, next) {
   const { id } = req.params;
-  const { name, type, age, sex, img_filename } = req.body;
+  const { name, type, age, sex } = req.body;
   try {
     const pet = await models.Pet.findOne({
       where: {
@@ -108,9 +112,8 @@ router.put('/:id',upload.single('img_filename'), async function(req, res, next) 
       },
     });
 
-    const updPet = await pet.update({ name, type, age, sex, img_filename});
+    const updPet = await pet.update({ name, type, age, sex, img_filename: req.file.originalname });
     res.send(updPet);
-
 
   } catch (err) {
     res.status(500).send({error: err.message});
@@ -119,21 +122,21 @@ router.put('/:id',upload.single('img_filename'), async function(req, res, next) 
 
 //----------DELETE-----------
 
-// router.delete('/:id', ensureSameUser, async function(req, res, next) {
-//   const { id } = req.params;
-//   try {
-//     await models.Pet.destroy({
-//       where: {
-//         id,
-//       },
-//     });
+router.delete('/:id', async function(req, res, next) {
+  const { id } = req.params;
+  try {
+    await models.Pet.destroy({
+      where: {
+        id,
+      },
+    });
 
-//     const owners = await models.Owner.findAll();
-//     res.send(owners);
+    const pets = await models.Pet.findAll();
+    res.send(pets);
 
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 module.exports = router;
