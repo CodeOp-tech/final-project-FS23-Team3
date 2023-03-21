@@ -94,15 +94,14 @@ export default function AllClinicsView() {
 
       <Row>
         <div style={{display: "flex", textAlign: "left"}}>
-          <Col>
+          <Col xs={8}>
             <ul style={{listStyle:"none"}}>
               {
                 vets
                 ? vets.businesses.map(vet => (
-                  <li key={vet.id}>
+                  <li key={vet.id} style={{padding: "5px"}}>
 
-                    Clinic: {vet.name},
-                    Distance: {Math.floor(`${vet.distance}`)}m,
+                    {vet.name} | Distance: {Math.floor(`${vet.distance}`)}m,
 
                     <Badge bg="secondary">
                       <Nav.Link as={Link} to={`/clinics/${vet.id}`}>

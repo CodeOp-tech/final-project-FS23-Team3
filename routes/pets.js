@@ -56,9 +56,7 @@ router.get('/:id', async function(req, res, next) {
 router.post('/:id/pets', async function(req, res, next) {
   const { id } = req.params;
 
-
   const { name, type, age, sex } = req.body;
-
 
   try {
     const owner = await models.Owner.findOne({

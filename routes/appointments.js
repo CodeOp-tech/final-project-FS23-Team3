@@ -156,6 +156,27 @@ router.post('/', async function(req, res, next) {
     }
   });
 
+  /* POST new appointment associated to pet and clinic. */
+  router.post('/:clinicKey', async function(req, res, next) {
+    let { clinicKey } = req.params;
+    const { date, title, PetId } = req.body;
+    try {
+      const clinic = await models.Clinic.findOne({
+        where: {
+          clinicKey,
+        },
+      });
+      const appointment = await clinic.createAppointment({
+        date, 
+        title,  
+        PetId
+      });
+      res.status(201).send(appointment);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
 //----------PUTS---------
 
 /* PUT existing appointment. */
