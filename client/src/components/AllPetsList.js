@@ -56,7 +56,6 @@ export default function AllPetsList(props) {
     function handleClick(id) {
         setFeatPetId(id);
         setFeatPet (pets.find(p => p.id === id));
-        console.log(featPet);
     }
 
     return (
