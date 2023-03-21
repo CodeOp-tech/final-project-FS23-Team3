@@ -18,27 +18,27 @@ export default function FeaturedPet(props) {
     }
   
 
-    // function handleDelete(id) {
-    //     const deletePet = async (data) => {
-    //         try {
-    //           let options = {
-    //             method: "PATCH",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify(data),
-    //           };
+    async function handleDelete(id) {
+    
+        try {
+          let options = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          };
       
-    //           let response = await fetch(`/api/pets/${props.featPet.id}`, options);
+          let response = await fetch(`/api/pets/${props.featPet.id}`, options);
       
-    //           if (response.ok) {
-    //             //Not sure what we want to do here yet, if anything
-    //           } else {
-    //             console.log(`Server error: ${response.status} ${response.statusText}`);
-    //           }
-    //         } catch (err) {
-    //           console.log(`Server Error`);
-    //         }
-    //       };
-    // }
+          if (response.ok) {
+            props.getPets();
+            props.setFeatPet(null);
+          } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+          }
+        } catch (err) {
+          console.log(`Server Error`);
+        }
+
+    }
 
     return(
         <div>
@@ -63,7 +63,7 @@ export default function FeaturedPet(props) {
             </Button>
 
             <Button variant="danger"
-                // onClick= {e => handleDelete(fp.id)}
+                onClick= {e => handleDelete(props.featPet.id)}
                 >Delete animal
             </Button>
         </div>
