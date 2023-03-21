@@ -4,13 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const EMPTY_FORM = {
-  date: '',
+  date: null,
   title: '',
   ClinicId:'',
   summary: '',
   nextSteps: '',
-  completeBy: '',
-  followups: '',
+  completeBy: null,
+  followups: null,
   PetId: ''
 }
 
