@@ -6,20 +6,21 @@ let toDate = (date) => {
     let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
     let dateObj = new Date(dateFormatted);
     let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
-    let day = dateObj.getUTCDate();
+    let day = dateObj.getUTCDate() + 1;
     let year = dateObj.getUTCFullYear();
     return (`${month} ${day}, ${year}`);
 }
 
-export default function UrgentToDos() {
+export default function UrgentToDos(props) {
     const[urgentTodos, setUrgentTodos] = useState([]);
     const[urgentAppointments, setUrgentAppointments] = useState([]);
     const[pets, setPets] = useState([]);
     const [combinedList, setCombinedList] = useState([]);
+    const [petIds, setPetIds] = useState([]);
 
     useEffect(() => {
         getTodos();
-    }, []);
+    }, [pets.length]);
 
     useEffect(() => {
         getAppointments();
@@ -30,8 +31,12 @@ export default function UrgentToDos() {
     }, []);
 
     useEffect(() => {
+        getOwnerPetIds();
+    }, []);
+
+    useEffect(() => {
         combineLists();
-    }, [urgentAppointments.length, urgentTodos.length]);
+    }, [urgentAppointments.length, urgentTodos.length, petIds.length]);
 
     async function getTodos(){
         let myresponse = await Api.getContent('/appointments/urgent');
@@ -41,6 +46,16 @@ export default function UrgentToDos() {
             console.log(`Error! ${myresponse.error}`);
         }
     }
+
+    async function getOwnerPetIds() {
+        let id = props.user.id;
+        let myresponse = await Api.getOwnerPetIds(id);
+        if (myresponse.ok){
+          setPetIds(myresponse.data)
+        } else {
+          console.log(`Error! ${myresponse.error}`)
+        }
+      }
     
     async function getAppointments(){
         let myresponse = await Api.getContent('/appointments/urgent-appts');
@@ -70,7 +85,8 @@ export default function UrgentToDos() {
                 appointment.title = "Appointment"
             }
         }
-        let newList = [...newAppointments, ...newTodos]
+        let newList = [...newAppointments, ...newTodos];
+        newList=newList.filter(a => petIds.includes(+a.PetId));
         newList.sort(function(a,b){
             return new Date(a.date) - new Date(b.date);
           });

@@ -4,6 +4,7 @@ import Table from 'react-bootstrap/Table';
 import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import { Link } from "react-router-dom";
 
 import AddPetForm from "./AddPetForm";
 
@@ -52,9 +53,9 @@ export default function FeaturedPet(props) {
                     <p>Age: {props.featPet.age}</p>
                 </div>
             
-            <Button>
-                Add appointment
-            </Button>
+            <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
+
+            <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
 
             <Button 
                 onClick= {e => handleEditClick()}

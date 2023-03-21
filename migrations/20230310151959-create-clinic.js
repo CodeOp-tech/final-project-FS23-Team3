@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       contactPhone: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       latitude: {
         type: Sequelize.DECIMAL
@@ -22,6 +22,9 @@ module.exports = {
         type: Sequelize.DECIMAL
       },
       address: {
+        type: Sequelize.STRING
+      },
+      clinicKey: {
         type: Sequelize.STRING
       },
       createdAt: {

@@ -63,7 +63,7 @@ router.get('/:id', async function(req, res, next) {
       where: {
         id,
       },
-      include: [models.Clinic, models.Appointment]
+      include: [models.Appointment, models.Clinic]
     });
     res.send(pet);
   } catch (error) {
@@ -76,8 +76,9 @@ router.get('/:id', async function(req, res, next) {
 /* POST new pet associated to owner. */
 router.post('/:id/pets', upload.single('img_filename'), async function(req, res, next) {
   const { id } = req.params;
-  const { name, type, age, sex } = req.body;
 
+
+  const { name, type, age, sex } = req.body;
 
   try {
     const owner = await models.Owner.findOne({

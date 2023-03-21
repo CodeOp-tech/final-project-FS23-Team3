@@ -32,6 +32,31 @@ router.get('/:id/appointments', async function(req, res, next) {
   }
 });
 
+/* GET all appointments of a pet on a given date.*/
+router.get('/:id/:date', async function(req, res, next) {
+  const { id } = req.params;
+  const { date } = req.params;
+  const beginningOfDay = date + "T00:00:00.000Z";
+  const endOfDay = date + "T23:59:59.000Z";
+  try {
+    const pet = await models.Pet.findOne({
+      where: {
+        id
+      },
+    });
+    const appointments = await pet.getAppointments({
+      where: {date: {
+          [Op.gte]: beginningOfDay,
+          [Op.lte]: endOfDay,
+        },
+      }
+    });
+    res.send(appointments);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 /* GET all future appointments order by date. */
 router.get('/future', async function(req, res, next) {
   const today = new Date();
@@ -148,6 +173,27 @@ router.post('/', async function(req, res, next) {
         nextSteps, 
         completeBy, 
         followups, 
+        PetId
+      });
+      res.status(201).send(appointment);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+  /* POST new appointment associated to pet and clinic. */
+  router.post('/:clinicKey', async function(req, res, next) {
+    let { clinicKey } = req.params;
+    const { date, title, PetId } = req.body;
+    try {
+      const clinic = await models.Clinic.findOne({
+        where: {
+          clinicKey,
+        },
+      });
+      const appointment = await clinic.createAppointment({
+        date, 
+        title,  
         PetId
       });
       res.status(201).send(appointment);

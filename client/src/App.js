@@ -18,6 +18,10 @@ import ClinicView from "./views/ClinicView"
 import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
+import PetContext from './context/PetContext';
+import PastAppointment from './components/PastAppointment';
+import AllPetAppointmentLog from './components/AllPetAppointmentLog';
+
 
 function App() {
 
@@ -26,9 +30,13 @@ function App() {
   const navigate = useNavigate();
   const [pets, setPets] = useState([]);
 
+  
+
   useEffect(() => {
-    getOwnerPets();
-  },[])
+    if(user){
+      getOwnerPets();
+    }
+  },[user]);
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -50,7 +58,7 @@ function App() {
   async function registerUser(firstname, lastname, username, email, password){
     let myresponse = await Api.registerUser(firstname, lastname, username, email, password);
     if (myresponse.ok){
-      doLogin(username, password)
+      doLogin(username, password);
     } else {
       setLoginErrorMsg('Registration failed');
     }
@@ -81,11 +89,12 @@ function App() {
       {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
         <Routes>
-                  <Route path="/" element={
-                    <PrivateRoute>
-                      <HomeView/>
-                    </PrivateRoute>
-                  } />
+
+              <Route path="/" element={
+                <PrivateRoute>
+                  <HomeView user={user}/>
+                </PrivateRoute>
+              } />
 
                   <Route path= "/pets" element={
                       <PrivateRoute>
@@ -115,7 +124,9 @@ function App() {
                   >
                           <Route path=':id' element={
                             <PrivateRoute>
-                              <ClinicView />
+                              <PetContext.Provider value={pets}>
+                                <ClinicView />
+                              </PetContext.Provider>
                             </PrivateRoute>
                             } 
                           />
@@ -123,7 +134,7 @@ function App() {
 
                   <Route path="/to-dos" element={
                     <PrivateRoute>
-                      <ToDosView />
+                      <ToDosView pets={pets} user={user}/>
                     </PrivateRoute>
                   } />
 
@@ -139,7 +150,13 @@ function App() {
 
         <Route path="/add-appointment" element={
           <PrivateRoute>
-            <AddAppointmentForm pets={pets} />
+            <PastAppointment pets={pets} />
+          </PrivateRoute>
+        } />
+
+        <Route path="/appointments/:id" element={
+          <PrivateRoute>
+            <AllPetAppointmentLog pets={pets}/>
           </PrivateRoute>
         } />
 

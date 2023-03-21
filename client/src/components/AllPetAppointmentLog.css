@@ -1,0 +1,11 @@
+.appt-log-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 70%;
+    margin: 0 auto;
+    gap:30px;
+}
+
+.AllPetAppointmentLog h1 {
+    margin: 20px 0px;
+}
