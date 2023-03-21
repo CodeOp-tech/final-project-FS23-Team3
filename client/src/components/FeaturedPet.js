@@ -1,77 +1,56 @@
 import React, { useState, useEffect } from "react";
+import Image from 'react-bootstrap/Image';
 import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useNavigate } from "react-router-dom";
+import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
 
 import AddPetForm from "./AddPetForm";
 
 export default function FeaturedPet(props) {
-   //const [featPet,setFeatPet] = useState(props.featPet || null);
     const [showForm, setShowForm] = useState(false);
     const [editedPet, setEditedPet] = useState(null);
 
-    // useEffect(() => {
-    //     findPet();
-    // }, []);
 
     function handleEditClick() {
         setEditedPet(props.featPet);
         setShowForm(true)
     }
-
-    // const findPet = async () => {
-    //     try{
-
-    //       let response = await fetch(`/api/pets/${props.featPetId}`);
-  
-    //       if (response.ok) {
-    //         let pet = await response.json();
-    //         setFeatPet(pet);
-
-    //       } else {
-    //         console.log(`Server error: ${response.status} ${response.statusText}`);
-    //       }
-    //     } catch (err) {
-    //       console.log(`Server Error`);
-    //     }
-    // }
   
 
-    // function handleDelete(id) {
-    //     const deletePet = async (data) => {
-    //         try {
-    //           let options = {
-    //             method: "PATCH",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify(data),
-    //           };
+    async function handleDelete(id) {
+    
+        try {
+          let options = {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+          };
       
-    //           let response = await fetch(`/api/pets/${props.featPet.id}`, options);
+          let response = await fetch(`/api/pets/${props.featPet.id}`, options);
       
-    //           if (response.ok) {
-    //             //Not sure what we want to do here yet, if anything
-    //           } else {
-    //             console.log(`Server error: ${response.status} ${response.statusText}`);
-    //           }
-    //         } catch (err) {
-    //           console.log(`Server Error`);
-    //         }
-    //       };
-    // }
+          if (response.ok) {
+            props.getPets();
+            props.setFeatPet(null);
+          } else {
+            console.log(`Server error: ${response.status} ${response.statusText}`);
+          }
+        } catch (err) {
+          console.log(`Server Error`);
+        }
+
+    }
 
     return(
         <div>
         {props.featPet && !showForm ?
         <div>
                 <div>
+                    {/* <CloseButton /> */}
                     <h2>{props.featPet.name}</h2>
+                    <Image src={props.featPet.img_url} alt={props.featPet.name}/>
                     <p>Type: {props.featPet.type}</p>
                     <p>Age: {props.featPet.age}</p>
-                    <p>Breed: {props.featPet.breed}</p>
                 </div>
             
             <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
@@ -85,7 +64,7 @@ export default function FeaturedPet(props) {
             </Button>
 
             <Button variant="danger"
-                // onClick= {e => handleDelete(fp.id)}
+                onClick= {e => handleDelete(props.featPet.id)}
                 >Delete animal
             </Button>
         </div>

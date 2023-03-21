@@ -13,30 +13,34 @@ const EMPTY_FORM = {
 }
 
 function AddPetForm(props) {
-    const[formData, setFormData] = useState(props.editedPet || EMPTY_FORM);
+    const[inputs, setInputs] = useState(props.editedPet || EMPTY_FORM);
 
     function handleChange(e) {
-        const {name, value, type} = e.target;
+        const { name, value } = e.target;
+        setInputs(inputs => ({ ...inputs, [name]: value }));
+      }
 
-        setFormData((data) => ({
-            ...data,
-            [e.target.name]: e.target.value,
-          }));
-    };
+    function handleImageChange(e) {
+        const file = e.target.files[0];
+        setInputs(inputs => ({ ...inputs, img_filename: file}));
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addPet(formData);
-        setFormData(EMPTY_FORM);
-        if (props.editedPet) {
 
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(inputs)) {
+          formData.append(key, value);
+        }
+        addPet(formData);
+        setInputs(EMPTY_FORM);
+
+        if (props.editedPet) {
             props.setShowForm(false);
             props.setEditedPet(null);
-        } else {
+        } else if(props.setFormState){
             props.setFormState(false);
         }
-
-
       };
     
     const addPet = async (pet) => {
@@ -45,14 +49,18 @@ function AddPetForm(props) {
 
         let options = {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(pet),
+          //headers: { "Content-Type": "application/json" },
+          body: pet,
         };
 
         try {
             let response = await fetch(`/api/pets/${props.user.id}/pets/`, options);
             if (response.ok) {
+                console.log(pet);
+                if(props.getPets){
                 props.getPets();
+                }
+                console.log("Added pet:" + pet);
             } else {
             console.log(`Server error: ${response.status} ${response.statusText}`);
             }
@@ -90,6 +98,16 @@ function AddPetForm(props) {
 
         <Table responsive="sm">
              <InputGroup>
+             <tr>
+                    Upload picture:
+                    <Form.Control 
+                        key = "img_filename"
+                        type = "file"
+                        name= "img_filename"
+                        onChange={handleImageChange}
+                    />
+                
+            </tr>
                 <tr>
                     
                         Name:
@@ -98,7 +116,7 @@ function AddPetForm(props) {
                             placeholder = "Pet's name"
                             type = "text"
                             name="name"
-                            value={formData.name}
+                            value={inputs.name}
                             onChange={handleChange}
                         />
                     
@@ -109,7 +127,7 @@ function AddPetForm(props) {
                             key = "type"
                             type = "text"
                             name="type"
-                            value={formData.type}
+                            value={inputs.type}
                             onChange={handleChange}>
                                 <option>Select animal type</option>
                                 <option value="dog">Dog</option>
@@ -125,7 +143,7 @@ function AddPetForm(props) {
                             placeholder = "age"
                             type = "number"
                             name="age"
-                            value={formData.age}
+                            value={inputs.age}
                             onChange={handleChange}
                         />
                 </tr>
@@ -135,7 +153,7 @@ function AddPetForm(props) {
                             key = "sex"
                             type = "text"
                             name="sex"
-                            value={formData.sex}
+                            value={inputs.sex}
                             onChange={handleChange}>
                                 <option>Select gender</option>
                                 <option value="M">male</option>
