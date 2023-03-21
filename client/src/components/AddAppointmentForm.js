@@ -4,13 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const EMPTY_FORM = {
-  date: null,
+  date: '',
   title: '',
   ClinicId:'',
   summary: '',
   nextSteps: '',
-  completeBy: null,
-  followups: null,
+  completeBy: '',
+  followups: '',
   PetId: ''
 }
 
@@ -28,6 +28,12 @@ const handleChange = (event) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
+  if (formInput.completeBy === ''){
+    formInput.completeBy = null;
+  }
+  if (formInput.followups === ''){
+    formInput.followups = null;
+  }
   if (props.addAppointmentCb){
     props.addAppointmentCb(formInput);
   }
@@ -67,6 +73,7 @@ const handleSubmit = (event) => {
                 type="date" 
                 name="date"
                 value={formInput.date}
+                required
                 onChange={e => handleChange(e)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formClinicId">
@@ -80,7 +87,7 @@ const handleSubmit = (event) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetId">
             <Form.Label>Which pet?</Form.Label>
-            <Form.Select aria-label="Default select example" name="PetId" onChange={handleChange}>
+            <Form.Select aria-label="Default select example" required name="PetId" onChange={handleChange}>
                 <option>Choose a pet</option>
                 {props.pets.map(p => (
                   <option key={p.id} value={p.id} >{p.name}</option>
