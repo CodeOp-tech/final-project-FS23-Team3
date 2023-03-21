@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 const EMPTY_FORM = {
   date: '',
   title: '',
-  clinicName:'',
+  ClinicId:'',
   summary: '',
   nextSteps: '',
   completeBy: '',
@@ -34,8 +34,8 @@ const handleSubmit = (event) => {
   if (props.addNewAppointmentCb){
     let newAppt = {  
     date: formInput.followups,
-    title: null,
-    clinicName:null,
+    title: "Follow up",
+    ClinicId:null,
     summary: null,
     nextSteps: null,
     completeBy: null,
@@ -69,13 +69,13 @@ const handleSubmit = (event) => {
                 value={formInput.date}
                 onChange={e => handleChange(e)}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formClinicName">
+          <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder= "Clinic name"
-                name="clinicName"
-                value={formInput.clinicName}
+                name="ClinicId"
+                value={formInput.ClinicId}
                 onChange={e => handleChange(e)}/>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetId">

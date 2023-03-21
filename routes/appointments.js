@@ -60,12 +60,16 @@ router.get('/:id/:date', async function(req, res, next) {
 /* GET all future appointments order by date. */
 router.get('/future', async function(req, res, next) {
   const today = new Date();
+  let todayMonth = today.getUTCMonth() + 1;
+  let todayDay = today.getUTCDate();
+  let todayYear = today.getUTCFullYear();
+  newToday = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
   try {
     const appointments = await models.Appointment.findAll({
       order: [['date', 'ASC']],
       where: {
         date: {
-          [Op.gt]: today
+          [Op.gt]: newToday
         }
       }
     });
@@ -78,12 +82,16 @@ router.get('/future', async function(req, res, next) {
 /* GET all appointments order by completeBy. */
 router.get('/complete-by', async function(req, res, next) {
   const today = new Date();
+  let todayMonth = today.getUTCMonth() + 1;
+  let todayDay = today.getUTCDate();
+  let todayYear = today.getUTCFullYear();
+  newToday = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
   try {
     const appointments = await models.Appointment.findAll({
       order: [['completeBy', 'ASC']],
       where: {
         completeBy: {
-          [Op.gt]: today
+          [Op.gt]: newToday
         }
       }
     });
@@ -96,6 +104,10 @@ router.get('/complete-by', async function(req, res, next) {
 /* GET urgent appointments (completeBy within 3 months of today) order by completeBy. */
 router.get('/urgent', async function(req, res, next) {
   const today = new Date();
+  let todayMonth = today.getUTCMonth() + 1;
+  let todayDay = today.getUTCDate() -1;
+  let todayYear = today.getUTCFullYear();
+  newToday = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
   let futureMonth = today.getUTCMonth() + 4;
   let day = today.getUTCDate() + 1;
   let year = today.getUTCFullYear();
@@ -105,7 +117,7 @@ router.get('/urgent', async function(req, res, next) {
       order: [['completeBy', 'ASC']],
       where: {
         completeBy: {
-          [Op.gt]: today,
+          [Op.gt]: newToday,
           [Op.lt]: future,
         }
       }
@@ -118,6 +130,10 @@ router.get('/urgent', async function(req, res, next) {
 
 router.get('/urgent-appts', async function(req, res, next) {
   const today = new Date();
+  let todayMonth = today.getUTCMonth() + 1;
+  let todayDay = today.getUTCDate();
+  let todayYear = today.getUTCFullYear();
+  newToday = new Date(`${todayYear}-${todayMonth}-${todayDay}`);
   let futureMonth = today.getUTCMonth() + 4;
   let day = today.getUTCDate() + 1;
   let year = today.getUTCFullYear();
@@ -127,7 +143,7 @@ router.get('/urgent-appts', async function(req, res, next) {
       order: [['date', 'ASC']],
       where: {
         date: {
-          [Op.gt]: today,
+          [Op.gt]: newToday,
           [Op.lt]: future,
         }
       }
