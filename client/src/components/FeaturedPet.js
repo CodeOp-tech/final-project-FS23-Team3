@@ -77,8 +77,9 @@ export default function FeaturedPet(props) {
                     <Image src={props.featPet.img_url} alt={props.featPet.name}/>
                     <p>Type: {props.featPet.type}</p>
                     <p>Age: {props.featPet.age}</p>
-                    {nextAppointment.date &&
+                    {nextAppointment ? nextAppointment.date && 
                       <p>Next appointment: {toDate(nextAppointment.date)}</p>
+                      : <p>No upcoming appointments</p>
                     }
                 </div>
             
