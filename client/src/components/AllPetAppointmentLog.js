@@ -80,6 +80,8 @@ export default function AllPetAppointmentLog(props) {
 
   return (
     <div className="AllPetAppointmentLog">
+        {appointments.length > 0 ? 
+        <div>
         <h1>{pet ? pet.name : ""}'s Appointments:</h1>
         {!showForm ?
         <div className="appt-log-grid" >
@@ -113,6 +115,9 @@ export default function AllPetAppointmentLog(props) {
         
                 />
                 }
+        </div>
+        : <h1>No appointments yet</h1>
+        }
     </div>
   )
 }
