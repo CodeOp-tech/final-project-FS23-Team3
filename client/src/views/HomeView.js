@@ -6,45 +6,76 @@ import AllPetsList from '../components/AllPetsList';
 import VetDrawing from "../images/vet-image.svg";
 import CalendarImage from "../images/calendar-image.svg";
 import ChatImage from "../images/Chat-image.svg"
+import Dropdown from 'react-bootstrap/Dropdown';
+
+const img1src = "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fHB1cHBpZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
 
 export default function HomeView(props) {
 
   return (
     <div className="HomeView">
       <div className="Main-home-items">
+
+
         <Link to="/to-dos" style={{ textDecoration: 'none', color:"black" }}>
             <UrgentToDos user={props.user}/>
         </Link> 
-        <div>
-          <Link to="/pets" style={{ textDecoration: 'none', color:"black" }}>
-            <h1>My pets:</h1>
-          </Link> 
-          <AllPetsList user={props.user}/>
-        </div>
+
       </div>
+
       <div className="home-cards">
         <div className="card" style={{width: "20rem"}}>
           <img src={VetDrawing} className="card-img-top" alt="drawing of veterinarians"/>
           <div className="card-body">
-            <h5 className="card-title">Add Appointment Info</h5>
+            <h5 className="card-title">Appointments</h5>
             <p className="card-text">Add information from a past vet visit to keep it in your records.</p>
-            <Link to="/add-appointment" className="btn btn-primary">Add Information</Link>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" className="btn btn-primary">
+                Appointments
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/add-appointment" className="btn btn-primary">Add past appointment</Dropdown.Item>
+                <Dropdown.Item href="/clinics" className="btn btn-primary">Add new appointment</Dropdown.Item>
+                <Dropdown.Item href="" className="btn btn-primary">All appointments</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
+
         <div className="card" style={{width: "20rem"}}>
           <img src={CalendarImage} className="card-img-top" alt="drawing of calendar"/>
           <div className="card-body">
-            <h5 className="card-title">Make an Appointment</h5>
-            <p className="card-text">Find information for vets you've visited previously or search for a new vet in your area.</p>
-            <Link to="/clinics" className="btn btn-primary">Make Appointment</Link>
+            <h5 className="card-title">Pets</h5>
+            <p className="card-text">Keep all your pet's health information stored in their profile.</p>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" className="btn btn-primary">
+                Pets
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/pets" className="btn btn-primary">All pets</Dropdown.Item>
+                <Dropdown.Item href="/to-dos" className="btn btn-primary">To do's</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
+
         <div className="card" style={{width: "20rem"}}>
-          <img src={ChatImage} className="card-img-top" alt="chat message drawing"/>
+          <img src={CalendarImage} className="card-img-top" alt="drawing of calendar"/>
           <div className="card-body">
-            <h5 className="card-title">Chat with Vet</h5>
-            <p className="card-text">Start a chat conversation with your vet.</p>
-            <Link to="/chat" className="btn btn-primary">Chat</Link>
+            <h5 className="card-title">Vets</h5>
+            <p className="card-text">Find information for vets you've visited previously or search for a new vet in your area.</p>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" className="btn btn-primary">
+                Vets
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/clinics" className="btn btn-primary">Find a vet</Dropdown.Item>
+                <Dropdown.Item href="/clinics#VetListView" className="btn btn-primary">Saved vets</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
       </div>

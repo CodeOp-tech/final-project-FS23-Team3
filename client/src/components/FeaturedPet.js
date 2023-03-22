@@ -12,13 +12,14 @@ export default function FeaturedPet(props) {
     const [showForm, setShowForm] = useState(false);
     const [editedPet, setEditedPet] = useState(null);
 
-
+    //shows the "add pet form"
+    //saves the information of the pet we want to edit so we can prefill the form with that
     function handleEditClick() {
         setEditedPet(props.featPet);
         setShowForm(true)
     }
   
-
+    //deletes a pet from the database
     async function handleDelete(id) {
     
         try {

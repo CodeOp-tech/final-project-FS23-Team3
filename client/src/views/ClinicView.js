@@ -18,7 +18,7 @@ export default function ClinicView(props) {
   const { id } = useParams();
   const [vets, setVets] = useOutletContext();
   const [show, setShow] = useState(false);
-  const [favoriteClinic, setFavoriteClinic] = useState([]);
+  const [favoriteClinic, setFavoriteClinic] = useState([]); //here we are saving an object right? so the original state should be null :)
   const [checked, setChecked] = useState(false);
 
   const handleClose = () => setShow(false);
