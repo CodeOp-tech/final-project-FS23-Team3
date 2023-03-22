@@ -8,22 +8,23 @@ export default function PastAppointment(props) {
     const [appointmentSummary, setApptSummary] = useState({});
 
     async function addAppointmentInfo(appointmentObj) {
-        let date = appointmentObj.date.slice(0,10);
-        let id = appointmentObj.PetId;
-        let myresponse = await Api.getContent(`/appointments/${id}/${date}`);
-        if (myresponse.ok){
-          if (myresponse.data.length === 1){
-            let apptId = myresponse.data[0].id;
-            let myresponse2 = await Api.changeAppointment(apptId, appointmentObj);
-            setApptSummary(myresponse2.data);
-          } else {
+        // let date = appointmentObj.date.slice(0,10);
+        // let id = appointmentObj.PetId;
+        // let myresponse = await Api.getContent(`/appointments/${id}/${date}`);
+        // if (myresponse.ok){
+        //   if (myresponse.data.length === 1){
+        //     let apptId = myresponse.data[0].id;
+        //     let myresponse2 = await Api.changeAppointment(apptId, appointmentObj);
+        //     setApptSummary(myresponse2.data);
+        //   } else {
+          console.log(appointmentObj)
             let myresponse1 = await Api.addAppointment(appointmentObj);
             if (myresponse1.ok){
               setApptSummary(myresponse1.data)
-            }
-          }
+            // }
+          // }
         } else {
-          console.log(`Error! ${myresponse.error}`)
+          console.log(`Error! ${myresponse1.error}`)
         }
       }
 

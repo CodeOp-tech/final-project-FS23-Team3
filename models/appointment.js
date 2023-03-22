@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     summary: DataTypes.STRING,
     nextSteps: DataTypes.STRING,
     completeBy: DataTypes.DATE,
-    followups: DataTypes.DATE
+    followups: DataTypes.DATE,
+    files: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Appointment',

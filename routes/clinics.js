@@ -66,6 +66,23 @@ router.post('/:clinicKey', async function(req, res, next) {
   }
 });
 
+/* PUT to add PetId association to given clinic */
+// router.put("/:id/pets", async function (req, res, next) {
+//   const { id } = req.params;
+//   const { pets } = req.body;
+//   try {
+//     const clinic = models.Clinic.findOne({
+//       where: {
+//         id,
+//       },
+//     });
+//     const data = await clinic.addPets(pets);
+//     res.send(clinic)
+//   } catch(err){
+//     res.status(500).send(err)
+//   }
+// })
+
   /* POST new clinic associated to pet. */
   router.post('/:id/pet', async function(req, res, next) {
     const { id } = req.params;
