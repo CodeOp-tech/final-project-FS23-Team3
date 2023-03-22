@@ -3,15 +3,46 @@ import { useParams } from "react-router-dom";
 import Api from '../helpers/Api';
 import "./AllPetAppointmentLog.css";
 import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+import AddAppointmentForm from './AddAppointmentForm';
 
 export default function AllPetAppointmentLog(props) {
     const [appointments, setAppointments] = useState([]);
     const { id } = useParams();
     const pet = props.pets.find((pet) => +pet.id === +id);
+    const [showForm, setShowForm] = useState(false);
+    const [editedAppt, setEditedAppt] = useState(null);
+    const [appointment, setAppointment] = useState([ ]);
 
     useEffect(() => {
         getAppointments();
-    }, [])
+    }, []);
+
+    // useEffect(() => {
+    //     getAppointment();
+    // },[appointment.title])
+
+
+    function handleEditClick(id) {
+        let selectedApt = appointments.find(a => a.id === id);
+        for (let key in selectedApt){
+            if (selectedApt[key] === null){
+                selectedApt[key] = ""
+            }
+        }
+        setEditedAppt(selectedApt);
+        setShowForm(true)
+    }
+
+    // async function getAppointment(){
+    //     let id = props.appointment.id;
+    //     let myresponse = await Api.getOneAppointment(id);
+    //     if (myresponse.ok){
+    //         setAppointment(myresponse.data)
+    //     } else {
+    //         console.log(`Error! ${myresponse.error}`)
+    //     }
+    // }
 
     async function getAppointments(){
         let myresponse = await Api.getOnePet(id);
@@ -21,6 +52,18 @@ export default function AllPetAppointmentLog(props) {
                 return new Date(a.date) - new Date(b.date);
               });
               setAppointments(appointments);
+        } else {
+            console.log(`Error! ${myresponse.error}`)
+        }
+    }
+
+    async function changeAppointment(apptObj){
+        let id = editedAppt.id;
+        let myresponse = await Api.changeAppointment(id, apptObj);
+        if (myresponse.ok){
+            setAppointment(myresponse.data);
+            setEditedAppt(myresponse.data);
+            getAppointments();
         } else {
             console.log(`Error! ${myresponse.error}`)
         }
@@ -37,7 +80,10 @@ export default function AllPetAppointmentLog(props) {
 
   return (
     <div className="AllPetAppointmentLog">
+        {appointments.length > 0 ? 
+        <div>
         <h1>{pet ? pet.name : ""}'s Appointments:</h1>
+        {!showForm ?
         <div className="appt-log-grid" >
         {appointments.map(a => (
             <Alert variant="primary" key={a.id}>
@@ -55,9 +101,23 @@ export default function AllPetAppointmentLog(props) {
                     <p>{a.summary}</p>
                 </div>
                 }
+                <Button onClick= {e => handleEditClick(a.id)} className= "btn position-absolute top-0 start-0" type="button"><i className="fa-regular fa-pen-to-square"></i></Button>
             </Alert>
         ))}
         </div>
+                :
+                <AddAppointmentForm
+                    editedAppt = {editedAppt}
+                    setEditedAppt = {setEditedAppt}
+                    setShowForm = {setShowForm}
+                    pets={props.pets}
+                    changeAppointmentCb={apptObj => changeAppointment(apptObj)}
+        
+                />
+                }
+        </div>
+        : <h1>No appointments yet</h1>
+        }
     </div>
   )
 }

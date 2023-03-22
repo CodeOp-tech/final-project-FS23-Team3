@@ -5,12 +5,27 @@ import CloseButton from 'react-bootstrap/CloseButton';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
+import Api from "../helpers/Api";
 
 import AddPetForm from "./AddPetForm";
+
+let toDate = (date) => {
+  let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
+  let dateObj = new Date(dateFormatted);
+  let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
+  let day = dateObj.getUTCDate() + 1;
+  let year = dateObj.getUTCFullYear();
+  return (`${month} ${day}, ${year}`);
+}
 
 export default function FeaturedPet(props) {
     const [showForm, setShowForm] = useState(false);
     const [editedPet, setEditedPet] = useState(null);
+    const[nextAppointment, setNextAppointment] = useState([]);
+
+    useEffect(() => {
+      getAppointments();
+    }, [props.featPet.id])
 
 
     function handleEditClick() {
@@ -41,6 +56,17 @@ export default function FeaturedPet(props) {
 
     }
 
+    async function getAppointments(){
+      let myresponse = await Api.getContent('/appointments/future');
+      if (myresponse.ok){
+          let appointments = myresponse.data;
+          appointments=appointments.filter(a => a.PetId === props.featPet.id);
+          setNextAppointment(appointments[0])
+      } else {
+          console.log(`Error! ${myresponse.error}`);
+      }
+  }
+
     return(
         <div>
         {props.featPet && !showForm ?
@@ -51,6 +77,10 @@ export default function FeaturedPet(props) {
                     <Image src={props.featPet.img_url} alt={props.featPet.name}/>
                     <p>Type: {props.featPet.type}</p>
                     <p>Age: {props.featPet.age}</p>
+                    {nextAppointment ? nextAppointment.date && 
+                      <p>Next appointment: {toDate(nextAppointment.date)}</p>
+                      : <p>No upcoming appointments</p>
+                    }
                 </div>
             
             <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
