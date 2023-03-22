@@ -26,6 +26,11 @@ const handleChange = (event) => {
   setFormInput(formInput => apptObj)
 }
 
+function handleFileChange(e) {
+  const file = e.target.files[0];
+  setFormInput(formInput => ({ ...formInput, files: file}));
+}
+
 const handleSubmit = (event) => {
   event.preventDefault();
   if (formInput.completeBy === ''){
@@ -34,10 +39,18 @@ const handleSubmit = (event) => {
   if (formInput.followups === ''){
     formInput.followups = null;
   }
-  if (props.addAppointmentCb){
-    props.addAppointmentCb(formInput);
+
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(formInput)) {
+    console.log(key, value)
+    formData.append(key, value);
   }
-  if (props.addNewAppointmentCb){
+
+  if (props.addAppointmentCb){
+    console.log(formData)
+    props.addAppointmentCb(formData);
+  }
+  if (props.addNewAppointmentCb && formInput.followups){
     let newAppt = {  
     date: formInput.followups,
     title: "Follow up",
@@ -46,11 +59,13 @@ const handleSubmit = (event) => {
     nextSteps: null,
     completeBy: null,
     followups: null,
-    PetId: formInput.PetId}
+    PetId: formInput.PetId,
+    files:null
+    }
     props.addNewAppointmentCb(newAppt)
   }
   if (props.changeAppointmentCb){
-    props.changeAppointmentCb(formInput);
+    props.changeAppointmentCb(formData);
   }
   if (props.setShowForm){
     props.setShowForm(false);
@@ -132,6 +147,13 @@ const handleSubmit = (event) => {
           <Form.Group className="text-area" controlId="formSummary">
             <Form.Label>Appointment summary:</Form.Label>
             <textarea name ="summary" value={formInput.summary} onChange={e => handleChange(e)}></textarea>
+          </Form.Group>
+          <Form.Group controlId="formTitle">
+            <Form.Label>Related files:</Form.Label>
+              <Form.Control 
+                type="file" 
+                name="files"
+                onChange={e => handleFileChange(e)}/>
           </Form.Group>
           <div className="span-3-cols">
             <Button variant="primary" type="submit">Submit</Button>

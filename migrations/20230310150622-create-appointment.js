@@ -27,6 +27,9 @@ module.exports = {
       followups: {
         type: Sequelize.DATE
       },
+      files: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

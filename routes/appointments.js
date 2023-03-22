@@ -1,6 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var models = require("../models");
+const multer = require('multer');
+
+const PUBLIC_DIR_URL = 'http://localhost:5000/files';
+
+/**
+ * Multer initialization
+ **/
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      cb(null, './public/files');  // store files here
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname);  // keep original filename
+  }
+});
+const upload = multer({ storage });
 
 //---------GETS----------
 const Sequelize = require('sequelize');
@@ -9,8 +25,9 @@ const Op = Sequelize.Op;
 /* GET all appointments. */
 router.get('/', async function(req, res, next) {
   try {
-    const appointments = await models.Appointment.findAll();
-    res.send(appointments);
+    const appointments = await models.Appointment.findAll({ raw: true });
+    let appointmentsWithUrls = appointments.map(r => ({...r, file_url: `${PUBLIC_DIR_URL}/${r.files}`}));
+    res.send(appointmentsWithUrls);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -25,12 +42,47 @@ router.get('/:id/appointments', async function(req, res, next) {
         id,
       },
     });
-    const appointments = await pet.getAppointments();
-    res.send(appointments);
+    const appointments = await pet.getAppointments({
+      raw: true,
+    });
+    let appointmentsWithUrls = appointments.map(r => ({...r, file_url: `${PUBLIC_DIR_URL}/${r.files}`}));
+    res.send(appointmentsWithUrls);
   } catch (error) {
     res.status(500).send(error);
   }
 });
+
+  /* POST new appointment associated to pet. */
+  router.post('/', upload.single('files'), async function(req, res, next) {
+    let id = req.body.PetId;
+    const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
+    try {
+      const pet = await models.Pet.findOne({
+        where: {
+          id,
+        },
+      });
+      const appointment = await pet.createAppointment({
+        date, 
+        title, 
+        summary, 
+        nextSteps, 
+        completeBy, 
+        followups, 
+        PetId,
+        files: req.file.originalname
+      });
+      res.status(201).send(appointment);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+
+
+
+
+
 
 /* GET all appointments of a pet on a given date.*/
 router.get('/:id/:date', async function(req, res, next) {
@@ -172,30 +224,7 @@ router.get('/:id', async function(req, res, next) {
 
   //----------POSTS--------------
 
-  /* POST new appointment associated to pet. */
-router.post('/', async function(req, res, next) {
-    let id = req.body.PetId;
-    const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
-    try {
-      const pet = await models.Pet.findOne({
-        where: {
-          id,
-        },
-      });
-      const appointment = await pet.createAppointment({
-        date, 
-        title, 
-        summary, 
-        nextSteps, 
-        completeBy, 
-        followups, 
-        PetId
-      });
-      res.status(201).send(appointment);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
+
 
   /* POST new appointment associated to pet and clinic. */
   router.post('/:clinicKey', async function(req, res, next) {
@@ -221,7 +250,7 @@ router.post('/', async function(req, res, next) {
 //----------PUTS---------
 
 /* PUT existing appointment. */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', upload.single('files'), async function(req, res, next) {
     const { id } = req.params;
     const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
     try {
@@ -231,7 +260,7 @@ router.put('/:id', async function(req, res, next) {
         },
       });
   
-      const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId })
+      const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId, files: req.file.originalname })
       res.send(updAppointment);
   
     } catch (error) {
