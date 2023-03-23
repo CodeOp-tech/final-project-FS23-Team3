@@ -5,3 +5,7 @@
     table-layout: fixed ;
     height:100%;
 }
+
+.UrgentToDos h2 {
+    color: var(--primary-blue)
+}

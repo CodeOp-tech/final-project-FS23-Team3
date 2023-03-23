@@ -6,6 +6,24 @@
     gap:30px;
 }
 
-.AllPetAppointmentLog h1 {
+.AllPetAppointmentLog h2 {
     margin: 20px 0px;
+    color: var(--primary-blue)
+}
+
+.AllPetAppointmentLog Button {
+    background-color: #33658A !important;
+    border:none !important;
+}
+
+
+.log-bold{
+    font-weight:bold;
+    margin-bottom:0px !important;
+}
+
+.log-alert{
+    background-color:white !important;
+    color: black !important;
+    border:2px solid var(--primary-blue) !important;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
 import Table from 'react-bootstrap/Table';
 import "./ToDoView.css";
+import { Link } from "react-router-dom";
 
 let toDate = (date) => {
     let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
@@ -124,7 +125,8 @@ export default function ToDosView(props) {
   return (
     <div className="ToDosView">
         <div id="left-grid">
-            <h1>All Upcoming Tasks:</h1>
+            <h2>All Upcoming Tasks:</h2>
+            <p>*urgent tasks are highlighted</p>
             <Table className="all-tasks-table">
                 <tbody>
                     <tr>
@@ -146,16 +148,18 @@ export default function ToDosView(props) {
             </Table>
         </div>
         <div id="right-grid">
-            <h1>Details</h1>
-            <div id="details-box">
+            <h2>Details:</h2>
+            <Table id="h3-table">
             { !selectedAppt && 
                     <h3>Click on an item for more info</h3>
                 }
             { selectedAppt && 
                     <h3>{selectedAppt.selectedName}</h3>
                 }
+            </Table>
             { selectedAppt &&
-            <Table className="selected-table">
+            <div>
+            <Table className="selected-table" style={{marginTop:"0px"}}>
             <tbody>
             {!selectedAppt.completeBy && 
                 <tr>
@@ -207,9 +211,10 @@ export default function ToDosView(props) {
                 }
             </tbody>
         </Table>
+        <Link to={`/appointments/${selectedAppt.PetId}`} className="btn btn-todos">View all of {(props.pets.find(p => p.id === selectedAppt.PetId)).name}'s appointments</Link>
+        </div>
             }
             </div>
         </div>
-    </div>
   )
  }
