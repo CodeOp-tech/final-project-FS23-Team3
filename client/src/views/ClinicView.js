@@ -8,9 +8,12 @@ import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/esm/Table';
 
 import Local from "../helpers/Local";
 import OwnerContext from '../context/OwnerContext.js';
+import placeholder_img from "../images/placeholder_img.svg"; 
+import './ClinicView.css'
 
 
 export default function ClinicView(props) {
@@ -90,38 +93,51 @@ export default function ClinicView(props) {
       
           <Row>
             <Col>
-                <ul>
+                
                   {
                     vets
                     ? filterVets(vets.businesses).map(vet => (
 
-                      <Card style={{ width: '20rem' }}>
-                      <Card.Img variant="top" src={vet.image_url} />
-                      <Card.Body>
-                        <Card.Title>{vet.name}</Card.Title>
-                        <Card.Text>
-                          Address: {vet.location.address1}, {vet.location.zip_code}, {vet.location.city} <br/>
-                          Phone: {vet.display_phone}
-                        </Card.Text>
-                        <ToggleButton
-                                    id="toggle-check"
-                                    type="checkbox"
-                                    variant="outline-primary"
-                                    checked={checked}
-                                    value="0"
-                                    onChange={(e) => setChecked(e.currentTarget.checked)}
-                                    onClick={e => checked ? handleDeleteFavorite(vet) : handleAddFavorite(vet) }
-                                  >
-                                    Add to my vets
-                        </ToggleButton>
-                        <Button variant="primary" onClick={handleShow}>Add appointment</Button>
-                      </Card.Body>
-                    </Card>
+
+                          <Table borderless= {true} bordered={ false } responsive="sm" id='vetList'>
+                                              <thead>
+                                                  <tr>
+                                                  <img style={{width: "20rem"}} src={vet.image_url || placeholder_img} />
+                                                  </tr>
+                                                  <tr>
+                                                    <th>{vet.name}</th>
+                                                  </tr>
+                                              </thead>
+
+                                              <tbody>
+                                                  <tr>
+                                                    <td>Address: {vet.location.address1}, {vet.location.zip_code}, {vet.location.city}</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td>Phone: {vet.display_phone}</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><ToggleButton
+                                                                    id="toggle-check"
+                                                                    type="checkbox"
+                                                                    variant="outline-danger"
+                                                                    checked={checked}
+                                                                    value="0"
+                                                                    onChange={(e) => setChecked(e.currentTarget.checked)}
+                                                                    onClick={e => checked ? handleDeleteFavorite(vet) : handleAddFavorite(vet) }
+                                                                  >
+                                                                    Add to my vets
+                                                        </ToggleButton></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td><Button variant="primary" onClick={handleShow}>Add appointment</Button></td>
+                                                  </tr> 
+                                              </tbody>
+                            </Table>
                       ))
 
                     : null
-                  }
-                </ul>
+                  }  
               </Col>
           </Row>
         
@@ -131,7 +147,12 @@ export default function ClinicView(props) {
               </Modal.Header>
 
               <Modal.Body>
-                <MakeAppointmentForm vets={vets} favoriteClinics={favoriteClinics} handleAddFavoriteCb={handleAddFavorite}/>
+                <MakeAppointmentForm 
+                    vets={vets} 
+                    favoriteClinics={favoriteClinics} 
+                    handleAddFavoriteCb={handleAddFavorite}
+                    handleCloseCb={handleClose}
+                    />
               </Modal.Body>
 
               <Modal.Footer>
