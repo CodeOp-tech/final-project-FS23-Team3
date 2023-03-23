@@ -91,6 +91,12 @@ export default function AppointmentSummary(props) {
                     <p>Appointment summary:</p>
                     <p>{appointment.summary}</p>
                 </div>
+                {appointment.files &&
+                    <div>
+                        <p>Appointment files:</p>
+                        <a href={`http://localhost:5000/files/${appointment.files}`} target='_blank'>{appointment.files}</a>
+                    </div>
+                }
             </div>
         </div>
         <button onClick= {e => handleEditClick()}>

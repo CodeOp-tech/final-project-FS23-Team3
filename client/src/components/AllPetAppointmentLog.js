@@ -12,11 +12,11 @@ export default function AllPetAppointmentLog(props) {
     const pet = props.pets.find((pet) => +pet.id === +id);
     const [showForm, setShowForm] = useState(false);
     const [editedAppt, setEditedAppt] = useState(null);
-    const [appointment, setAppointment] = useState([ ]);
+    const [appointment, setAppointment] = useState([]);
 
     useEffect(() => {
         getAppointments();
-    }, []);
+    }, [appointment]);
 
     // useEffect(() => {
     //     getAppointment();
@@ -57,16 +57,27 @@ export default function AllPetAppointmentLog(props) {
         }
     }
 
-    async function changeAppointment(apptObj){
+    async function changeAppointment(formData){
         let id = editedAppt.id;
-        let myresponse = await Api.changeAppointment(id, apptObj);
-        if (myresponse.ok){
-            setAppointment(myresponse.data);
-            setEditedAppt(myresponse.data);
-            getAppointments();
-        } else {
-            console.log(`Error! ${myresponse.error}`)
-        }
+        let options = {
+            method: "PUT",
+            //headers: { "Content-Type": "application/json" },
+            body: formData,
+          };
+  
+          try {
+              let response = await fetch(`/api/appointments/${id}`, options);
+              if (response.ok) {
+                let updatedAppt = await response.json();
+                  setAppointment(updatedAppt);
+                  setEditedAppt(updatedAppt);
+                  console.log("Changed appointment:" + updatedAppt);
+              } else {
+              console.log(`Server error: ${response.status} ${response.statusText}`);
+              }
+          } catch (err) {
+              console.log(`Server Error: ${err.message}`);
+            }
     }
 
     let toDate = (date) => {
