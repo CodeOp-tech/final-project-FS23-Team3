@@ -5,21 +5,13 @@
     --primary-highlight: #F26419;
     --secondary-highlight: #F6AE2D;
   }
-.NavBar {
-    display: flex;
-}
-.NavBar button {
+  
+  .MakeAppointmentForm button {
     background-color: var(--primary-blue);
     border: none;
-    margin-left: 10px;
-    margin-block: 15px;
   }
   
-.NavBar button:hover {
+  .MakeAppointmentForm button:hover {
     background-color: var(--secondary-blue);
     border: none;
   }
-
-#appName {
-    color: var(--dark-blue);
-}

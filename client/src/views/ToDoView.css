@@ -17,7 +17,7 @@
 }
 
 /* Added the classname here in front */
-.ToDosView table, td, th {
+.ToDosView table {
     border: 1px solid lightgrey !important;
     padding: 5px;
 }
