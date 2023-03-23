@@ -22,7 +22,6 @@ let toDate = (date) => {
 }
 
 export default function FeaturedPet(props) {
-    const [showForm, setShowForm] = useState(false); //this is used to close the FeaturedPet if we save an edited pet
     const [editedPet, setEditedPet] = useState(null);
     const [nextAppointment, setNextAppointment] = useState([]);
 
