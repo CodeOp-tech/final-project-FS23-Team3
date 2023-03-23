@@ -8,7 +8,9 @@ const { ensureUserLoggedIn } = require('../middleware/guards');
 /* GET all owners. */
 router.get('/', async function(req, res, next) {
   try {
-    const owners = await models.Owner.findAll();
+    const owners = await models.Owner.findAll(
+      {include: models.Clinic},
+    );
     res.send(owners);
   } catch (error) {
     res.status(500).send(error);
