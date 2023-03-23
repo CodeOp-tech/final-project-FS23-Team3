@@ -52,38 +52,6 @@ router.get('/:id/appointments', async function(req, res, next) {
   }
 });
 
-  /* POST new appointment associated to pet. */
-  router.post('/', upload.single('files'), async function(req, res, next) {
-    let id = req.body.PetId;
-    const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
-    try {
-      const pet = await models.Pet.findOne({
-        where: {
-          id,
-        },
-      });
-      const appointment = await pet.createAppointment({
-        date, 
-        title, 
-        summary, 
-        nextSteps, 
-        completeBy, 
-        followups, 
-        PetId,
-        files: req.file.originalname
-      });
-      res.status(201).send(appointment);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
-
-
-
-
-
-
-
 /* GET all appointments of a pet on a given date.*/
 router.get('/:id/:date', async function(req, res, next) {
   const { id } = req.params;
@@ -224,7 +192,44 @@ router.get('/:id', async function(req, res, next) {
 
   //----------POSTS--------------
 
-
+  /* POST new appointment associated to pet. */
+  router.post('/', upload.single('files'), async function(req, res, next) {
+    let id = req.body.PetId;
+    const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
+    try {
+      const pet = await models.Pet.findOne({
+        where: {
+          id,
+        },
+      });
+      if (req.file){
+        const appointment = await pet.createAppointment({
+          date, 
+          title, 
+          summary, 
+          nextSteps, 
+          completeBy, 
+          followups, 
+          PetId,
+          files: req.file.originalname
+        });
+        res.status(201).send(appointment);
+      } else{
+        const appointment = await pet.createAppointment({
+          date, 
+          title, 
+          summary, 
+          nextSteps, 
+          completeBy, 
+          followups, 
+          PetId
+        });
+        res.status(201).send(appointment);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
 
   /* POST new appointment associated to pet and clinic. */
   router.post('/:clinicKey', async function(req, res, next) {
@@ -259,10 +264,13 @@ router.put('/:id', upload.single('files'), async function(req, res, next) {
           id,
         },
       });
-  
-      const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId, files: req.file.originalname })
-      res.send(updAppointment);
-  
+      if (req.file){
+        const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId, files: req.file.originalname })
+        res.send(updAppointment);
+      } else {
+        const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId })
+        res.send(updAppointment);
+      }
     } catch (error) {
       res.status(500).send(error);
     }
