@@ -61,6 +61,11 @@ export default function NavBar(props) {
                             Login
                         </Nav.Link>
                     </Button>
+                    <Button>
+                        <Nav.Link as={Link} to="/register">
+                            Create account
+                        </Nav.Link>
+                    </Button>
                 </Nav>
         }
          

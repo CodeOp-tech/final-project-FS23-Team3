@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 let EMPTY_FORM = {
     username: '',
@@ -24,55 +26,55 @@ export default function RegisterView(props) {
         props.registerUserCb(newUser.firstname, newUser.lastname, newUser.username, newUser.email, newUser.password)
     }
   return (
-    <div className="RegisterView" onSubmit={handleSubmit}>
-        <form>
-            <label>First Name:
-                <input
-                type = "text"
-                name = "firstname"
-                required
-                value = {newUser.firstname}
-                onChange = {handleChange}
-                />
-            </label>
-            <label>Last Name:
-                <input
-                type = "text"
-                name = "lastname"
-                required
-                value = {newUser.lastname}
-                onChange = {handleChange}
-                />
-            </label>
-            <label>Email Address:
-                <input
-                type = "text"
-                name = "email"
-                required
-                value = {newUser.email}
-                onChange = {handleChange}
-                />
-            </label>
-            <label>Choose a Username:
-                <input
-                type = "text"
-                name = "username"
-                required
-                value = {newUser.username}
-                onChange = {handleChange}
-                />
-            </label>
-            <label>Choose a Password:
-                <input
-                type = "password"
-                name = "password"
-                required
-                value = {newUser.password}
-                onChange = {handleChange}
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+    <div className="RegisterView" >
+        <Form style={{width:"60%", margin:"0 auto", marginTop:"50px"}} onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formFirstName">
+                <Form.Label>First Name:</Form.Label>
+                <Form.Control 
+                    type="text" 
+                    name="firstname"
+                    value={newUser.firstname}
+                    required
+                    onChange={handleChange}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formLastName">
+                <Form.Label>Last Name:</Form.Label>
+                <Form.Control 
+                    type="text" 
+                    name="lastname"
+                    value={newUser.lastname}
+                    required
+                    onChange={handleChange}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formEmail">
+                <Form.Label>Email address:</Form.Label>
+                <Form.Control 
+                    type="text" 
+                    name="email"
+                    value={newUser.email}
+                    required
+                    onChange={handleChange}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formUsername">
+                <Form.Label>Choose a username:</Form.Label>
+                <Form.Control 
+                    type="text" 
+                    name="username"
+                    value={newUser.username}
+                    required
+                    onChange={handleChange}/>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formPassword">
+                <Form.Label>Create a password:</Form.Label>
+                <Form.Control 
+                    type="password" 
+                    name="password"
+                    value={newUser.password}
+                    required
+                    onChange={handleChange}/>
+            </Form.Group>
+            <Button type="submit">Create account</Button>
+        </Form>
     </div>
   )
 }
