@@ -27,15 +27,27 @@ export default function AppointmentSummary(props) {
         }
     }
 
-    async function changeAppointment(apptObj){
+    async function changeAppointment(formData){
         let id = props.appointment.id;
-        let myresponse = await Api.changeAppointment(id, apptObj);
-        if (myresponse.ok){
-            setAppointment(myresponse.data);
-            setEditedAppt(myresponse.data);
-        } else {
-            console.log(`Error! ${myresponse.error}`)
-        }
+        let options = {
+            method: "PUT",
+            //headers: { "Content-Type": "application/json" },
+            body: formData,
+          };
+  
+          try {
+              let response = await fetch(`/api/appointments/${id}`, options);
+              if (response.ok) {
+                let updatedAppt = await response.json();
+                  setAppointment(updatedAppt);
+                  setEditedAppt(updatedAppt);
+                  console.log("Changed appointment:" + updatedAppt);
+              } else {
+              console.log(`Server error: ${response.status} ${response.statusText}`);
+              }
+          } catch (err) {
+              console.log(`Server Error: ${err.message}`);
+            }
     }
 
   return (
@@ -61,7 +73,7 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Next steps for owner:</p>
-                    <p>{appointment.nextSteps}</p>
+                    <p>{props.appointment.nextSteps}</p>
                 </div>
                 <div>
                     <p>Complete next steps by:</p>
@@ -91,7 +103,7 @@ export default function AppointmentSummary(props) {
             setEditedAppt = {setEditedAppt}
             setShowForm = {setShowForm}
             pets={props.pets}
-            changeAppointmentCb={apptObj => changeAppointment(apptObj)}
+            changeAppointmentCb={formData => changeAppointment(formData)}
 
         />
         }

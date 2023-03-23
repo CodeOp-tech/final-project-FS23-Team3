@@ -33,11 +33,11 @@ function handleFileChange(e) {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  if (formInput.completeBy === ''){
-    formInput.completeBy = null;
+  if (formInput.completeBy === '' || formInput.completeBy === null){
+    delete formInput.completeBy;
   }
-  if (formInput.followups === ''){
-    formInput.followups = null;
+  if (formInput.followups === '' || formInput.followups === null){
+    delete formInput.followups;
   }
 
   const formData = new FormData();
@@ -48,21 +48,21 @@ const handleSubmit = (event) => {
 
   if (props.addAppointmentCb){
     console.log(formData)
-    props.addAppointmentCb(formData);
+    props.addAppointmentCb(formInput, formData);
   }
   if (props.addNewAppointmentCb && formInput.followups){
     let newAppt = {  
     date: formInput.followups,
     title: "Follow up",
-    ClinicId:null,
-    summary: null,
-    nextSteps: null,
-    completeBy: null,
-    followups: null,
     PetId: formInput.PetId,
-    files:null
+    files: null
     }
-    props.addNewAppointmentCb(newAppt)
+    const newApptFormData = new FormData();
+    for (const [key, value] of Object.entries(newAppt)) {
+      console.log(key, value)
+      newApptFormData.append(key, value);
+    }
+    props.addNewAppointmentCb(newApptFormData)
   }
   if (props.changeAppointmentCb){
     props.changeAppointmentCb(formData);

@@ -95,6 +95,8 @@ export default function UrgentToDos(props) {
 
   return (
     <div className="UrgentToDos">
+        { combinedList.length > 1 &&
+        <div>
         <h1>Urgent Tasks:</h1>
         <table>
             <tbody>
@@ -115,6 +117,10 @@ export default function UrgentToDos(props) {
             }
             </tbody>
         </table>
+        </div>
+        }
+        {combinedList.length === 0 &&
+        <h1>No urgent tasks</h1>}
     </div>
   )
 }
