@@ -121,7 +121,7 @@ export default function UrgentToDos(props) {
         </div>
         }
         {combinedList.length === 0 &&
-        <h2>Urgent upcoming tasks: none</h2>}
+        <h2>No urgent tasks</h2>}
     </div>
   )
 }

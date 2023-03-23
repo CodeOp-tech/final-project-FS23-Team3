@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import "./LoginView.css"
 
 
 export default function LoginView(props) {
@@ -26,29 +29,29 @@ export default function LoginView(props) {
     }
 
   return (
-    <div>
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
-            <label>
-                <input 
-                type = "text"
-                name = "usernameInput"
-                value = {username}
-                onChange = {handleChange}
+    <div className="container LoginView">
+        {/* <h2>Login</h2> */}
+        <Form style={{width:"60%", margin:"0 auto", marginTop:"50px"}} onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formUsername">
+            <Form.Label>Username:</Form.Label>
+              <Form.Control 
+                type="text" 
+                name="usernameInput"
+                value={username}
                 required
-                />
-            </label>
-            <label>
-                <input 
-                type = "password"
-                name = "passwordInput"
-                value = {password}
-                onChange = {handleChange}
+                onChange={handleChange}/>
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formPassword">
+            <Form.Label>Password:</Form.Label>
+              <Form.Control 
+                type="password" 
+                name="passwordInput"
+                value={password}
                 required
-                />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
+                onChange={handleChange}/>
+          </Form.Group>
+            <Button type="submit">Log in</Button>
+        </Form>
     </div>
   )
 }

@@ -96,8 +96,10 @@ export default function AllPetAppointmentLog(props) {
     <div className="AllPetAppointmentLog">
         {appointments.length > 0 ? 
         <div>
-        <h2>{pet ? pet.name : ""}'s Appointments:</h2>
+
         {!showForm ?
+        <div>
+        <h2>{pet ? pet.name : ""}'s Appointments:</h2>
         <div className="appt-log-grid" >
         {appointments.map(a => (
             <Alert className="log-alert" key={a.id}>
@@ -142,6 +144,7 @@ export default function AllPetAppointmentLog(props) {
                 <Button onClick= {e => handleEditClick(a.id)} className= "btn position-absolute top-0 start-0" type="button"><i className="fa-regular fa-pen-to-square"></i></Button>
             </Alert>
         ))}
+        </div>
         </div>
                 :
                 <div>

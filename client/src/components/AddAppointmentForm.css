@@ -68,6 +68,21 @@ select{
     padding: 5px 0px;
   } */
 
-  .AddAppointmentForm Button {
-    background-color: var(--primary-blue) !important;
+  :root {
+    --primary-blue: #33658A;
+    --secondary-blue: #86BBD8;
+    --dark-blue: #2F4858;
+    --primary-highlight: #F26419;
+    --secondary-highlight: #F6AE2D;
+}
+.AddAppointmentForm button {
+    background-color: var(--primary-blue);
+    border: none;
+    margin-left: 10px;
+    margin-block: 15px;
+  }
+  
+.AddAppointmentForm button:hover {
+    background-color: var(--secondary-blue);
+    border: none;
   }
