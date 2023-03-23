@@ -81,10 +81,13 @@ export default function AllPetAppointmentLog(props) {
     }
 
     let toDate = (date) => {
-        let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
-        let dateObj = new Date(dateFormatted);
+        let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join('');
+        let dateNumber = +dateFormatted ;
+        let dateString=dateNumber.toString();
+        let dateReformatted = dateString.slice(0,4)+ "-"+dateString.slice(4,6)+"-"+dateString.slice(6,8)
+        let dateObj = new Date(dateReformatted);
         let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
-        let day = dateObj.getUTCDate() + 1;
+        let day = dateObj.getUTCDate() ;
         let year = dateObj.getUTCFullYear();
         return (`${month} ${day}, ${year}`);
     }
