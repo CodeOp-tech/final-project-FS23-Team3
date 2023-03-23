@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Clinic.belongsToMany(models.Pet, { through: "petsClinics" });
       Clinic.hasMany(models.Appointment);
+      Clinic.belongsToMany(models.Owner, { through: "ownersClinics" })
     }
   }
   Clinic.init({
@@ -21,7 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     latitude: DataTypes.DECIMAL,
     longtitude: DataTypes.DECIMAL,
     address: DataTypes.STRING,
-    clinicKey: DataTypes.STRING
+    clinicKey: DataTypes.STRING,
+    PetId: DataTypes.INTEGER,
+    OwnerId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Clinic',

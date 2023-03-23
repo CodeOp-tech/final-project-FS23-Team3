@@ -94,33 +94,33 @@ export default function UrgentToDos(props) {
     }
 
   return (
-        <div className="UrgentToDos">
-            { combinedList.length > 1 &&
-            <div>
-            <h1>Urgent Tasks:</h1>
-            <table>
-                <tbody>
-                    <tr>
-                        <th id="main-th">To Do:</th>
-                        <th>Complete By:</th>
-                        <th>For Pet:</th>
+    <div className="UrgentToDos">
+        { combinedList.length > 1 &&
+        <div>
+        <h1>Urgent Tasks:</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <th id="main-th">To Do:</th>
+                    <th>Complete By:</th>
+                    <th>For Pet:</th>
+                </tr>
+                {
+                combinedList.map((a) => (
+                    <tr key={a.id} >
+                        <td>{a.title}</td>
+                        <td>{toDate(a.date)}</td>
+                        <td>{(pets.find(p => p.id === a.PetId)) ? (pets.find(p => p.id === a.PetId)).name : ""}</td>
                     </tr>
-                    {
-                    combinedList.map((a) => (
-                        <tr key={a.id} >
-                            <td>{a.title}</td>
-                            <td>{toDate(a.date)}</td>
-                            <td>{(pets.find(p => p.id === a.PetId)) ? (pets.find(p => p.id === a.PetId)).name : ""}</td>
-                        </tr>
-    
-                    ))
-                }
-                </tbody>
-            </table>
-            </div>
+
+                ))
             }
-            {combinedList.length === 0 &&
-            <h3>No urgent tasks</h3>}
+            </tbody>
+        </table>
         </div>
-      )
+        }
+        {combinedList.length === 0 &&
+        <h1>No urgent tasks</h1>}
+    </div>
+  )
 }

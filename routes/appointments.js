@@ -52,8 +52,6 @@ router.get('/:id/appointments', async function(req, res, next) {
   }
 });
 
-
-
 /* GET all appointments of a pet on a given date.*/
 router.get('/:id/:date', async function(req, res, next) {
   const { id } = req.params;
@@ -194,6 +192,45 @@ router.get('/:id', async function(req, res, next) {
 
   //----------POSTS--------------
 
+  /* POST new appointment associated to pet. */
+  router.post('/', upload.single('files'), async function(req, res, next) {
+    let id = req.body.PetId;
+    const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
+    try {
+      const pet = await models.Pet.findOne({
+        where: {
+          id,
+        },
+      });
+      if (req.file){
+        const appointment = await pet.createAppointment({
+          date, 
+          title, 
+          summary, 
+          nextSteps, 
+          completeBy, 
+          followups, 
+          PetId,
+          files: req.file.originalname
+        });
+        res.status(201).send(appointment);
+      } else{
+        const appointment = await pet.createAppointment({
+          date, 
+          title, 
+          summary, 
+          nextSteps, 
+          completeBy, 
+          followups, 
+          PetId
+        });
+        res.status(201).send(appointment);
+      }
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
   /* POST new appointment associated to pet and clinic. */
   router.post('/:clinicKey', async function(req, res, next) {
     let { clinicKey } = req.params;
@@ -215,29 +252,24 @@ router.get('/:id', async function(req, res, next) {
     }
   });
 
-    /* POST new appointment associated to pet. */
-    router.post('/', upload.single('files'), async function(req, res, next) {
-      let id = req.body.PetId;
-      const { date, title, summary, nextSteps, completeBy, followups, PetId } = req.body;
+    /* POST new appointment via Fav form. */
+    router.post('/clinic/:id', async function(req, res, next) {
+      let { id } = req.params;
+      const { date, title, PetId } = req.body;
       try {
-        const pet = await models.Pet.findOne({
+        const clinic = await models.Clinic.findOne({
           where: {
             id,
           },
         });
-        const appointment = await pet.createAppointment({
+        const appointment = await clinic.createAppointment({
           date, 
-          title, 
-          summary, 
-          nextSteps, 
-          completeBy, 
-          followups, 
-          PetId,
-          files: req.file.originalname
+          title,  
+          PetId
         });
         res.status(201).send(appointment);
-      } catch (err) {
-        res.status(500).send({error: err.message});
+      } catch (error) {
+        res.status(500).send(error);
       }
     });
 
@@ -253,10 +285,13 @@ router.put('/:id', upload.single('files'), async function(req, res, next) {
           id,
         },
       });
-  
-      const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId, files: req.file.originalname })
-      res.send(updAppointment);
-  
+      if (req.file){
+        const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId, files: req.file.originalname })
+        res.send(updAppointment);
+      } else {
+        const updAppointment = await appointment.update({ date, title, summary, nextSteps, completeBy, followups, PetId })
+        res.send(updAppointment);
+      }
     } catch (error) {
       res.status(500).send(error);
     }

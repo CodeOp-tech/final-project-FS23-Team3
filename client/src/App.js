@@ -19,8 +19,10 @@ import ToDosView from './views/ToDosView';
 import HomeView from './views/HomeView';
 import AddAppointmentForm from './components/AddAppointmentForm';
 import PetContext from './context/PetContext';
+import OwnerContext from './context/OwnerContext';
 import PastAppointment from './components/PastAppointment';
 import AllPetAppointmentLog from './components/AllPetAppointmentLog';
+import MyVetsView from "./views/MyVetsView";
 
 
 function App() {
@@ -29,6 +31,7 @@ function App() {
   const [loginErrorMsg, setLoginErrorMsg] = useState('');
   const navigate = useNavigate();
   const [pets, setPets] = useState([]);
+  const [myVets, setMyVets] = useState ([]);
 
   
 
@@ -73,7 +76,6 @@ function App() {
       console.log(`Error! ${myresponse.error}`)
     }
   }
-
 
   return (
     <div className="App">
@@ -124,27 +126,49 @@ function App() {
                   >
                           <Route path=':id' element={
                             <PrivateRoute>
-                              <PetContext.Provider value={pets}>
-                                <ClinicView />
-                              </PetContext.Provider>
+                                <OwnerContext.Provider value={user} >
+                                <PetContext.Provider value={pets} >
+                                  <ClinicView />
+                                </PetContext.Provider>
+                                </OwnerContext.Provider>
                             </PrivateRoute>
                             } 
                           />
                   </Route>
 
-                  <Route path="/to-dos" element={
+              <Route path="/to-dos" element={
                     <PrivateRoute>
                       <ToDosView pets={pets} user={user}/>
                     </PrivateRoute>
-                  } />
+              } />
 
-                  <Route path='/login' element={
+              <Route path="/myvets" element={
+                    <PrivateRoute>
+                      <OwnerContext.Provider value={user} >
+                      <PetContext.Provider value={pets} >
+                        <MyVetsView />
+                      </PetContext.Provider>
+                      </OwnerContext.Provider>
+                    </PrivateRoute>
+              } />
+
+              <Route path="/myvets/:id" element={
+                    <PrivateRoute>
+                      <OwnerContext.Provider value={user} >
+                      <PetContext.Provider value={pets} >
+                        <MyVetsView />
+                      </PetContext.Provider>
+                      </OwnerContext.Provider>
+                    </PrivateRoute>
+              } />
+
+              <Route path='/login' element={
                     <LoginView loginErrorMsg={loginErrorMsg} doLoginCb={(u, p) => doLogin(u, p)} />
-                    } 
-                  />
+              } />
                   
-                  <Route path='/register' element={
-                    <RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
+              <Route path='/register' element={
+              
+              <RegisterView loginErrorMsg={loginErrorMsg} registerUserCb={(firstname, lastname, username, email, password) => registerUser(firstname, lastname, username, email, password)} />} />
         
 
 

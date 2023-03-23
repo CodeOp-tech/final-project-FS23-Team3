@@ -1,0 +1,10 @@
+.MyVetsView table {
+    counter-reset: section;
+    text-align: left;
+    border: none !important;
+  }
+  
+.MyVetsView .count:before {
+    counter-increment: section;
+    content: counter(section);
+  }

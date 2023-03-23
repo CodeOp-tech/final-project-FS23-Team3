@@ -33,7 +33,7 @@ export default function NavBar(props) {
 
                 <NavDropdown title="My vets" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/clinics">Find a vet</NavDropdown.Item>
-                <NavDropdown.Item href="#VetListView">My vets</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/myvets">My vets</NavDropdown.Item>
                 <NavDropdown.Item href="#VetChatView">Vet chat</NavDropdown.Item>
                 </NavDropdown>
           </Nav >
