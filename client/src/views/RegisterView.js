@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import "./RegisterView.css"
 
 let EMPTY_FORM = {
     username: '',
@@ -73,7 +74,7 @@ export default function RegisterView(props) {
                     required
                     onChange={handleChange}/>
             </Form.Group>
-            <Button type="submit">Create account</Button>
+            <Button variant="primary"  style={{textDecoration: 'none', color: 'white'}}type="submit">Create account</Button>
         </Form>
     </div>
   )

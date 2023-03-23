@@ -67,8 +67,28 @@
     color: var(--primary-blue)
 }
 
-.btn-todos {
+/* .btn-todos {
     margin-bottom:10px !important;
     background-color: var(--primary-blue) !important;
     color:white !important;
+} */
+
+:root {
+    --primary-blue: #33658A;
+    --secondary-blue: #86BBD8;
+    --dark-blue: #2F4858;
+    --primary-highlight: #F26419;
+    --secondary-highlight: #F6AE2D;
 }
+.btn-todos {
+    background-color: var(--primary-blue) !important;
+    border: none !important;
+    margin-left: 10px !important;
+    margin-block: 15px !important;
+    color:white !important;
+  }
+  
+  .btn-todos:hover {
+    background-color: var(--secondary-blue) !important;
+    border: none !important;
+  }
