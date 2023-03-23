@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
 import Api from "../helpers/Api";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import AddPetForm from "./AddPetForm";
 
@@ -27,14 +28,13 @@ export default function FeaturedPet(props) {
       getAppointments();
     }, [props.featPet.id])
 
-    //shows the "add pet form"
-    //saves the information of the pet we want to edit so we can prefill the form with that
+
     function handleEditClick() {
         setEditedPet(props.featPet);
         setShowForm(true)
     }
   
-    //deletes a pet from the database
+
     async function handleDelete(id) {
     
         try {
@@ -84,7 +84,16 @@ export default function FeaturedPet(props) {
                     }
                 </div>
             
-            <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
+             <Dropdown>
+              <Dropdown.Toggle variant="primary" className="btn btn-primary">
+                Add Appointment
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="/add-appointment" className="btn btn-primary">Add past appointment</Dropdown.Item>
+                <Dropdown.Item href="/clinics" className="btn btn-primary">Add new appointment</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
 
             <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
 

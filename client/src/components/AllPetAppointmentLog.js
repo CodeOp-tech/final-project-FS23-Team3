@@ -18,10 +18,6 @@ export default function AllPetAppointmentLog(props) {
         getAppointments();
     }, [appointment]);
 
-    // useEffect(() => {
-    //     getAppointment();
-    // },[appointment.title])
-
 
     function handleEditClick(id) {
         let selectedApt = appointments.find(a => a.id === id);
@@ -85,10 +81,13 @@ export default function AllPetAppointmentLog(props) {
     }
 
     let toDate = (date) => {
-        let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
-        let dateObj = new Date(dateFormatted);
+        let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join('');
+        let dateNumber = +dateFormatted ;
+        let dateString=dateNumber.toString();
+        let dateReformatted = dateString.slice(0,4)+ "-"+dateString.slice(4,6)+"-"+dateString.slice(6,8)
+        let dateObj = new Date(dateReformatted);
         let month = new Intl.DateTimeFormat("en-US", {month:"long"}).format(dateObj);
-        let day = dateObj.getUTCDate() + 1;
+        let day = dateObj.getUTCDate() ;
         let year = dateObj.getUTCFullYear();
         return (`${month} ${day}, ${year}`);
     }
@@ -97,40 +96,46 @@ export default function AllPetAppointmentLog(props) {
     <div className="AllPetAppointmentLog">
         {appointments.length > 0 ? 
         <div>
-        <h1>{pet ? pet.name : ""}'s Appointments:</h1>
+        <h2>{pet ? pet.name : ""}'s Appointments:</h2>
         {!showForm ?
         <div className="appt-log-grid" >
         {appointments.map(a => (
-            <Alert variant="primary" key={a.id}>
+            <Alert className="log-alert" key={a.id}>
                 <Alert.Heading style={{textDecoration:"underline"}}>{toDate(a.date)}</Alert.Heading>
                 {a.title ? 
                 <div>
-                    <p style={{fontWeight:"bold"}}>Appointment topic:</p>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Appointment topic:</p>
                 <p>{a.title}</p>
                 </div>
-                : <p style={{fontWeight:"bold"}}>Upcoming appointment</p>
+                : <p style={{fontWeight:"bold"}} className="log-bold">Upcoming appointment</p>
+                }
+                {a.ClinicId &&
+                <div>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Vet Clinic:</p>
+                    <p>{(props.clinics.find(c => +c.id === +a.ClinicId)) ? (props.clinics.find(c => +c.id === +a.ClinicId)).name : ''}</p>
+                </div>
                 }
                 {a.summary &&
                 <div>
-                    <p style={{fontWeight:"bold"}}>Appointment summary:</p>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Appointment summary:</p>
                     <p>{a.summary}</p>
                 </div>
                 }
                 {a.nextSteps &&
                 <div>
-                    <p style={{fontWeight:"bold"}}>Next steps:</p>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Next steps:</p>
                     <p>{a.nextSteps}</p>
                 </div>
                 }
                 {a.files &&
                 <div>
-                    <p style={{fontWeight:"bold"}}>Files:</p>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Files:</p>
                     <a href={a.file_url} target='_blank'>{a.files}</a>
                 </div>
                 }
                 {a.followups &&
                 <div>
-                    <p style={{fontWeight:"bold"}}>Follow up appointment:</p>
+                    <p style={{fontWeight:"bold"}} className="log-bold">Follow up appointment:</p>
                     <p>{toDate(a.followups)}</p>
                 </div>
                 }
@@ -145,10 +150,11 @@ export default function AllPetAppointmentLog(props) {
                     setEditedAppt = {setEditedAppt}
                     setShowForm = {setShowForm}
                     pets={props.pets}
+                    clinics={props.clinics}
                     changeAppointmentCb={apptObj => changeAppointment(apptObj)}
         
                 />
-                <Button onClick={e => toggleShowForm()}>back</Button>
+                <Button style={{marginBottom:"10px"}} onClick={e => toggleShowForm()}>back</Button>
                 </div>
                 }
         </div>

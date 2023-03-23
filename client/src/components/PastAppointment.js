@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AddAppointmentForm from './AddAppointmentForm';
 import AppointmentSummary from './AppointmentSummary';
 import Api from '../helpers/Api';
@@ -86,11 +86,12 @@ export default function PastAppointment(props) {
           (formViewToggle)
             ? <AddAppointmentForm 
                 pets={props.pets} 
+                clinics={props.clinics}
                 handleChangeCb={e => handleChangeView()}
                 addAppointmentCb={(appointment, formData)=> addAppointmentInfo(appointment, formData)}
                 addNewAppointmentCb={newAppt => addNewAppointment(newAppt)}
                 />
-            : <AppointmentSummary pets={props.pets} appointment={appointmentSummary}/>
+            : <AppointmentSummary clinics={props.clinics} pets={props.pets} appointment={appointmentSummary}/>
         }
     </div>
   )
