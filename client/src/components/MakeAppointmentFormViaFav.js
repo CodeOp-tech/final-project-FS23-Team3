@@ -17,14 +17,11 @@ const EMPTY_FORM = {
     PetId: ''
   }
 
-export default function MakeAppointmentForm(props) {
+export default function MakeAppointmentFormViaFav(props) {
     const { id } = useParams();
     const pets = useContext(PetContext);
     const [formData, setFormData] = useState(EMPTY_FORM);
     const [appointment, setAppointment] = useState([])
-
-   //handleForm add form input to create new appointment with PetId and ClinicId
-   //add association between clinics and appointments: appt. has one clinic, clinic can have many appt.
     
    function handleChange(event) {
         let { name, value } = event.target;
@@ -38,14 +35,8 @@ export default function MakeAppointmentForm(props) {
     }
 
    async function addAppointment(appointment) {
-        let vet = props.vets.businesses.find(v => v.id === id);
-        //has the user added this vet to favorites already (only then can appointments be amde)?
-        //if not, add to myVets first, then make appointment
-        let favorite = props.favoriteClinics.find(clinic => clinic.clinicKey === id)
-        if (!favorite) {
-          await props.handleAddFavoriteCb(vet)
-        }
-        
+        let vet = props.myVets.find(v => v.id === +id);
+         
         let options = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -58,7 +49,7 @@ export default function MakeAppointmentForm(props) {
                   }
 
         try {
-            let response = await fetch (`/api/appointments/${vet.id}`, options);
+            let response = await fetch (`/api/appointments/clinic/${vet.id}`, options);
             if (response.ok) {
                 let appointment = await response.json();
                 setAppointment(appointment);
@@ -72,7 +63,7 @@ export default function MakeAppointmentForm(props) {
     }
   
    return (
-    <Container className="MakeAppointmentForm">
+    <Container className="MakeAppointmentFormViaFav">
       <Row>
         <Form onSubmit={handleSubmit}>
               <Row>
