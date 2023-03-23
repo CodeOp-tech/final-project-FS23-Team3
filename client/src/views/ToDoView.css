@@ -1,6 +1,4 @@
 .ToDosView{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     gap:40px;
     width:80%;
     margin: 0 auto;
@@ -20,7 +18,7 @@
 
 /* Added the classname here in front */
 .ToDosView table, td, th {
-    border: 1px solid black !important;
+    border: 1px solid lightgrey !important;
     padding: 5px;
 }
 

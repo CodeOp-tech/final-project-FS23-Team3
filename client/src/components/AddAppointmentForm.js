@@ -16,6 +16,7 @@ const EMPTY_FORM = {
 
 export default function AddAppointmentForm(props) {
   const [formInput, setFormInput] = useState(props.editedAppt || EMPTY_FORM);
+  const [formData, setFormData] = useState(null)
   const [selected, setSelected] = useState("");
 
 const handleChange = (event) => {
@@ -50,6 +51,7 @@ const handleSubmit = (event) => {
     console.log(formData)
     props.addAppointmentCb(formInput, formData);
   }
+
   if (props.addNewAppointmentCb && formInput.followups){
     let newAppt = {  
     date: formInput.followups,
@@ -65,17 +67,41 @@ const handleSubmit = (event) => {
     }
     props.addNewAppointmentCb(newApptFormData)
   }
+
   if (props.changeAppointmentCb){
     props.changeAppointmentCb(formData);
   }
+
   if (props.setShowForm){
     props.setShowForm(false);
   }
+
   if(props.handleChangeCb){
     props.handleChangeCb()
   }
+
   setFormInput(EMPTY_FORM);
 }
+
+// async function addAppointmentTest(appointment) {
+
+//   let options = {
+//       method: "POST",
+//       body: appointment
+//   }
+
+//   try {
+//       let response = await fetch (`/api/appointments/`, options);
+//       if (response.ok) {
+//           let appointment = await response.json();
+//           console.log(appointment)
+//       } else {
+//           console.log(`Server error: ${response.status} ${response.statusText}`);
+//       }
+//   } catch (err) {
+//       console.log(`Server Error: ${err.message}`);
+//   }
+// }
 
   return (
     <div className="AddAppointmentForm">
@@ -83,6 +109,7 @@ const handleSubmit = (event) => {
       <div className="not-submitted">
       <h1>Add information about a past appointment</h1>
         <Form onSubmit={handleSubmit}>
+
           <Form.Group className="mb-3" controlId="formDate">
             <Form.Label>Date:</Form.Label>
               <Form.Control 
@@ -92,6 +119,7 @@ const handleSubmit = (event) => {
                 required
                 onChange={e => handleChange(e)}/>
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
             <Form.Select aria-label="Default select example" required name="ClinicId" onChange={handleChange}>
@@ -101,6 +129,7 @@ const handleSubmit = (event) => {
                 ))}
             </Form.Select>
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="formPetId">
             <Form.Label>Which pet?</Form.Label>
             <Form.Select aria-label="Default select example" required name="PetId" onChange={handleChange}>

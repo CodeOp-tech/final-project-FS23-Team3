@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
+import Table from 'react-bootstrap/Table';
 import "./ToDoView.css";
 
 let toDate = (date) => {
@@ -124,7 +125,7 @@ export default function ToDosView(props) {
     <div className="ToDosView">
         <div id="left-grid">
             <h1>All Upcoming Tasks:</h1>
-            <table className="all-tasks-table">
+            <Table className="all-tasks-table">
                 <tbody>
                     <tr>
                         <th id="main-th">To Do:</th>
@@ -142,7 +143,7 @@ export default function ToDosView(props) {
                     ))
                 }
                 </tbody>
-            </table>
+            </Table>
         </div>
         <div id="right-grid">
             <h1>Details</h1>
@@ -154,7 +155,7 @@ export default function ToDosView(props) {
                     <h3>{selectedAppt.selectedName}</h3>
                 }
             { selectedAppt &&
-            <table className="selected-table">
+            <Table className="selected-table">
             <tbody>
             {!selectedAppt.completeBy && 
                 <tr>
@@ -205,7 +206,7 @@ export default function ToDosView(props) {
                 </tr>
                 }
             </tbody>
-        </table>
+        </Table>
             }
             </div>
         </div>
