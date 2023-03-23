@@ -57,6 +57,7 @@ const handleSubmit = (event) => {
     date: formInput.followups,
     title: "Follow up",
     PetId: formInput.PetId,
+    ClinicId: formInput.ClinicId,
     files: null
     }
     const newApptFormData = new FormData();
@@ -106,11 +107,12 @@ const handleSubmit = (event) => {
     <div className="AddAppointmentForm">
       {/* {!submittedForm &&  */}
       <div className="not-submitted">
-      <h1>Add information about a past appointment</h1>
+      <h2>Add information from a past appointment</h2>
+      <p id="required-astrisk">* indicates required field</p>
         <Form onSubmit={handleSubmit}>
 
           <Form.Group className="mb-3" controlId="formDate">
-            <Form.Label>Date:</Form.Label>
+            <Form.Label>Date:*</Form.Label>
               <Form.Control 
                 type="date" 
                 name="date"
@@ -121,16 +123,16 @@ const handleSubmit = (event) => {
 
           <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder= "Clinic name"
-                name="ClinicId"
-                value={formInput.ClinicId}
-                onChange={e => handleChange(e)}/>
+            <Form.Select aria-label="Default select example" required name="ClinicId" onChange={handleChange}>
+                <option>Choose from your clinics:</option>
+                {props.clinics.map(c => (
+                  <option key={c.id} value={c.id} >{c.name}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPetId">
-            <Form.Label>Which pet?</Form.Label>
+            <Form.Label>Which pet?*</Form.Label>
             <Form.Select aria-label="Default select example" required name="PetId" onChange={handleChange}>
                 <option>Choose a pet</option>
                 {props.pets.map(p => (
@@ -185,7 +187,7 @@ const handleSubmit = (event) => {
                 onChange={e => handleFileChange(e)}/>
           </Form.Group>
           <div className="span-3-cols">
-            <Button variant="primary" type="submit">Submit</Button>
+            <Button style={{marginBottom:"10px"}} variant="primary" type="submit">Submit</Button>
           </div>
         </Form>
       </div>

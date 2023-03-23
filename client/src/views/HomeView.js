@@ -34,7 +34,6 @@ export default function HomeView(props) {
               <Dropdown.Menu>
                 <Dropdown.Item href="/add-appointment" className="btn btn-primary">Add past appointment</Dropdown.Item>
                 <Dropdown.Item href="/clinics" className="btn btn-primary">Add new appointment</Dropdown.Item>
-                <Dropdown.Item href="" className="btn btn-primary">All appointments</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
@@ -71,7 +70,7 @@ export default function HomeView(props) {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="/clinics" className="btn btn-primary">Find a vet</Dropdown.Item>
-                <Dropdown.Item href="/clinics#VetListView" className="btn btn-primary">Saved vets</Dropdown.Item>
+                <Dropdown.Item href="/myvets" className="btn btn-primary">Saved vets</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

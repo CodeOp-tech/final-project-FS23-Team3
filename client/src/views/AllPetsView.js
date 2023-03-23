@@ -9,7 +9,6 @@ export default function AllPetsView(props) {
 
  return (
     <div className = "AllPetsView">
-        <h1>All pets</h1>
 
         <AllPetsList 
             user = {props.user}

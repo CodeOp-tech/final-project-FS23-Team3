@@ -49,9 +49,7 @@ export default function MyVetsView(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    async function handleDelete() {
-        let vet = myVets.find(v => v.id === +id);
-
+    async function handleDelete(id) {
         let options = {
            method: "DELETE",
            headers: { "Content-Type": "application/json" },
@@ -63,7 +61,7 @@ export default function MyVetsView(props) {
              }
 
          try {
-             let response = await fetch(`/api/clinics/clinic/${vet.id}`, options);
+             let response = await fetch(`/api/clinics/clinic/${id}`, options);
                if (response.ok) {
                  let myVets = await response.json();
                  setMyVets(myVets);
@@ -77,7 +75,7 @@ export default function MyVetsView(props) {
 
   return (
     <div className='MyVetsView'>
-            <Table striped borderless= {true} bordered={ false } hover responsive="sm" >
+            <Table striped borderless= {true} bordered={ false } hover responsive="sm" id='vetList'>
                     <thead>
                         <tr>
                         <th>#</th>
@@ -98,17 +96,12 @@ export default function MyVetsView(props) {
                                     <td>{vet.address}</td>
                                     <td>{vet.contactPhone}</td>
                                     <td><Button variant="primary" onClick={handleShow} >
-                                            <Link to={`/myvets/${vet.id}`}>
+                                            <Link to={`/myvets/${vet.id}`} style={{textDecoration: 'none', color: 'white'}}>
                                                 Add appointment
                                             </Link>
                                         </Button>
                                     </td>
-                                    <td><Button onClick={handleDelete} >
-                                            <Link to={`/myvets/${vet.id}`}>
-                                                Delete
-                                            </Link>
-                                        </Button>
-                                    </td>
+                                    <td><Button onClick={(e)=>handleDelete(vet.id)}>Delete</Button></td>
                                 </tr>
                             ))
                             : null
@@ -122,7 +115,10 @@ export default function MyVetsView(props) {
               </Modal.Header>
 
               <Modal.Body>
-                <MakeAppointmentFormViaFav myVets={myVets}/>
+                <MakeAppointmentFormViaFav 
+                    myVets={myVets}
+                    handleCloseCb={handleClose}
+                    />
               </Modal.Body>
 
               <Modal.Footer>
@@ -130,10 +126,7 @@ export default function MyVetsView(props) {
                   Close
                 </Button>
               </Modal.Footer>
-          </Modal>
-
-            
-    </div>
-        );
-
+          </Modal>     
+        </div>
+    );
 }

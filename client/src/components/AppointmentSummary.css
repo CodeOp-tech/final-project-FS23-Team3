@@ -1,0 +1,19 @@
+.AppointmentSummary Table{
+    width:100%;
+}
+
+.bold-td{
+    font-weight: bold;
+}
+
+.AppointmentSummary Button {
+    background-color: var(--primary-blue) !important;
+    margin:0 auto;
+}
+
+.AppointmentSummary h2 {
+    color: var(--primary-blue);
+    margin-bottom:25px;
+    margin-top:20px;
+}
+

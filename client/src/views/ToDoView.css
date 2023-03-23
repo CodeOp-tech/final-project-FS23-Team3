@@ -17,7 +17,7 @@
 }
 
 /* Added the classname here in front */
-.ToDosView table, td, th {
+.ToDosView table {
     border: 1px solid lightgrey !important;
     padding: 5px;
 }
@@ -27,8 +27,7 @@
 }
 
 .urgent{
-    color: #6F1A07;
-    background-color: #FABFB2;
+    background-color: #FDE9C4;
 }
 
 .cursor-pointer{
@@ -41,10 +40,19 @@
     width:100%;
 }
 
+#h3-table{
+    margin-bottom:0px !important
+}
+
+.ToDosView h2 {
+    color: var(--primary-blue)
+}
+
 /* Added classname in front */
 .ToDosView h3{
     padding-bottom:7px;
     margin-bottom:0 !important;
+    color: var(--primary-blue)
 }
 
 .selected-table{
@@ -53,4 +61,14 @@
     border-top:0px !important;
     border-right:0px !important;
     border-left:0px !important;
+}
+
+.ToDosView th {
+    color: var(--primary-blue)
+}
+
+.btn-todos {
+    margin-bottom:10px !important;
+    background-color: var(--primary-blue) !important;
+    color:white !important;
 }

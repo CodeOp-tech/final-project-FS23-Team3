@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
 import AddAppointmentForm from './AddAppointmentForm';
 import Button from 'react-bootstrap/esm/Button';
+import Table from 'react-bootstrap/esm/Table';
+import "./AppointmentSummary.css";
 
 export default function AppointmentSummary(props) {
     const [showForm, setShowForm] = useState(false);
@@ -56,57 +58,51 @@ export default function AppointmentSummary(props) {
     }
 
   return (
-    <div>
+    <div className="AppointmentSummary">
     {appointment && 
         <div>
         {!showForm ?
+        <div className="container">
         <div>
-        <div>
-            <h1>Your appointment:</h1>
-            <div className="submitted">        
-                <div>
-                    <p>Date:</p>
-                    <p>{(appointment.date) ? appointment.date.slice(0,10) : appointment.date}</p>
-                </div>
-                <div>
-                    <p>Vet clinic name:</p>
-                    <p>{appointment.clinicName}</p>
-                </div>
-                <div>
-                    <p>Which pet?</p>
-                    <p>{(props.pets.find(p => +p.id === +appointment.PetId)) ? (props.pets.find(p => +p.id === +appointment.PetId)).name : ''}</p>
-                </div>
-                <div>
-                    <p>Next steps for owner:</p>
-                    <p>{props.appointment.nextSteps}</p>
-                </div>
-                <div>
-                    <p>Complete next steps by:</p>
-                    <p>{(appointment.completeBy) ? appointment.completeBy.slice(0,10) : appointment.completeBy}</p>
-                </div>
-                <div>
-                    <p>Follow up appointment:</p>
-                    <p>{(appointment.followups) ? appointment.followups.slice(0,10) : appointment.followups}</p>
-                </div>
-                <div>
-                    <p>Appointment topic:</p>
-                    <p>{appointment.title}</p>
-                </div>
-                <div>
-                    <p>Appointment summary:</p>
-                    <p>{appointment.summary}</p>
-                </div>
-                {appointment.files &&
-                    <div>
-                        <p>Appointment files:</p>
-                        <a href={`http://localhost:5000/files/${appointment.files}`} target='_blank'>{appointment.files}</a>
-                    </div>
-                }
-            </div>
+            <h2>Your appointment:</h2>
+            <Table borderless= {true} bordered={ false } className="submitted">   
+                <tbody>
+                <tr>
+                    <td className="bold-td">Date:</td>
+                    <td className="bold-td">Vet clinic:</td>
+                    <td className="bold-td">Which pet?</td>
+                </tr>
+                <tr>
+                    <td>{(appointment.date) ? appointment.date.slice(0,10) : appointment.date}</td>
+                    <td>{(props.clinics.find(c => +c.id === +appointment.ClinicId)) ? (props.clinics.find(c => +c.id === +appointment.ClinicId)).name : ''}</td>
+                    <td>{(props.pets.find(p => +p.id === +appointment.PetId)) ? (props.pets.find(p => +p.id === +appointment.PetId)).name : ''}</td>
+                </tr>
+                <tr>
+                    <td className="bold-td">Next steps for owner:</td>
+                    <td className="bold-td">Complete next steps by:</td>
+                    <td className="bold-td">Follow up appointment:</td>
+                </tr>
+                <tr>
+                    <td>{props.appointment.nextSteps}</td>
+                    <td>{(appointment.completeBy) ? appointment.completeBy.slice(0,10) : appointment.completeBy}</td>
+                    <td>{(appointment.followups) ? appointment.followups.slice(0,10) : appointment.followups}</td>
+                </tr>
+               <tr>
+                    <td className="bold-td">Appointment topic:</td>
+                    <td className="bold-td">Appointment summary:</td>
+                    <td className="bold-td">Appointment files:</td>
+               </tr>
+               <tr>
+                    <td>{appointment.title}</td>
+                    <td>{appointment.summary}</td>
+                    <td>{appointment.files ? <a href={`http://localhost:5000/files/${appointment.files}`} target='_blank'>{appointment.files}</a> : ''}</td>
+               </tr>
+                </tbody>     
+            </Table>
         </div>
-        <button onClick= {e => handleEditClick()}>
+        <Button  style={{marginLeft:"-25px"}} onClick= {e => handleEditClick()}>
             Edit appointment
-        </button>
+        </Button>
         </div>
         :
         <div>
@@ -115,10 +111,11 @@ export default function AppointmentSummary(props) {
             setEditedAppt = {setEditedAppt}
             setShowForm = {setShowForm}
             pets={props.pets}
+            clinics={props.clinics}
             changeAppointmentCb={formData => changeAppointment(formData)}
 
         />
-        <Button onClick={e => toggleShowForm()}>back</Button>
+        <Button style={{marginBottom:"10px", marginLeft:"0px"}} onClick={e => toggleShowForm()}>back</Button>
         </div>
         }
     </div>

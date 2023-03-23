@@ -4,8 +4,14 @@
 }
 
 #required-astrisk{
-    margin-top:-10px;
+    margin-top:-15px;
     margin-bottom:45px;
+}
+
+.AddAppointmentForm h2 {
+    color: var(--primary-blue);
+    margin-bottom:25px;
+    margin-top:20px;
 }
 
 .AddAppointmentForm input {
@@ -48,7 +54,7 @@ select{
     background-color: white;
   }
 
-  .submitted{
+  /* .submitted{
     margin-top:50px !important;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -60,4 +66,8 @@ select{
   .submitted div{
     border:1px solid black;
     padding: 5px 0px;
+  } */
+
+  .AddAppointmentForm Button {
+    background-color: var(--primary-blue) !important;
   }

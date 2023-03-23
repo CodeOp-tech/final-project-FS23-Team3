@@ -5,21 +5,27 @@
     --primary-highlight: #F26419;
     --secondary-highlight: #F6AE2D;
   }
-.NavBar {
-    display: flex;
-}
-.NavBar button {
+
+.AllClinicsView button {
     background-color: var(--primary-blue);
     border: none;
-    margin-left: 10px;
-    margin-block: 15px;
+    margin-top: -20px;
+    margin-left: -50px;
+    
   }
-  
-.NavBar button:hover {
+
+  .AllClinicsView button:hover {
     background-color: var(--secondary-blue);
     border: none;
   }
 
-#appName {
-    color: var(--dark-blue);
-}
+  .AllClinicsView .input {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .AllClinicsView .mb-3 {
+    text-align: left;
+    padding: 0;
+  } 

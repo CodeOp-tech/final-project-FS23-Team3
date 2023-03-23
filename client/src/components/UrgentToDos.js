@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
-import "./UrgentToDos.css"
+import "./UrgentToDos.css";
+import Table from 'react-bootstrap/Table';
 
 let toDate = (date) => {
     let dateFormatted = date.split(/[- :.T]/).slice(0, -4).join(', ');
@@ -97,8 +98,8 @@ export default function UrgentToDos(props) {
     <div className="UrgentToDos">
         { combinedList.length > 1 &&
         <div>
-        <h1>Urgent Tasks:</h1>
-        <table>
+        <h2>Urgent upcoming tasks:</h2>
+        <Table>
             <tbody>
                 <tr>
                     <th id="main-th">To Do:</th>
@@ -116,11 +117,11 @@ export default function UrgentToDos(props) {
                 ))
             }
             </tbody>
-        </table>
+        </Table>
         </div>
         }
         {combinedList.length === 0 &&
-        <h1>No urgent tasks</h1>}
+        <h2>Urgent upcoming tasks: none</h2>}
     </div>
   )
 }

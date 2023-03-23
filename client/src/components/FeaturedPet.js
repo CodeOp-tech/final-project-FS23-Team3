@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import Api from "../helpers/Api";
 
 import "./FeaturedPet.css"
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import AddPetForm from "./AddPetForm";
 
@@ -29,13 +30,10 @@ export default function FeaturedPet(props) {
       getAppointments();
     }, [props.featPet.id])
 
-    //shows the "add pet form"
-    //saves the information of the pet we want to edit so we can prefill the form with that
+
     function handleEditClick() {
         setEditedPet(props.featPet);
     }
-
-    //for the Offcanvas
   
     //deletes a pet from the database
     async function handleDelete(id) {

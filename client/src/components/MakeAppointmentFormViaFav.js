@@ -10,6 +10,7 @@ import Nav from 'react-bootstrap/Nav';
 import PetContext from '../context/PetContext';
 
 import Local from "../helpers/Local";
+import './MakeAppointmentFormViaFav.css'
 
 const EMPTY_FORM = {
     date: '',
@@ -105,7 +106,7 @@ export default function MakeAppointmentFormViaFav(props) {
               </Row>
 
               <Row>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" onClick={props.handleCloseCb}>
                     Add appointment
                 </Button>
               </Row>

@@ -7,6 +7,12 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Badge from 'react-bootstrap/Badge';
 import { Link, Outlet } from 'react-router-dom';
+import Card from 'react-bootstrap/Card';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+
+import './AllClinicsView.css';
+import placeholder_img from "../images/placeholder_img.svg"; 
+
 
 const BASE_URL = 'http://localhost:5000/api/yelp'
 
@@ -15,6 +21,7 @@ export default function AllClinicsView() {
   const [distance, setDistance] = useState('');
   const [error, setError] = useState('');
   const [vets, setVets] = useState(null);
+  const [show, setShow] = useState(false);
 
 
   const handleLocation = e => {
@@ -54,14 +61,16 @@ export default function AllClinicsView() {
     }    
   } 
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <Container className="AllClinicsView">
       
       <Row>
         <Form onSubmit={handleSubmit} >
-              <div style={{display:"flex"}}>
-                  <Col>
+              <div className="input" >
+                  <Col xs={5}>
                       
                       <Form.Group className="mb-3" controlId="formLocation">
                         <Form.Label></Form.Label>
@@ -72,7 +81,7 @@ export default function AllClinicsView() {
                       </Form.Group>    
                 
                   </Col>
-                  <Col>
+                  <Col xs={5}>
               
                       <Form.Group className="mb-3" controlId="formDistance">
                         <Form.Label></Form.Label>
@@ -83,47 +92,52 @@ export default function AllClinicsView() {
                       </Form.Group>    
               
                   </Col>
+
+                  <Col>
+                    <Button variant="primary" type="submit">
+                        Find vet
+                    </Button>
+                  </Col>
               </div>
-              <Col>
-                <Button variant="primary" type="submit">
-                    Find vet in my area!
-                </Button>
-              </Col>
+              
         </Form> 
       </Row>
 
-      <Row>
-        <div style={{display: "flex", textAlign: "left"}}>
-          <Col xs={8}>
-            <ul style={{listStyle:"none"}}>
+      <Row style={{display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px"}}>
+            
               {
                 vets
                 ? vets.businesses.map(vet => (
-                  <li key={vet.id} style={{padding: "5px"}}>
 
-                    {vet.name} | Distance: {Math.floor(`${vet.distance}`)}m,
-
-                    <Badge bg="secondary">
-                      <Nav.Link as={Link} to={`/clinics/${vet.id}`}>
-                        See details
-                      </Nav.Link>
-                    </Badge>
-                    
-                  </li>
+                  <Card style={{ width: '18rem' }}>
+                      <Card.Img variant="top" src={vet.image_url || placeholder_img} />
+                      <Card.Body style={{textAlign:"left"}}>
+                        <Card.Title>{vet.name}</Card.Title>
+                        <Card.Text>
+                          Distance: {Math.floor(`${vet.distance}`)}m <br/>
+                            <Badge bg="secondary">
+                                <Nav.Link as={Link} to={`/clinics/${vet.id}`} onClick={handleShow}>
+                                  See details
+                                </Nav.Link>
+                            </Badge>
+                        </Card.Text>
+                            
+                      </Card.Body>
+                  </Card>
                 ))
                 : null
               }
-            </ul>
-          </Col>
-              
-          <Col>
-            <Outlet context={[vets, setVets]}/>
-          </Col>
 
-        </div>
       </Row>
 
-
+      <Offcanvas show={show} onHide={handleClose}>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title></Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Outlet context={[vets, setVets]}/>
+            </Offcanvas.Body>
+      </Offcanvas>
 
     </Container>
   )
