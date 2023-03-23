@@ -147,6 +147,7 @@ export default function AllPetAppointmentLog(props) {
                     setEditedAppt = {setEditedAppt}
                     setShowForm = {setShowForm}
                     pets={props.pets}
+                    clinics={props.clinics}
                     changeAppointmentCb={apptObj => changeAppointment(apptObj)}
         
                 />
