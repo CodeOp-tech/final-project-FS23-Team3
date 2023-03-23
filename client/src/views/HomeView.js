@@ -2,13 +2,10 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import "./HomeView.css";
 import UrgentToDos from '../components/UrgentToDos';
-import AllPetsList from '../components/AllPetsList';
 import VetDrawing from "../images/vet-image.svg";
 import CalendarImage from "../images/calendar-image.svg";
-import ChatImage from "../images/Chat-image.svg"
+import PetImage from "../images/undraw_dog.svg";
 import Dropdown from 'react-bootstrap/Dropdown';
-
-const img1src = "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzV8fHB1cHBpZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
 
 export default function HomeView(props) {
 
@@ -25,7 +22,7 @@ export default function HomeView(props) {
 
       <div className="home-cards">
         <div className="card" style={{width: "20rem"}}>
-          <img src={VetDrawing} className="card-img-top" alt="drawing of veterinarians"/>
+          <img src={CalendarImage} className="card-img-top" alt="drawing of veterinarians"/>
           <div className="card-body">
             <h5 className="card-title">Appointments</h5>
             <p className="card-text">Add information from a past vet visit to keep it in your records.</p>
@@ -44,7 +41,7 @@ export default function HomeView(props) {
         </div>
 
         <div className="card" style={{width: "20rem"}}>
-          <img src={CalendarImage} className="card-img-top" alt="drawing of calendar"/>
+          <img src={PetImage} className="card-img-top" alt="drawing of calendar"/>
           <div className="card-body">
             <h5 className="card-title">Pets</h5>
             <p className="card-text">Keep all your pet's health information stored in their profile.</p>
@@ -62,7 +59,7 @@ export default function HomeView(props) {
         </div>
 
         <div className="card" style={{width: "20rem"}}>
-          <img src={CalendarImage} className="card-img-top" alt="drawing of calendar"/>
+          <img src={VetDrawing} className="card-img-top" alt="drawing of calendar"/>
           <div className="card-body">
             <h5 className="card-title">Vets</h5>
             <p className="card-text">Find information for vets you've visited previously or search for a new vet in your area.</p>

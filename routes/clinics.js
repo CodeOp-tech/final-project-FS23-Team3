@@ -47,6 +47,21 @@ router.get('/:id/clinics', async function(req, res, next) {
   }
 });
 
+/* GET all vets/clinics by owner.*/
+router.get('/:id/clinics', async function(req, res, next) {
+  const { id } = req.params;
+  try {
+    const clinics = await models.Clinic.findAll({
+      where: {
+        OwnerId: id,
+      },
+    });
+    res.send(clinics);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 //--------POSTS------------
 
 /* POST new clinic. */
@@ -105,6 +120,8 @@ router.post('/:clinicKey', async function(req, res, next) {
       res.status(500).send(error);
     }
   });
+
+  
 
 //---------PUTS------------
 
