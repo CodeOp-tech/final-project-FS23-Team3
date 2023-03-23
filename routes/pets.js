@@ -31,6 +31,7 @@ router.get('/', async function(req, res, next) {
     }
   });
 
+
 // GET all pets for one owner
   router.get('/:id/pets', async function(req, res, next) {
     const { id } = req.params;
@@ -86,15 +87,24 @@ router.post('/:id/pets', upload.single('img_filename'), async function(req, res,
         id,
       },
     });
-
-    const pet = await owner.createPet({
-      name, 
-      type, 
-      age, 
-      sex,
-      img_filename: req.file.originalname
-    });
-    res.status(201).send(pet);
+    if (req.file){
+      const pet = await owner.createPet({
+        name, 
+        type, 
+        age, 
+        sex,
+        img_filename: req.file.originalname
+      });
+      res.status(201).send(pet);
+    } else {
+        const pet = await owner.createPet({
+          name, 
+          type, 
+          age, 
+          sex,
+      });
+      res.status(201).send(pet);
+    }
 
   } catch (err) {
     res.status(500).send({error: err.message});
@@ -103,7 +113,7 @@ router.post('/:id/pets', upload.single('img_filename'), async function(req, res,
 
 //---------PUTS----------
 
-router.put('/:id',upload.single('img_filename'), async function(req, res, next) {
+router.put('/:id',/*upload.single('img_filename')*/ async function(req, res, next) {
   const { id } = req.params;
   const { name, type, age, sex } = req.body;
   try {
@@ -113,7 +123,7 @@ router.put('/:id',upload.single('img_filename'), async function(req, res, next) 
       },
     });
 
-    const updPet = await pet.update({ name, type, age, sex, img_filename: req.file.originalname });
+    const updPet = await pet.update({ name, type, age, sex /*img_filename: req.file.originalname*/ });
     res.send(updPet);
 
   } catch (err) {

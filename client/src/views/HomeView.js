@@ -52,6 +52,7 @@ export default function HomeView(props) {
               <Dropdown.Menu>
                 <Dropdown.Item href="/pets" className="btn btn-primary">All pets</Dropdown.Item>
                 <Dropdown.Item href="/to-dos" className="btn btn-primary">To do's</Dropdown.Item>
+                <Dropdown.Item href="/addpets" className="btn btn-primary">Add new pet</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

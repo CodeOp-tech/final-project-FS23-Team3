@@ -12,9 +12,9 @@ import AddPetForm from "./AddPetForm";
 export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
-    const [featPetId, setFeatPetId] = useState("");
-    const [featPet, setFeatPet] = useState(null);
-    const [formState, setFormState] = useState(false);
+    const [featPetId, setFeatPetId] = useState(""); //passing down ID to feat pet component
+    const [featPet, setFeatPet] = useState(null); //passing down object to feat pet component
+    const [formState, setFormState] = useState(false); //showing the add pet form
 
     const navigate = useNavigate();
 
@@ -25,6 +25,12 @@ export default function AllPetsList(props) {
     //hides or shows the form
     function showForm() {
         setFormState(!formState)
+    }
+    
+    // saves the ID of the pet we want to edit and finds the information for that pet
+    function handleShow(id) {
+        setFeatPetId(id);
+        setFeatPet(pets.find(p => p.id === id));
     }
 
     //hides the featured pet
@@ -52,12 +58,6 @@ export default function AllPetsList(props) {
         }
     }
 
-    // saves the ID of the pet we want to edit and finds the information for that pet
-    function handleClick(id) {
-        setFeatPetId(id);
-        setFeatPet (pets.find(p => p.id === id));
-    }
-
     return (
         <Container className = "PetListContainer">
         <Table className = "AllPetsList">
@@ -83,7 +83,7 @@ export default function AllPetsList(props) {
                             :
                             <Button
                                 variant="secondary"
-                                onClick={e => handleClick(p.id)}
+                                onClick={e => handleShow(p.id)}
                                 title="view"
                                 type="button"
                                 >
@@ -105,6 +105,7 @@ export default function AllPetsList(props) {
                     featPet = {featPet} //sending
                     setFeatPet={setFeatPet}
                     getPets = {getPets} //sending
+                    handleHide = {handleHide}
                 />
             </tbody>
             }

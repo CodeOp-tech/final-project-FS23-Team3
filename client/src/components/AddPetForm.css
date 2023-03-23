@@ -1,0 +1,9 @@
+
+
+.AddPetFormView tr {
+    margin-top: 10px;
+    padding-left: 30% !important;
+    padding-right: 30%;
+    justify-content: center;
+    width: 100% !important
+}

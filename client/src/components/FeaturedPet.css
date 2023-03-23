@@ -1,0 +1,11 @@
+#FeatPetBody{
+    justify-content: center;
+}
+
+#FeatPetImage {
+    width:300px;
+    height:300px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    align-items: center !important;
+}
