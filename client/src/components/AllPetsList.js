@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
 import { useNavigate } from "react-router-dom";
 
 import FeaturedPet from "./FeaturedPet";
@@ -14,7 +13,7 @@ export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
     const [featPetId, setFeatPetId] = useState("");
-    const [featPet,setFeatPet] = useState(null);
+    const [featPet, setFeatPet] = useState(null);
     const [formState, setFormState] = useState(false);
 
     const navigate = useNavigate();
@@ -66,6 +65,9 @@ export default function AllPetsList(props) {
             <tbody>
                 {pets.map( p => (
                     <tr key = {p.id}>
+                        <td>
+                            <Image src={p.img_url} roundedCircle="true" />
+                        </td>
                         <td>
                             {p.name}
                         </td>

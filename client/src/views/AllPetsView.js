@@ -7,7 +7,6 @@ import AllPetsList from "../components/AllPetsList.js";
 
 export default function AllPetsView(props) {
 
-
  return (
     <div className = "AllPetsView">
         <h1>All pets</h1>

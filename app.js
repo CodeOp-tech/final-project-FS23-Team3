@@ -23,16 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-//initialize file-upload
-app.use(
-    fileUpload({
-        useTempFiles: true,
-        tempFileDir: '/tmp/'
-    })
-);
-
-// Tell express to serve all public files from 'pubic' folder
-app.use( express.static('pubic') );
+// Tell express to serve all public files from 'public' folder
+app.use( express.static('public') );
 
 // Routes
 app.use('/', indexRouter);

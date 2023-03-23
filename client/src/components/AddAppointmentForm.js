@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 const EMPTY_FORM = {
   date: '',
   title: '',
-  clinicName:'',
+  ClinicId:'',
   summary: '',
   nextSteps: '',
   completeBy: '',
@@ -16,6 +16,7 @@ const EMPTY_FORM = {
 
 export default function AddAppointmentForm(props) {
   const [formInput, setFormInput] = useState(props.editedAppt || EMPTY_FORM);
+  const [formData, setFormData] = useState(null)
   const [selected, setSelected] = useState("");
 
 const handleChange = (event) => {
@@ -26,34 +27,80 @@ const handleChange = (event) => {
   setFormInput(formInput => apptObj)
 }
 
+function handleFileChange(e) {
+  const file = e.target.files[0];
+  setFormInput(formInput => ({ ...formInput, files: file}));
+}
+
 const handleSubmit = (event) => {
   event.preventDefault();
-  if (props.addAppointmentCb){
-    props.addAppointmentCb(formInput);
+  if (formInput.completeBy === '' || formInput.completeBy === null){
+    delete formInput.completeBy;
   }
-  if (props.addNewAppointmentCb){
+  if (formInput.followups === '' || formInput.followups === null){
+    delete formInput.followups;
+  }
+
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(formInput)) {
+    console.log(key, value)
+    formData.append(key, value);
+  }
+
+  if (props.addAppointmentCb){
+    console.log(formData)
+    props.addAppointmentCb(formInput, formData);
+  }
+
+  if (props.addNewAppointmentCb && formInput.followups){
     let newAppt = {  
     date: formInput.followups,
-    title: null,
-    clinicName:null,
-    summary: null,
-    nextSteps: null,
-    completeBy: null,
-    followups: null,
-    PetId: formInput.PetId}
-    props.addNewAppointmentCb(newAppt)
+    title: "Follow up",
+    PetId: formInput.PetId,
+    files: null
+    }
+    const newApptFormData = new FormData();
+    for (const [key, value] of Object.entries(newAppt)) {
+      console.log(key, value)
+      newApptFormData.append(key, value);
+    }
+    props.addNewAppointmentCb(newApptFormData)
   }
+
   if (props.changeAppointmentCb){
-    props.changeAppointmentCb(formInput);
+    props.changeAppointmentCb(formData);
   }
+
   if (props.setShowForm){
     props.setShowForm(false);
   }
+
   if(props.handleChangeCb){
     props.handleChangeCb()
   }
+
   setFormInput(EMPTY_FORM);
 }
+
+// async function addAppointmentTest(appointment) {
+
+//   let options = {
+//       method: "POST",
+//       body: appointment
+//   }
+
+//   try {
+//       let response = await fetch (`/api/appointments/`, options);
+//       if (response.ok) {
+//           let appointment = await response.json();
+//           console.log(appointment)
+//       } else {
+//           console.log(`Server error: ${response.status} ${response.statusText}`);
+//       }
+//   } catch (err) {
+//       console.log(`Server Error: ${err.message}`);
+//   }
+// }
 
   return (
     <div className="AddAppointmentForm">
@@ -61,26 +108,30 @@ const handleSubmit = (event) => {
       <div className="not-submitted">
       <h1>Add information about a past appointment</h1>
         <Form onSubmit={handleSubmit}>
+
           <Form.Group className="mb-3" controlId="formDate">
             <Form.Label>Date:</Form.Label>
               <Form.Control 
                 type="date" 
                 name="date"
                 value={formInput.date}
+                required
                 onChange={e => handleChange(e)}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formClinicName">
+
+          <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
               <Form.Control 
                 type="text" 
                 placeholder= "Clinic name"
-                name="clinicName"
-                value={formInput.clinicName}
+                name="ClinicId"
+                value={formInput.ClinicId}
                 onChange={e => handleChange(e)}/>
           </Form.Group>
+
           <Form.Group className="mb-3" controlId="formPetId">
             <Form.Label>Which pet?</Form.Label>
-            <Form.Select aria-label="Default select example" name="PetId" onChange={handleChange}>
+            <Form.Select aria-label="Default select example" required name="PetId" onChange={handleChange}>
                 <option>Choose a pet</option>
                 {props.pets.map(p => (
                   <option key={p.id} value={p.id} >{p.name}</option>
@@ -125,6 +176,13 @@ const handleSubmit = (event) => {
           <Form.Group className="text-area" controlId="formSummary">
             <Form.Label>Appointment summary:</Form.Label>
             <textarea name ="summary" value={formInput.summary} onChange={e => handleChange(e)}></textarea>
+          </Form.Group>
+          <Form.Group controlId="formTitle">
+            <Form.Label>Related files:</Form.Label>
+              <Form.Control 
+                type="file" 
+                name="files"
+                onChange={e => handleFileChange(e)}/>
           </Form.Group>
           <div className="span-3-cols">
             <Button variant="primary" type="submit">Submit</Button>
