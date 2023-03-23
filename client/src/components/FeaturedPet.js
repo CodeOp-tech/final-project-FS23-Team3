@@ -7,6 +7,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link } from "react-router-dom";
 import Api from "../helpers/Api";
 
+import "./FeaturedPet.css"
+
 import AddPetForm from "./AddPetForm";
 
 let toDate = (date) => {
@@ -19,9 +21,9 @@ let toDate = (date) => {
 }
 
 export default function FeaturedPet(props) {
-    const [showForm, setShowForm] = useState(false);
+    const [showForm, setShowForm] = useState(false); //this is used to close the FeaturedPet if we save an edited pet
     const [editedPet, setEditedPet] = useState(null);
-    const[nextAppointment, setNextAppointment] = useState([]);
+    const [nextAppointment, setNextAppointment] = useState([]);
 
     useEffect(() => {
       getAppointments();
@@ -31,8 +33,9 @@ export default function FeaturedPet(props) {
     //saves the information of the pet we want to edit so we can prefill the form with that
     function handleEditClick() {
         setEditedPet(props.featPet);
-        setShowForm(true)
     }
+
+    //for the Offcanvas
   
     //deletes a pet from the database
     async function handleDelete(id) {
@@ -70,54 +73,57 @@ export default function FeaturedPet(props) {
 
     return(
         <div>
-        {/* {props.featPet && !showForm ? */}
+        
 
         <div>
-            <Offcanvas show={props.featPet && !showForm} onHide={props.HandleClose}>
+            <Offcanvas show={props.featPet || props.editedPet} onHide= {e=>props.handleHide()} >
 
               <Offcanvas.Header closeButton >
-                <Offcanvas.Title>{props.featPet.name}</Offcanvas.Title>
+                <Offcanvas.Title>{props.featPet.name}
+                </Offcanvas.Title>
               </Offcanvas.Header>
 
-              <Offcanvas.Body>
-                    <Image src={props.featPet.img_url} alt={props.featPet.name}/>
-                    <p>Type: {props.featPet.type}</p>
-                    <p>Age: {props.featPet.age}</p>
-                    {nextAppointment ? nextAppointment.date && 
-                      <p>Next appointment: {toDate(nextAppointment.date)}</p>
-                      : <p>No upcoming appointments</p>
-                    }
+                {!editedPet ?
+                <Offcanvas.Body id="FeatPetBody" className="FeatPetOffcanvas">
+                        <Image src={props.featPet.img_url} alt={props.featPet.name} id="FeatPetImage"/>
+                        <p>Type: {props.featPet.type}</p>
+                        <p>Age: {props.featPet.age}</p>
+                        {nextAppointment ? nextAppointment.date && 
+                        <p>Next appointment: {toDate(nextAppointment.date)}</p>
+                        : <p>No upcoming appointments</p>
+                        }
 
-                    <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
+                        <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
 
-                    <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
+                        <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
 
-                    <Button 
-                        onClick= {e => handleEditClick()}
-                    >
-                        Edit animal
-                    </Button>
+                        <Button 
+                            onClick= {e => handleEditClick()}
+                        >
+                            Edit animal
+                        </Button>
 
-                    <Button variant="danger"
-                        onClick= {e => handleDelete(props.featPet.id)}
-                        >Delete animal
-                    </Button>
-              </Offcanvas.Body>
+                        <Button variant="danger"
+                            onClick= {e => handleDelete(props.featPet.id)}
+                            >Delete animal
+                        </Button>
+                </Offcanvas.Body>
+                :
+                <Offcanvas.Body>
+                    <AddPetForm
+                        editedPet = {editedPet}
+                        setEditedPet = {setEditedPet}
+                        setFeatPet = {props.setFeatPet}
+                        featPet = {props.featPet}
+                        getPets = {props.getPets}
+                        handleHide = {props.handleHide}
+                    />
+                </Offcanvas.Body>
+             }
 
             </Offcanvas>
             
         </div>
-        :
-        <AddPetForm
-            editedPet = {editedPet}
-            setEditedPet = {setEditedPet}
-            setFeatPet = {props.setFeatPet}
-            featPet = {props.featPet}
-            setShowForm = {setShowForm}
-            getPets = {props.getPets}
-
-        />
-        
         </div>
     )
 }

@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 
 import "./AddPetForm.css"
 
-
 const EMPTY_FORM = {
     name: "",
     type: "",
@@ -35,16 +34,23 @@ function AddPetForm(props) {
         for (const [key, value] of Object.entries(inputs)) {
           formData.append(key, value);
         }
-        addPet(formData);
+        console.log(inputs)
+
+        //if we are adding a new pet we add with files, otherwise just a stringified body
+        !props.editedPet ?
+        addPet(formData)
+        : addPet(inputs)
+
         setInputs(EMPTY_FORM);
 
         if (props.editedPet) {
-            props.setShowForm(false);
-            props.setEditedPet(null);
+            props.handleHide();
         } else if(props.setFormState){
             props.setFormState(false);
         }
       };
+
+    
     
     const addPet = async (pet) => {
 
@@ -71,6 +77,7 @@ function AddPetForm(props) {
       }
 
     } else {
+        console.log(pet);
 
         try {
           let options = {
@@ -84,8 +91,8 @@ function AddPetForm(props) {
           if (response.ok) {
             let pet = await response.json();
             props.setFeatPet(null);
+            props.setEditedPet(null);
             props.getPets();
-
             
           } else {
             console.log(`Server error: ${response.status} ${response.statusText}`);

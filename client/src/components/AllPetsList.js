@@ -16,7 +16,6 @@ export default function AllPetsList(props) {
     const [featPet, setFeatPet] = useState(null); //passing down object to feat pet component
     const [formState, setFormState] = useState(false); //showing the add pet form
 
-
     const navigate = useNavigate();
 
     useEffect (() => {
@@ -26,6 +25,12 @@ export default function AllPetsList(props) {
     //hides or shows the form
     function showForm() {
         setFormState(!formState)
+    }
+    
+    // saves the ID of the pet we want to edit and finds the information for that pet
+    function handleShow(id) {
+        setFeatPetId(id);
+        setFeatPet(pets.find(p => p.id === id));
     }
 
     //hides the featured pet
@@ -51,12 +56,6 @@ export default function AllPetsList(props) {
         } catch (err) {
             console.log(`Server error: ${err.message}`);
         }
-    }
-
-    // saves the ID of the pet we want to edit and finds the information for that pet
-    function handleShow(id) {
-        setFeatPetId(id);
-        setFeatPet (pets.find(p => p.id === id));
     }
 
     return (
@@ -106,6 +105,7 @@ export default function AllPetsList(props) {
                     featPet = {featPet} //sending
                     setFeatPet={setFeatPet}
                     getPets = {getPets} //sending
+                    handleHide = {handleHide}
                 />
             </tbody>
             }
