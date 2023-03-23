@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Api from '../helpers/Api';
 import AddAppointmentForm from './AddAppointmentForm';
+import Button from 'react-bootstrap/esm/Button';
 
 export default function AppointmentSummary(props) {
     const [showForm, setShowForm] = useState(false);
@@ -15,6 +16,10 @@ export default function AppointmentSummary(props) {
     function handleEditClick() {
         setEditedAppt(props.appointment);
         setShowForm(true)
+    }
+
+    function toggleShowForm(){
+        setShowForm(showForm => !showForm)
     }
 
     async function getAppointment(){
@@ -104,6 +109,7 @@ export default function AppointmentSummary(props) {
         </button>
         </div>
         :
+        <div>
         <AddAppointmentForm
             editedAppt = {editedAppt}
             setEditedAppt = {setEditedAppt}
@@ -112,6 +118,8 @@ export default function AppointmentSummary(props) {
             changeAppointmentCb={formData => changeAppointment(formData)}
 
         />
+        <Button onClick={e => toggleShowForm()}>back</Button>
+        </div>
         }
     </div>
     }
