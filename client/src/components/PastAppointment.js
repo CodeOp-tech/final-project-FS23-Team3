@@ -7,34 +7,72 @@ export default function PastAppointment(props) {
     const [formViewToggle, setFormViewToggle] = useState(true);
     const [appointmentSummary, setApptSummary] = useState({});
 
-    async function addAppointmentInfo(appointmentObj) {
+    async function addAppointmentInfo(appointmentObj, formData) {
+      console.log(appointmentObj, formData)
         let date = appointmentObj.date.slice(0,10);
         let id = appointmentObj.PetId;
         let myresponse = await Api.getContent(`/appointments/${id}/${date}`);
         if (myresponse.ok){
           if (myresponse.data.length === 1){
             let apptId = myresponse.data[0].id;
-            let myresponse2 = await Api.changeAppointment(apptId, appointmentObj);
-            setApptSummary(myresponse2.data);
-          } else {
-            let myresponse1 = await Api.addAppointment(appointmentObj);
-            if (myresponse1.ok){
-              setApptSummary(myresponse1.data)
-            }
-          }
-        } else {
-          console.log(`Error! ${myresponse.error}`)
-        }
-      }
 
-      // async function 
+            let options = {
+              method: "PUT",
+              //headers: { "Content-Type": "application/json" },
+              body: formData,
+            };
+    
+            try {
+                let response = await fetch(`/api/appointments/${apptId}`, options);
+                if (response.ok) {
+                  let updatedAppt = await response.json();
+                    setApptSummary(updatedAppt)
+                    console.log("Changed appointment:" + updatedAppt);
+                } else {
+                console.log(`Server error: ${response.status} ${response.statusText}`);
+                }
+            } catch (err) {
+                console.log(`Server Error: ${err.message}`);
+              }
+          } else {
+          console.log(appointmentObj);
+
+          let options1 = {
+            method: "POST",
+            //headers: { "Content-Type": "application/json" },
+            body: formData,
+          };
+  
+          try {
+              let response = await fetch(`/api/appointments`, options1);
+              if (response.ok) {
+                  let newAppt = await response.json();
+                  setApptSummary(newAppt);
+                  console.log("Changed appointment:" + newAppt);
+              }
+          } catch(err){
+            console.log(`Server Error: ${err.message}`);
+          }
+        } 
+      }else {
+        console.log(`Error! ${myresponse.error}`)
+      }
+    }
 
       async function addNewAppointment(newAppt){
-        let myresponse = await Api.addAppointment(newAppt);
-        if (myresponse.ok){
-          return
-        } else {
-          console.log(`Error! ${myresponse.error}`)
+        let options = {
+          method: "POST",
+          //headers: { "Content-Type": "application/json" },
+          body: newAppt,
+        };
+
+        try {
+            let response = await fetch(`/api/appointments`, options);
+            if (response.ok) {
+                return
+            }
+        } catch(err){
+          console.log(`Server Error: ${err.message}`);
         }
       }
 
@@ -49,7 +87,7 @@ export default function PastAppointment(props) {
             ? <AddAppointmentForm 
                 pets={props.pets} 
                 handleChangeCb={e => handleChangeView()}
-                addAppointmentCb={appointment => addAppointmentInfo(appointment)}
+                addAppointmentCb={(appointment, formData)=> addAppointmentInfo(appointment, formData)}
                 addNewAppointmentCb={newAppt => addNewAppointment(newAppt)}
                 />
             : <AppointmentSummary pets={props.pets} appointment={appointmentSummary}/>

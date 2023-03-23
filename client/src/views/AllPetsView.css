@@ -21,13 +21,25 @@
     border-top-color: lightgrey !important;
 }
 
+.AllPetsList img {
+    width:50px;
+    height:50px;
+}
+
 .FeaturedPet {
     width: 50% !important;
 }
 
 .FeaturedPet td {
     border-style: hidden !important;
-};
+}
+
+.FeaturedPet img {
+    height: 200px;
+    width: 200px;
+    object-fit:cover;
+}
+
 
 .FeaturedPetContent {
     width: 100% !important;
