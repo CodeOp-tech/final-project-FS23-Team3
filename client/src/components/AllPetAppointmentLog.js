@@ -34,6 +34,10 @@ export default function AllPetAppointmentLog(props) {
         setShowForm(true)
     }
 
+    function toggleShowForm(){
+        setShowForm(showForm => !showForm)
+    }
+
     // async function getAppointment(){
     //     let id = props.appointment.id;
     //     let myresponse = await Api.getOneAppointment(id);
@@ -45,9 +49,9 @@ export default function AllPetAppointmentLog(props) {
     // }
 
     async function getAppointments(){
-        let myresponse = await Api.getOnePet(id);
+        let myresponse = await Api.getContent(`/appointments/${id}/appointments`);
         if (myresponse.ok){
-            let appointments = myresponse.data.Appointments;
+            let appointments = myresponse.data;
             appointments.sort(function(b,a){
                 return new Date(a.date) - new Date(b.date);
               });
@@ -112,11 +116,30 @@ export default function AllPetAppointmentLog(props) {
                     <p>{a.summary}</p>
                 </div>
                 }
+                {a.nextSteps &&
+                <div>
+                    <p style={{fontWeight:"bold"}}>Next steps:</p>
+                    <p>{a.nextSteps}</p>
+                </div>
+                }
+                {a.files &&
+                <div>
+                    <p style={{fontWeight:"bold"}}>Files:</p>
+                    <a href={a.file_url} target='_blank'>{a.files}</a>
+                </div>
+                }
+                {a.followups &&
+                <div>
+                    <p style={{fontWeight:"bold"}}>Follow up appointment:</p>
+                    <p>{toDate(a.followups)}</p>
+                </div>
+                }
                 <Button onClick= {e => handleEditClick(a.id)} className= "btn position-absolute top-0 start-0" type="button"><i className="fa-regular fa-pen-to-square"></i></Button>
             </Alert>
         ))}
         </div>
                 :
+                <div>
                 <AddAppointmentForm
                     editedAppt = {editedAppt}
                     setEditedAppt = {setEditedAppt}
@@ -125,6 +148,8 @@ export default function AllPetAppointmentLog(props) {
                     changeAppointmentCb={apptObj => changeAppointment(apptObj)}
         
                 />
+                <Button onClick={e => toggleShowForm()}>back</Button>
+                </div>
                 }
         </div>
         : <h1>No appointments yet</h1>
