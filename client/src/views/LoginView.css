@@ -1,9 +1,5 @@
-.AppointmentSummary Table{
-    width:100%;
-}
-
-.bold-td{
-    font-weight: bold;
+.LoginView h2{
+    color: var(--primary-blue)
 }
 
 :root {
@@ -13,21 +9,14 @@
     --primary-highlight: #F26419;
     --secondary-highlight: #F6AE2D;
 }
-.AppointmentSummary button {
+.LoginView button {
     background-color: var(--primary-blue);
     border: none;
     margin-left: 10px;
     margin-block: 15px;
   }
   
-.AppointmentSummary button:hover {
+.LoginView button:hover {
     background-color: var(--secondary-blue);
     border: none;
   }
-
-.AppointmentSummary h2 {
-    color: var(--primary-blue);
-    margin-bottom:25px;
-    margin-top:20px;
-}
-

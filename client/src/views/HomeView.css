@@ -25,3 +25,22 @@ Link {
 .card-text{
     height:65px;
 }
+
+:root {
+    --primary-blue: #33658A;
+    --secondary-blue: #86BBD8;
+    --dark-blue: #2F4858;
+    --primary-highlight: #F26419;
+    --secondary-highlight: #F6AE2D;
+}
+.HomeView button {
+    background-color: var(--primary-blue);
+    border: none;
+    margin-left: 10px;
+    margin-block: 15px;
+  }
+  
+.HomeView button:hover {
+    background-color: var(--secondary-blue);
+    border: none;
+  }

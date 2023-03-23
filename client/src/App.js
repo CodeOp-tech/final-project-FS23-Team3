@@ -103,7 +103,6 @@ function App() {
 
       <NavBar user={user} logoutCb={doLogout} />
 
-      {!user && <Nav.Link as={Link} to="/register">Create Account</Nav.Link>}
 
         <Routes>
 

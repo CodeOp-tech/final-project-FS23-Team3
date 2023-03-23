@@ -115,7 +115,7 @@ export default function AppointmentSummary(props) {
             changeAppointmentCb={formData => changeAppointment(formData)}
 
         />
-        <Button style={{marginBottom:"10px", marginLeft:"0px"}} onClick={e => toggleShowForm()}>back</Button>
+        <Button style={{marginBottom:"10px"}} onClick={e => toggleShowForm()}>back</Button>
         </div>
         }
     </div>
