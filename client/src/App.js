@@ -116,6 +116,7 @@ function App() {
                       <PrivateRoute>
                           <AllPetsView 
                             user= {user} 
+                            getOwnerPetsCb={e => getOwnerPets()}
                           />
                       </PrivateRoute>
                     } 
@@ -125,6 +126,7 @@ function App() {
                 <PrivateRoute>
                   <AddPetForm 
                     user= {user} 
+                    getOwnerPetsCb={e => getOwnerPets()}
                   />
                 </PrivateRoute>
                 } 
@@ -152,7 +154,7 @@ function App() {
 
               <Route path="/to-dos" element={
                     <PrivateRoute>
-                      <ToDosView pets={pets} user={user} clinics={clinics}/>
+                      <ToDosView getOwnerClinicsCb={e=> getOwnerClinics()} pets={pets} user={user} clinics={clinics}/>
                     </PrivateRoute>
               } />
 
@@ -194,7 +196,7 @@ function App() {
 
         <Route path="/appointments/:id" element={
           <PrivateRoute>
-            <AllPetAppointmentLog user={user} pets={pets} clinics={clinics}/>
+            <AllPetAppointmentLog getOwnerClinicsCb={e=> getOwnerClinics()} user={user} pets={pets} clinics={clinics}/>
           </PrivateRoute>
         } />
 
