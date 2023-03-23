@@ -55,6 +55,7 @@ const handleSubmit = (event) => {
     date: formInput.followups,
     title: "Follow up",
     PetId: formInput.PetId,
+    ClinicId: formInput.ClinicId,
     files: null
     }
     const newApptFormData = new FormData();
@@ -93,12 +94,12 @@ const handleSubmit = (event) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder= "Clinic name"
-                name="ClinicId"
-                value={formInput.ClinicId}
-                onChange={e => handleChange(e)}/>
+            <Form.Select aria-label="Default select example" required name="ClinicId" onChange={handleChange}>
+                <option>Choose from your clinics:</option>
+                {props.clinics.map(c => (
+                  <option key={c.id} value={c.id} >{c.name}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPetId">
             <Form.Label>Which pet?</Form.Label>

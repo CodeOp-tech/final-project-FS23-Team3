@@ -70,7 +70,7 @@ export default function AppointmentSummary(props) {
                 </div>
                 <div>
                     <p>Vet clinic name:</p>
-                    <p>{appointment.clinicName}</p>
+                    <p>{(props.clinics.find(c => +c.id === +appointment.ClinicId)) ? (props.clinics.find(c => +c.id === +appointment.ClinicId)).name : ''}</p>
                 </div>
                 <div>
                     <p>Which pet?</p>

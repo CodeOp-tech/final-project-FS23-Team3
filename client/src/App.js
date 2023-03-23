@@ -32,6 +32,7 @@ function App() {
   const navigate = useNavigate();
   const [pets, setPets] = useState([]);
   const [myVets, setMyVets] = useState ([]);
+  const [clinics, setClinics] = useState([])
 
   
 
@@ -40,6 +41,10 @@ function App() {
       getOwnerPets();
     }
   },[user]);
+
+  useEffect(()=> {
+    getOwnerClinics();
+  },[])
 
   async function doLogin(username, password) {
     let myresponse = await Api.loginUser(username, password);
@@ -50,6 +55,16 @@ function App() {
       navigate('/');
     } else {
       setLoginErrorMsg('Login failed');
+    }
+  }
+
+  async function getOwnerClinics(){
+    let id = user.id;
+    let myresponse = await Api.getContent(`/clinics/${id}/clinics`);
+    if (myresponse.ok){
+      setClinics(myresponse.data);
+    } else {
+      console.log(`Error! ${myresponse.error}`)
     }
   }
 
@@ -138,7 +153,7 @@ function App() {
 
               <Route path="/to-dos" element={
                     <PrivateRoute>
-                      <ToDosView pets={pets} user={user}/>
+                      <ToDosView pets={pets} user={user} clinics={clinics}/>
                     </PrivateRoute>
               } />
 
@@ -174,13 +189,13 @@ function App() {
 
         <Route path="/add-appointment" element={
           <PrivateRoute>
-            <PastAppointment pets={pets} />
+            <PastAppointment pets={pets} user={user} clinics={clinics}/>
           </PrivateRoute>
         } />
 
         <Route path="/appointments/:id" element={
           <PrivateRoute>
-            <AllPetAppointmentLog pets={pets}/>
+            <AllPetAppointmentLog user={user} pets={pets} clinics={clinics}/>
           </PrivateRoute>
         } />
 

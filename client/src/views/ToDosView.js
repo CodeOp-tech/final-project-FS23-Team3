@@ -168,6 +168,12 @@ export default function ToDosView(props) {
                     <td>{(props.pets.find(p => p.id === selectedAppt.PetId)).name}</td>
                 </tr>
                 }
+                {!selectedAppt.completeBy && 
+                <tr>
+                    <td>Clinic:</td>
+                    <td>{(props.clinics.find(c => +c.id === +selectedAppt.ClinicId)) ? (props.clinics.find(c => +c.id === +selectedAppt.ClinicId)).name : ''}</td>
+                </tr>
+                }
                 {selectedAppt.completeBy && 
                 <tr>
                     <td>Complete by:</td>
@@ -178,6 +184,12 @@ export default function ToDosView(props) {
                 <tr>
                     <td>Assigned at appointment on:</td>
                     <td>{toDate(selectedAppt.date)}</td>
+                </tr>
+                }
+                {selectedAppt.completeBy && 
+                <tr>
+                    <td>Related clinic:</td>
+                    <td>{(props.clinics.find(c => +c.id === +selectedAppt.ClinicId)) ? (props.clinics.find(c => +c.id === +selectedAppt.ClinicId)).name : ''}</td>
                 </tr>
                 }
                 {selectedAppt.completeBy && 

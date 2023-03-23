@@ -18,10 +18,6 @@ export default function AllPetAppointmentLog(props) {
         getAppointments();
     }, [appointment]);
 
-    // useEffect(() => {
-    //     getAppointment();
-    // },[appointment.title])
-
 
     function handleEditClick(id) {
         let selectedApt = appointments.find(a => a.id === id);
@@ -109,6 +105,12 @@ export default function AllPetAppointmentLog(props) {
                 <p>{a.title}</p>
                 </div>
                 : <p style={{fontWeight:"bold"}}>Upcoming appointment</p>
+                }
+                {a.ClinicId &&
+                <div>
+                    <p style={{fontWeight:"bold"}}>Vet Clinic:</p>
+                    <p>{(props.clinics.find(c => +c.id === +a.ClinicId)) ? (props.clinics.find(c => +c.id === +a.ClinicId)).name : ''}</p>
+                </div>
                 }
                 {a.summary &&
                 <div>
