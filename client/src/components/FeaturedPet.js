@@ -70,11 +70,16 @@ export default function FeaturedPet(props) {
 
     return(
         <div>
-        {props.featPet && !showForm ?
+        {/* {props.featPet && !showForm ? */}
+
         <div>
-                <div>
-                    {/* <CloseButton /> */}
-                    <h2>{props.featPet.name}</h2>
+            <Offcanvas show={props.featPet && !showForm} onHide={props.HandleClose}>
+
+              <Offcanvas.Header closeButton >
+                <Offcanvas.Title>{props.featPet.name}</Offcanvas.Title>
+              </Offcanvas.Header>
+
+              <Offcanvas.Body>
                     <Image src={props.featPet.img_url} alt={props.featPet.name}/>
                     <p>Type: {props.featPet.type}</p>
                     <p>Age: {props.featPet.age}</p>
@@ -82,22 +87,25 @@ export default function FeaturedPet(props) {
                       <p>Next appointment: {toDate(nextAppointment.date)}</p>
                       : <p>No upcoming appointments</p>
                     }
-                </div>
+
+                    <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
+
+                    <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
+
+                    <Button 
+                        onClick= {e => handleEditClick()}
+                    >
+                        Edit animal
+                    </Button>
+
+                    <Button variant="danger"
+                        onClick= {e => handleDelete(props.featPet.id)}
+                        >Delete animal
+                    </Button>
+              </Offcanvas.Body>
+
+            </Offcanvas>
             
-            <Link to="/add-appointment" className="btn btn-primary">Add appointment info</Link>
-
-            <Link to={`/appointments/${props.featPet.id}`} className="btn btn-primary">View {props.featPet.name}'s appointments</Link>
-
-            <Button 
-                onClick= {e => handleEditClick()}
-            >
-                Edit animal
-            </Button>
-
-            <Button variant="danger"
-                onClick= {e => handleDelete(props.featPet.id)}
-                >Delete animal
-            </Button>
         </div>
         :
         <AddPetForm
@@ -110,7 +118,6 @@ export default function FeaturedPet(props) {
 
         />
         
-        }
         </div>
     )
 }

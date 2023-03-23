@@ -22,8 +22,8 @@ export default function NavBar(props) {
                 <Nav.Link as={Link} to="/">Home</Nav.Link>
 
                 <NavDropdown title="My pets" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/pets">All my pets</NavDropdown.Item>
-                {/* <NavDropdown.Item href="/addpets">Add a pet</NavDropdown.Item> */}
+                <NavDropdown.Item as={Link} to="/pets">All my pets</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/addpets">Add a pet</NavDropdown.Item>
                 </NavDropdown>
 
                 <NavDropdown title="My to-do's" id="basic-nav-dropdown">

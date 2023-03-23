@@ -4,12 +4,15 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import "./AddPetForm.css"
+
 
 const EMPTY_FORM = {
     name: "",
     type: "",
     age: 0,
     sex: "",
+    img_filename: null
 }
 
 function AddPetForm(props) {
@@ -56,11 +59,10 @@ function AddPetForm(props) {
         try {
             let response = await fetch(`/api/pets/${props.user.id}/pets/`, options);
             if (response.ok) {
-                console.log(pet);
                 if(props.getPets){
-                props.getPets();
+                  props.getPets();
                 }
-                console.log("Added pet:" + pet);
+                console.log("Added pet:" + pet.name);
             } else {
             console.log(`Server error: ${response.status} ${response.statusText}`);
             }
@@ -96,24 +98,25 @@ function AddPetForm(props) {
 
     return (
 
-        <Table responsive="sm">
+        <Table responsive="sm" className="AddPetFormView">
              <InputGroup>
+
+             {!props.editedPet &&
              <tr>
-                    Upload picture:
+                    Upload picture
                     <Form.Control 
                         key = "img_filename"
                         type = "file"
                         name= "img_filename"
                         onChange={handleImageChange}
                     />
-                
             </tr>
+            }
                 <tr>
                     
-                        Name:
+                        Name*
                         <Form.Control 
                             key = "name"
-                            placeholder = "Pet's name"
                             type = "text"
                             name="name"
                             value={inputs.name}
@@ -122,7 +125,7 @@ function AddPetForm(props) {
                     
                 </tr>
                 <tr>
-                        Type of animal:
+                        Type of animal
                         <Form.Select 
                             key = "type"
                             type = "text"
@@ -137,7 +140,7 @@ function AddPetForm(props) {
                         </Form.Select>
                 </tr>
                 <tr>
-                        Age:
+                        Age
                         <Form.Control 
                             key = "age"
                             placeholder = "age"
@@ -148,7 +151,7 @@ function AddPetForm(props) {
                         />
                 </tr>
                 <tr>
-                        Gender:
+                        Gender
                         <Form.Select 
                             key = "sex"
                             type = "text"
@@ -162,6 +165,7 @@ function AddPetForm(props) {
                 </tr>
                 <tr>
                     <Button
+                        bsStyle="primary"
                         onClick = {handleSubmit}>
                         save pet
                     </Button>

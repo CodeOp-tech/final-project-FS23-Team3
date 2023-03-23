@@ -12,9 +12,10 @@ import AddPetForm from "./AddPetForm";
 export default function AllPetsList(props) {
 
     const [pets, setPets] = useState([]);
-    const [featPetId, setFeatPetId] = useState("");
-    const [featPet, setFeatPet] = useState(null);
-    const [formState, setFormState] = useState(false);
+    const [featPetId, setFeatPetId] = useState(""); //passing down ID to feat pet component
+    const [featPet, setFeatPet] = useState(null); //passing down object to feat pet component
+    const [formState, setFormState] = useState(false); //showing the add pet form
+
 
     const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ export default function AllPetsList(props) {
     }
 
     // saves the ID of the pet we want to edit and finds the information for that pet
-    function handleClick(id) {
+    function handleShow(id) {
         setFeatPetId(id);
         setFeatPet (pets.find(p => p.id === id));
     }
@@ -83,7 +84,7 @@ export default function AllPetsList(props) {
                             :
                             <Button
                                 variant="secondary"
-                                onClick={e => handleClick(p.id)}
+                                onClick={e => handleShow(p.id)}
                                 title="view"
                                 type="button"
                                 >

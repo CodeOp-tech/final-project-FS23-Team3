@@ -86,15 +86,24 @@ router.post('/:id/pets', upload.single('img_filename'), async function(req, res,
         id,
       },
     });
-
-    const pet = await owner.createPet({
-      name, 
-      type, 
-      age, 
-      sex,
-      img_filename: req.file.originalname
-    });
-    res.status(201).send(pet);
+    if (req.file){
+      const pet = await owner.createPet({
+        name, 
+        type, 
+        age, 
+        sex,
+        img_filename: req.file.originalname
+      });
+      res.status(201).send(pet);
+    } else {
+        const pet = await owner.createPet({
+          name, 
+          type, 
+          age, 
+          sex,
+      });
+      res.status(201).send(pet);
+    }
 
   } catch (err) {
     res.status(500).send({error: err.message});
