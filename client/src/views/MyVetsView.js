@@ -49,35 +49,38 @@ export default function MyVetsView(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    async function handleDelete() {
-        let vet = myVets.find(v => v.id === +id);
+//     async function handleDelete(id) {
+//         // let vet = myVets.find(v => v.id === +id);
+//         // console.log(id)
+//         // console.log(vet.id)
+//         // console.log(vet)
 
-        let options = {
-           method: "DELETE",
-           headers: { "Content-Type": "application/json" },
-         }
+//         let options = {
+//            method: "DELETE",
+//            headers: { "Content-Type": "application/json" },
+//          }
      
-         let token = Local.getToken();
-             if (token) {
-                 options.headers['Authorization'] = 'Bearer ' + token;
-             }
+//          let token = Local.getToken();
+//              if (token) {
+//                  options.headers['Authorization'] = 'Bearer ' + token;
+//              }
 
-         try {
-             let response = await fetch(`/api/clinics/clinic/${vet.id}`, options);
-               if (response.ok) {
-                 let myVets = await response.json();
-                 setMyVets(myVets);
-               } else {
-                 console.log(`Server error: ${response.status} ${response.statusText}`);
-               }
-             } catch (err) {
-               console.log(`Server error: ${err.message}`);
-             }
-  }
+//          try {
+//              let response = await fetch(`/api/clinics/clinic/${id}`, options);
+//                if (response.ok) {
+//                  let myVets = await response.json();
+//                  setMyVets(myVets);
+//                } else {
+//                  console.log(`Server error: ${response.status} ${response.statusText}`);
+//                }
+//              } catch (err) {
+//                console.log(`Server error: ${err.message}`);
+//              }
+//   }
 
   return (
     <div className='MyVetsView'>
-            <Table striped borderless= {true} bordered={ false } hover responsive="sm" >
+            <Table striped borderless= {true} bordered={ false } hover responsive="sm" id='vetList'>
                     <thead>
                         <tr>
                         <th>#</th>
@@ -98,17 +101,13 @@ export default function MyVetsView(props) {
                                     <td>{vet.address}</td>
                                     <td>{vet.contactPhone}</td>
                                     <td><Button variant="primary" onClick={handleShow} >
-                                            <Link to={`/myvets/${vet.id}`}>
+                                            <Link to={`/myvets/${vet.id}`} style={{textDecoration: 'none', color: 'white'}}>
                                                 Add appointment
                                             </Link>
                                         </Button>
                                     </td>
-                                    <td><Button onClick={handleDelete} >
-                                            <Link to={`/myvets/${vet.id}`}>
-                                                Delete
-                                            </Link>
-                                        </Button>
-                                    </td>
+                                    {/* <td><Button onClick={handleDelete(vet)}>Delete</Button>
+                                    </td> */}
                                 </tr>
                             ))
                             : null
@@ -122,7 +121,10 @@ export default function MyVetsView(props) {
               </Modal.Header>
 
               <Modal.Body>
-                <MakeAppointmentFormViaFav myVets={myVets}/>
+                <MakeAppointmentFormViaFav 
+                    myVets={myVets}
+                    handleCloseCb={handleClose}
+                    />
               </Modal.Body>
 
               <Modal.Footer>

@@ -11,9 +11,9 @@ import './NavBar.css';
 export default function NavBar(props) {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
-      <Container>
+      <Container className='NavBar'>
 
-        <Navbar.Brand as={Link} to="/">PetVet</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" style={{color: "#33658A", fontSize:"25px", fontWeight:"bold", fontStyle:"italic"}}>PetVet</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
@@ -34,7 +34,6 @@ export default function NavBar(props) {
                 <NavDropdown title="My vets" id="basic-nav-dropdown">
                 <NavDropdown.Item as={Link} to="/clinics">Find a vet</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/myvets">My vets</NavDropdown.Item>
-                <NavDropdown.Item href="#VetChatView">Vet chat</NavDropdown.Item>
                 </NavDropdown>
           </Nav >
 
@@ -43,24 +42,28 @@ export default function NavBar(props) {
             props.user
             ?   <Nav className="justify-content-end">
                     <Navbar.Text>
-                        {/* <Nav.Link as={Link} to={`/users/${props.user.id}`} > */}
                         <Nav.Link as={Link} to={`/`} >
-                            Profile: {props.user.firstname} {props.user.lastname}
+                            Profile of <br/> {props.user.firstname} {props.user.lastname}
                         </Nav.Link>
                     </Navbar.Text>
 
-                    <Button >
-                        <Nav.Link as={Link} to="/" onClick={props.logoutCb}>
-                            Logout
-                        </Nav.Link>
-                    </Button>
+                    <div>
+                      <Button variant="primary">
+                          <Nav.Link as={Link} to="/" onClick={props.logoutCb} style={{textDecoration: 'none', color: 'white'}}>
+                              Logout
+                          </Nav.Link>
+                      </Button>
+                    </div>
                 </Nav>
+
             :   <Nav className="justify-content-end">
-                    <Button>
-                        <Nav.Link as={Link} to="/login">
+                  <div>
+                    <Button variant="primary">
+                        <Nav.Link as={Link} to="/login" style={{textDecoration: 'none', color: 'white'}}>
                             Login
                         </Nav.Link>
                     </Button>
+                  </div>
                 </Nav>
         }
          
