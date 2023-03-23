@@ -49,34 +49,29 @@ export default function MyVetsView(props) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-//     async function handleDelete(id) {
-//         // let vet = myVets.find(v => v.id === +id);
-//         // console.log(id)
-//         // console.log(vet.id)
-//         // console.log(vet)
-
-//         let options = {
-//            method: "DELETE",
-//            headers: { "Content-Type": "application/json" },
-//          }
+    async function handleDelete(id) {
+        let options = {
+           method: "DELETE",
+           headers: { "Content-Type": "application/json" },
+         }
      
-//          let token = Local.getToken();
-//              if (token) {
-//                  options.headers['Authorization'] = 'Bearer ' + token;
-//              }
+         let token = Local.getToken();
+             if (token) {
+                 options.headers['Authorization'] = 'Bearer ' + token;
+             }
 
-//          try {
-//              let response = await fetch(`/api/clinics/clinic/${id}`, options);
-//                if (response.ok) {
-//                  let myVets = await response.json();
-//                  setMyVets(myVets);
-//                } else {
-//                  console.log(`Server error: ${response.status} ${response.statusText}`);
-//                }
-//              } catch (err) {
-//                console.log(`Server error: ${err.message}`);
-//              }
-//   }
+         try {
+             let response = await fetch(`/api/clinics/clinic/${id}`, options);
+               if (response.ok) {
+                 let myVets = await response.json();
+                 setMyVets(myVets);
+               } else {
+                 console.log(`Server error: ${response.status} ${response.statusText}`);
+               }
+             } catch (err) {
+               console.log(`Server error: ${err.message}`);
+             }
+  }
 
   return (
     <div className='MyVetsView'>
@@ -106,8 +101,7 @@ export default function MyVetsView(props) {
                                             </Link>
                                         </Button>
                                     </td>
-                                    {/* <td><Button onClick={handleDelete(vet)}>Delete</Button>
-                                    </td> */}
+                                    <td><Button onClick={(e)=>handleDelete(vet.id)}>Delete</Button></td>
                                 </tr>
                             ))
                             : null
@@ -132,10 +126,7 @@ export default function MyVetsView(props) {
                   Close
                 </Button>
               </Modal.Footer>
-          </Modal>
-
-            
-    </div>
-        );
-
+          </Modal>     
+        </div>
+    );
 }
