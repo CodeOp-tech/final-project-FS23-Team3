@@ -69,7 +69,7 @@ router.get('/', async function(req, res, next) {
     try {
       const owner = await models.Owner.findOne({
         where: {
-          id,
+          OwnerId: id,
         },
       });
       const clinics = await owner.getClinics();
@@ -161,6 +161,8 @@ router.post('/:clinicKey', async function(req, res, next) {
       res.status(500).send(error);
     }
   });
+
+  
 
 //---------PUTS------------
 

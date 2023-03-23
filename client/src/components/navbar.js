@@ -13,7 +13,7 @@ export default function NavBar(props) {
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
 
-        <Navbar.Brand as={Link} to="/">petAppProject</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">PetVet</Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
