@@ -39,7 +39,9 @@ function AddPetForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.getOwnerPetsCb();
+        if (props.getOwnerPetsCb){
+          props.getOwnerPetsCb()
+        }
         handleVisible();
 
         //adding all inputs to formdata
@@ -49,17 +51,17 @@ function AddPetForm(props) {
         }
 
         //if we are adding a new pet we add with files, otherwise just a stringified body
-        !props.editedPet ?
+        {!props.editedPet ?
         addPet(formData)
-        : addPet(inputs)
-
-        setInputs(EMPTY_FORM);
+        : addPet(inputs)}
 
         if (props.editedPet) {
             props.handleHide();
         } else if(props.setFormState){
             props.setFormState(false);
         }
+
+        setInputs(EMPTY_FORM);
       };
 
     
