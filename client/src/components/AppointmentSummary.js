@@ -65,7 +65,7 @@ export default function AppointmentSummary(props) {
         <div className="container">
         <div>
             <h2>your appointment:</h2>
-            <Table borderless= {true} bordered={ false } className="submitted">   
+            <Table style={{tableLayout:"fixed"}} borderless= {true} bordered={ false } className="submitted">   
                 <tbody>
                 <tr>
                     <td className="bold-td">Date:</td>
@@ -100,7 +100,7 @@ export default function AppointmentSummary(props) {
                 </tbody>     
             </Table>
         </div>
-        <Button  style={{marginLeft:"-25px"}} onClick= {e => handleEditClick()}>
+        <Button onClick= {e => handleEditClick()}>
             Edit appointment
         </Button>
         </div>

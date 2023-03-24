@@ -167,7 +167,7 @@ export default function AllPetAppointmentLog(props) {
                 }
         </div>
         : <div>
-            <h1>No appointments yet</h1>
+            <h2>no appointments yet</h2>
             <Link to={`/clinics`} className="btn btn-todos">Add new appointment</Link>
           </div>
         }
