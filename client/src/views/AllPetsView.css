@@ -5,13 +5,35 @@
     /* display: grid 1fr 1fr 1fr !important; */
 }
 
+.AllPetsView h3{
+    margin-top:4%;
+    margin-bottom:4%;
+    letter-spacing: 5px;
+    color: var(--primary-blue)
+
+}
+
+.AllPetsView button {
+    background-color: var(--primary-blue);
+    border: none;
+    margin-left: 10px;
+    margin-block: 15px;
+  }
+  
+.AllPetsView button:hover {
+    background-color: var(--secondary-blue);
+    border: none;
+  }
+
 .PetListContainer {
     display: flex;
     flex-wrap: wrap;
 }
 
 .AllPetsList {
-    width: 50% !important;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 100% !important;
 }
 
 .AllPetsList td{
