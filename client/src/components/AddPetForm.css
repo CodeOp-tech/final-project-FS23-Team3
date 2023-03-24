@@ -1,4 +1,10 @@
-
+:root {
+    --primary-blue: #33658A;
+    --secondary-blue: #86BBD8;
+    --dark-blue: #2F4858;
+    --primary-highlight: #F26419;
+    --secondary-highlight: #F6AE2D;
+  }
 
 .AddPetFormView tr {
     margin-top: 10px;
@@ -17,3 +23,9 @@
     background-color: var(--secondary-blue);
     border: none;
   }
+
+.add-pet-alert{
+    background-color:#86BBD8 !important;
+    color:#2F4858 !important;
+    font-weight: bold;
+}

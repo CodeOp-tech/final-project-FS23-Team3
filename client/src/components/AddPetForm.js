@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
 
 import "./AddPetForm.css"
 
@@ -16,6 +17,14 @@ const EMPTY_FORM = {
 
 function AddPetForm(props) {
     const[inputs, setInputs] = useState(props.editedPet || EMPTY_FORM);
+    const [visibleAlert, setAlertVisible] = useState(false);
+
+    const handleVisible = () => {
+      setAlertVisible(true)
+      setTimeout(() => {
+          setAlertVisible(false)
+      }, 2000);
+  } 
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -31,6 +40,7 @@ function AddPetForm(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.getOwnerPetsCb();
+        handleVisible();
 
         //adding all inputs to formdata
         const formData = new FormData();
@@ -180,6 +190,11 @@ function AddPetForm(props) {
                     </Button>
                 </tr>
             </InputGroup>
+            {visibleAlert && 
+            <Alert className="mt-3 add-pet-alert">
+            Pet added!
+          </Alert>
+        }
         </Table>
     )
     
