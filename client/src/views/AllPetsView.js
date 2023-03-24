@@ -7,6 +7,10 @@ import AllPetsList from "../components/AllPetsList.js";
 
 export default function AllPetsView(props) {
 
+    useEffect(() => {
+        props.getOwnerPetsCb();
+    },[]);
+
  return (
     <div className = "AllPetsView">
 
