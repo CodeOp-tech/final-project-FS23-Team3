@@ -18,6 +18,13 @@
     background-color: var(--primary-blue);
     border: none;
 }
+
+#FeatPetBody #delete-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: var(--primary-highlight);
+    border: none;
+}
   
 #FeatPetBody button:hover {
     background-color: var(--secondary-blue);

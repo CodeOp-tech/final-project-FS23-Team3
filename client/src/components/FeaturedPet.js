@@ -100,7 +100,7 @@ export default function FeaturedPet(props) {
                             Edit animal
                         </Button>
 
-                        <Button variant="danger"
+                        <Button id="delete-button"
                             onClick= {e => handleDelete(props.featPet.id)}
                             >Delete animal
                         </Button>
