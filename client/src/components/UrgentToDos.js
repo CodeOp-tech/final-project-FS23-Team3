@@ -101,7 +101,7 @@ export default function UrgentToDos(props) {
     <div className="UrgentToDos">
         { combinedList.length > 1 &&
         <div>
-        <h2>Urgent upcoming tasks:</h2>
+        <h2>urgent upcoming tasks:</h2>
         <Table>
             <tbody>
                 <tr>

@@ -107,7 +107,7 @@ const handleSubmit = (event) => {
     <div className="AddAppointmentForm">
       {/* {!submittedForm &&  */}
       <div className="not-submitted">
-      <h2>Add information from a past appointment</h2>
+      <h2>add information from a past appointment</h2>
       <p id="required-astrisk">* indicates required field</p>
         <Form onSubmit={handleSubmit}>
           {formInput.date && 

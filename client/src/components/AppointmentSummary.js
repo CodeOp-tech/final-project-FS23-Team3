@@ -64,7 +64,7 @@ export default function AppointmentSummary(props) {
         {!showForm ?
         <div className="container">
         <div>
-            <h2>Your appointment:</h2>
+            <h2>your appointment:</h2>
             <Table borderless= {true} bordered={ false } className="submitted">   
                 <tbody>
                 <tr>

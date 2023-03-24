@@ -132,8 +132,8 @@ export default function ToDosView(props) {
   return (
     <div className="ToDosView">
         <div id="left-grid">
-            <h2>All Upcoming Tasks:</h2>
-            <p>*urgent tasks are highlighted</p>
+            <h2>all upcoming tasks:</h2>
+            <p style={{marginBottom:"4%"}}>*urgent tasks are highlighted</p>
             <Table className="all-tasks-table">
                 <tbody>
                     <tr>
@@ -155,13 +155,13 @@ export default function ToDosView(props) {
             </Table>
         </div>
         <div id="right-grid">
-            <h2>Details:</h2>
             <Table id="h3-table">
             { !selectedAppt && 
                     <h3>Click on an item for more info</h3>
                 }
             { selectedAppt && 
-                    <h3>{selectedAppt.selectedName}</h3>
+                <h3>{selectedAppt.selectedName}</h3>
+                
                 }
             </Table>
             { selectedAppt &&
