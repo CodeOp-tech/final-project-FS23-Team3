@@ -1,4 +1,4 @@
-import React, { useState , useContext } from 'react';
+import React, { useState , useContext, useEffect } from 'react';
 import { useParams, useOutletContext } from 'react-router-dom';
 import MakeAppointmentForm from "../components/MakeAppointmentForm.js";
 import Container from 'react-bootstrap/Container';
@@ -26,6 +26,11 @@ export default function ClinicView(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    props.getOwnerPetsCb()
+  },[]);
+
 
 
   function filterVets(arr) {
