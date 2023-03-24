@@ -1,6 +1,40 @@
+#FeatPetOffcanvasWhole {
+    width: 35%;
+    min-width: 400px;
+}
+
+#FeatPetOffcanvasTitle{
+    margin-left: 5%
+}
+
 #FeatPetBody{
+    margin-left:5%;
     justify-content: center;
 }
+
+#FeatPetBody Button{
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: var(--primary-blue);
+    border: none;
+}
+  
+#FeatPetBody button:hover {
+    background-color: var(--secondary-blue);
+    border: none;
+  }
+
+#FeatPetBody .btn-primary{
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: var(--primary-blue);
+    border: none;
+}
+
+#FeatPetBody .btn-primary:hover {
+    background-color: var(--secondary-blue);
+    border: none;
+  }
 
 #FeatPetImage {
     width:300px;

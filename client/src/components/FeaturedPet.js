@@ -22,7 +22,6 @@ let toDate = (date) => {
 }
 
 export default function FeaturedPet(props) {
-    const [showForm, setShowForm] = useState(false); //this is used to close the FeaturedPet if we save an edited pet
     const [editedPet, setEditedPet] = useState(null);
     const [nextAppointment, setNextAppointment] = useState([]);
 
@@ -74,18 +73,18 @@ export default function FeaturedPet(props) {
         
 
         <div>
-            <Offcanvas show={props.featPet || props.editedPet} onHide= {e=>props.handleHide()} >
+            <Offcanvas show={props.featPet || props.editedPet} onHide= {e=>props.handleHide()} id = "FeatPetOffcanvasWhole">
 
               <Offcanvas.Header closeButton >
-                <Offcanvas.Title>{props.featPet.name}
+                <Offcanvas.Title id="FeatPetOffcanvasTitle">{props.featPet.name}
                 </Offcanvas.Title>
               </Offcanvas.Header>
 
                 {!editedPet ?
                 <Offcanvas.Body id="FeatPetBody" className="FeatPetOffcanvas">
                         <Image src={props.featPet.img_url} alt={props.featPet.name} id="FeatPetImage"/>
-                        <p>Type: {props.featPet.type}</p>
-                        <p>Age: {props.featPet.age}</p>
+                        <p><strong>Type:</strong> {props.featPet.type}</p>
+                        <p><strong>Age:</strong> {props.featPet.age}</p>
                         {nextAppointment ? nextAppointment.date && 
                         <p>Next appointment: {toDate(nextAppointment.date)}</p>
                         : <p>No upcoming appointments</p>
