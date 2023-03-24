@@ -5,6 +5,7 @@ import "./AllPetAppointmentLog.css";
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import AddAppointmentForm from './AddAppointmentForm';
+import { Link } from "react-router-dom";
 
 export default function AllPetAppointmentLog(props) {
     const [appointments, setAppointments] = useState([]);
@@ -17,6 +18,10 @@ export default function AllPetAppointmentLog(props) {
     useEffect(() => {
         getAppointments();
     }, [appointment]);
+
+    useEffect(() =>{
+        props.getOwnerClinicsCb();
+    },[])
 
 
     function handleEditClick(id) {
@@ -161,7 +166,10 @@ export default function AllPetAppointmentLog(props) {
                 </div>
                 }
         </div>
-        : <h1>No appointments yet</h1>
+        : <div>
+            <h1>No appointments yet</h1>
+            <Link to={`/clinics`} className="btn btn-todos">Add new appointment</Link>
+          </div>
         }
     </div>
   )

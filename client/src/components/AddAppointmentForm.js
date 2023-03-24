@@ -110,17 +110,29 @@ const handleSubmit = (event) => {
       <h2>Add information from a past appointment</h2>
       <p id="required-astrisk">* indicates required field</p>
         <Form onSubmit={handleSubmit}>
-
-          <Form.Group className="mb-3" controlId="formDate">
+          {formInput.date && 
+            <Form.Group className="mb-3" controlId="formDate">
             <Form.Label>Date:*</Form.Label>
               <Form.Control 
-                type="date" 
+                type="text" 
                 name="date"
                 value={formInput.date}
+                placeholder={formInput.date}
                 required
                 onChange={e => handleChange(e)}/>
           </Form.Group>
-
+          }
+          {!formInput.date &&
+          <Form.Group className="mb-3" controlId="formDate">
+          <Form.Label>Date:*</Form.Label>
+            <Form.Control 
+              type="date" 
+              name="date"
+              value={formInput.date}
+              required
+              onChange={e => handleChange(e)}/>
+        </Form.Group>
+          }
           <Form.Group className="mb-3" controlId="formClinicId">
             <Form.Label>Clinic Name:</Form.Label>
             <Form.Select aria-label="Default select example" required name="ClinicId" onChange={handleChange}>
@@ -131,6 +143,7 @@ const handleSubmit = (event) => {
             </Form.Select>
           </Form.Group>
 
+          {!formInput.PetId &&
           <Form.Group className="mb-3" controlId="formPetId">
             <Form.Label>Which pet?*</Form.Label>
             <Form.Select aria-label="Default select example" required name="PetId" onChange={handleChange}>
@@ -140,6 +153,15 @@ const handleSubmit = (event) => {
                 ))}
             </Form.Select>
           </Form.Group>
+          }
+
+          {formInput.PetId &&
+            <Form.Group className="mb-3" controlId="formPetId">
+              <Form.Label>Which pet?*</Form.Label>
+              <Form.Control placeholder={(props.pets.find(p => +p.id === +formInput.PetId)) ? (props.pets.find(p => +p.id === +formInput.PetId)).name : ''} disabled />
+            </Form.Group>
+          }
+
       
           <Form.Group className="mb-3" controlId="formNextSteps">
             <Form.Label>Next steps for owner:</Form.Label>
@@ -150,14 +172,31 @@ const handleSubmit = (event) => {
                 value={formInput.nextSteps}
                 onChange={e => handleChange(e)}/>
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formCompleteBy">
+
+          {!formInput.completeBy &&
+            <Form.Group className="mb-3" controlId="formCompleteBy">
             <Form.Label>Complete next steps by:</Form.Label>
               <Form.Control 
                 type="date" 
                 name="completeBy"
                 value={formInput.completeBy}
                 onChange={e => handleChange(e)}/>
+            </Form.Group>
+          }
+
+          {formInput.completeBy && 
+            <Form.Group className="mb-3" controlId="formCompleteBy">
+            <Form.Label>Complete next steps by:</Form.Label>
+              <Form.Control 
+                type="text" 
+                name="completeBy"
+                value={formInput.completeBy}
+                placeholder={formInput.completeBy}
+                required
+                onChange={e => handleChange(e)}/>
           </Form.Group>
+          }
+
           <Form.Group className="mb-3" controlId="formFollowups">
             <Form.Label>Follow up appointment:</Form.Label>
               <Form.Control 
@@ -166,6 +205,7 @@ const handleSubmit = (event) => {
                 value={formInput.followups}
                 onChange={e => handleChange(e)}/>
           </Form.Group>
+
           <Form.Group controlId="formTitle">
             <Form.Label>Appointment topic:</Form.Label>
               <Form.Control 

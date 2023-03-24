@@ -30,6 +30,7 @@ function AddPetForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        props.getOwnerPetsCb();
 
         //adding all inputs to formdata
         const formData = new FormData();
