@@ -130,7 +130,7 @@ export default function AllClinicsView() {
 
       </Row>
 
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas show={show} onHide={handleClose} style={{ width: '600px' }}>
             <Offcanvas.Header closeButton>
               <Offcanvas.Title></Offcanvas.Title>
             </Offcanvas.Header>
