@@ -23,6 +23,7 @@ function AddPetForm(props) {
       }
 
     function handleImageChange(e) {
+      //adding the file to the other inputs
         const file = e.target.files[0];
         setInputs(inputs => ({ ...inputs, img_filename: file}));
     }
@@ -31,11 +32,11 @@ function AddPetForm(props) {
         e.preventDefault();
         props.getOwnerPetsCb();
 
+        //adding all inputs to formdata
         const formData = new FormData();
         for (const [key, value] of Object.entries(inputs)) {
           formData.append(key, value);
         }
-        console.log(inputs)
 
         //if we are adding a new pet we add with files, otherwise just a stringified body
         !props.editedPet ?
