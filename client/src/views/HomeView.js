@@ -33,7 +33,7 @@ export default function HomeView(props) {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="/add-appointment" className="btn btn-primary">Add past appointment</Dropdown.Item>
-                <Dropdown.Item href="/clinics" className="btn btn-primary">Add new appointment</Dropdown.Item>
+                <Dropdown.Item href="/myvets" className="btn btn-primary">Add new appointment</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

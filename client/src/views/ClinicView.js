@@ -102,7 +102,7 @@ export default function ClinicView(props) {
                           <Table borderless= {true} bordered={ false } responsive="sm" id='vetList'>
                                               <thead>
                                                   <tr>
-                                                  <img style={{width: "20rem"}} src={vet.image_url || placeholder_img} />
+                                                    <img style={{width: "30rem"}} src={vet.image_url || placeholder_img} />
                                                   </tr>
                                                   <tr>
                                                     <th>{vet.name}</th>

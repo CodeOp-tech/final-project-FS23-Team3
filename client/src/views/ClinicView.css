@@ -5,6 +5,14 @@
     --primary-highlight: #F26419;
     --secondary-highlight: #F6AE2D;
   }
+
+  .ClinicView thead {
+    font-size: 24px;
+  }
+
+  .ClinicView tbody {
+    font-size: 20px;
+  }
   
   .ClinicView button {
     background-color: var(--primary-blue);
