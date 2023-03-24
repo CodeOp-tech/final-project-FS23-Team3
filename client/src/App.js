@@ -163,7 +163,7 @@ function App() {
                     <PrivateRoute>
                       <OwnerContext.Provider value={user} >
                       <PetContext.Provider value={pets} >
-                        <MyVetsView />
+                        <MyVetsView getOwnerPetsCb={e => getOwnerPets()}/>
                       </PetContext.Provider>
                       </OwnerContext.Provider>
                     </PrivateRoute>

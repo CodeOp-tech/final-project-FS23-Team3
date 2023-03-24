@@ -21,6 +21,10 @@ export default function MyVetsView(props) {
         getMyVets();
       }, []);
 
+      useEffect(() =>{
+        props.getOwnerPetsCb();
+    },[])
+
     async function getMyVets() {
         let options = {
             headers: {},
