@@ -12,6 +12,7 @@
     color: var(--primary-blue);
     margin-bottom:25px;
     margin-top:20px;
+    letter-spacing: 5px;
 }
 
 .AddAppointmentForm input {

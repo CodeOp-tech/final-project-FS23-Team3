@@ -104,7 +104,7 @@ export default function AllPetAppointmentLog(props) {
 
         {!showForm ?
         <div>
-        <h2>{pet ? pet.name : ""}'s Appointments:</h2>
+        <h2>{pet ? pet.name : ""}'s appointments:</h2>
         <div className="appt-log-grid" >
         {appointments.map(a => (
             <Alert className="log-alert" key={a.id}>
