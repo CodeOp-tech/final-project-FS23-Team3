@@ -36,6 +36,21 @@
   color: #61dafb;
 }
 
+ button {
+  background-color: var(--primary-blue);
+  border: none;
+}
+
+ button:hover {
+  background-color: var(--secondary-blue);
+  border: none;
+}
+
+ button:active {
+  background-color: var(--secondary-highlight) !important;
+  border: none;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

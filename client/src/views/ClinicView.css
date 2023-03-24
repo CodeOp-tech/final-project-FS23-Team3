@@ -23,3 +23,8 @@
     background-color: var(--secondary-blue);
     border: none;
   }
+
+  .ClinicView button:active {
+    background-color: var(--secondary-highlight) !important;
+    border: none;
+  }
