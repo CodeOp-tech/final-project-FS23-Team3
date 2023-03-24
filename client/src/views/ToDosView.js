@@ -133,7 +133,7 @@ export default function ToDosView(props) {
     <div className="ToDosView">
         <div id="left-grid">
             <h2>all upcoming tasks:</h2>
-            <p>*urgent tasks are highlighted</p>
+            <p style={{marginBottom:"4%"}}>*urgent tasks are highlighted</p>
             <Table className="all-tasks-table">
                 <tbody>
                     <tr>

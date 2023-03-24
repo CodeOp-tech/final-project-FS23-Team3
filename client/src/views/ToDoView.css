@@ -47,6 +47,7 @@
 .ToDosView h2 {
     color: var(--primary-blue);
     letter-spacing: 5px;
+    margin-top:2%;
 }
 
 /* Added classname in front */

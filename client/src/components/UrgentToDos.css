@@ -9,4 +9,5 @@
 .UrgentToDos h2 {
     color: var(--primary-blue);
     letter-spacing: 5px;
+    margin-top:2%;
 }
